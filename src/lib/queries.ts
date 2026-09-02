@@ -1,4 +1,4 @@
-import { asc, count, desc, eq, sql } from "drizzle-orm";
+import { asc, count, desc, eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "@/db";
 import {
   skillCategories,
@@ -79,7 +79,14 @@ export async function getPromptCategoriesWithCounts() {
   return rows;
 }
 
-export async function getPromptsByCategorySlug(categorySlug: string) {
+// Paginado de propósito — a página de Prompts tem 1312 itens no total, e
+// mandar tudo de uma vez pro cliente (mesmo só os campos leves) deixava a
+// página pesada pra hidratar. Cada categoria é buscada sob demanda, em
+// páginas pequenas, exatamente como a UI mostra (9 por vez + "ver mais").
+export async function getPromptsByCategorySlug(
+  categorySlug: string,
+  opts?: { limit?: number; offset?: number }
+) {
   const category = await db.query.promptCategories.findFirst({
     where: eq(promptCategories.slug, categorySlug),
   });
@@ -89,8 +96,37 @@ export async function getPromptsByCategorySlug(categorySlug: string) {
     where: eq(prompts.categoryId, category.id),
     orderBy: asc(prompts.order),
     columns: { id: true, slug: true, title: true, tags: true, order: true },
+    limit: opts?.limit,
+    offset: opts?.offset,
   });
   return { category, items };
+}
+
+// Busca por título/tag, cruzando todas as categorias — usada pela caixa de
+// busca da Biblioteca de Prompts (não depende de ter a categoria carregada
+// no cliente, então funciona sem embutir os 1312 prompts na página).
+export async function searchPrompts(term: string, limit = 60) {
+  const like = `%${term}%`;
+  return db
+    .select({
+      id: prompts.id,
+      slug: prompts.slug,
+      title: prompts.title,
+      tags: prompts.tags,
+      order: prompts.order,
+      categorySlug: promptCategories.slug,
+      categoryName: promptCategories.name,
+    })
+    .from(prompts)
+    .innerJoin(promptCategories, eq(prompts.categoryId, promptCategories.id))
+    .where(
+      or(
+        ilike(prompts.title, like),
+        sql`EXISTS (SELECT 1 FROM unnest(${prompts.tags}) AS tag WHERE tag ILIKE ${like})`
+      )
+    )
+    .orderBy(asc(prompts.order))
+    .limit(limit);
 }
 
 export async function getPromptBySlug(slug: string) {

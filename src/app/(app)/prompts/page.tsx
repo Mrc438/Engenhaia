@@ -2,6 +2,8 @@ import { requireUser } from "@/lib/auth-helpers";
 import { getPromptCategoriesWithCounts, getPromptCounts, getPromptsByCategorySlug } from "@/lib/queries";
 import { PromptsExplorer } from "@/components/prompts-explorer";
 
+const PAGE_SIZE = 9;
+
 export default async function PromptsPage() {
   await requireUser();
   const [categories, total] = await Promise.all([
@@ -9,13 +11,15 @@ export default async function PromptsPage() {
     getPromptCounts(),
   ]);
 
-  const entries = await Promise.all(
-    categories.map(async (c) => {
-      const { items } = await getPromptsByCategorySlug(c.slug);
-      return [c.slug, items] as const;
-    })
-  );
-  const promptsByCategory = Object.fromEntries(entries);
+  // Só a primeira página da primeira categoria vem pronta do servidor (pra
+  // já ter conteúdo na primeira renderização). O resto — trocar de
+  // categoria, "ver mais", buscar — é buscado sob demanda pelo cliente.
+  // Embutir os 1312 prompts inteiros nas props, como era antes, deixava a
+  // página pesada demais pra hidratar.
+  const firstCategorySlug = categories[0]?.slug ?? "";
+  const { items: initialItems } = firstCategorySlug
+    ? await getPromptsByCategorySlug(firstCategorySlug, { limit: PAGE_SIZE, offset: 0 })
+    : { items: [] };
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
@@ -31,7 +35,11 @@ export default async function PromptsPage() {
       </p>
 
       <div className="mt-8">
-        <PromptsExplorer categories={categories} promptsByCategory={promptsByCategory} />
+        <PromptsExplorer
+          categories={categories}
+          initialCategorySlug={firstCategorySlug}
+          initialItems={initialItems}
+        />
       </div>
     </div>
   );

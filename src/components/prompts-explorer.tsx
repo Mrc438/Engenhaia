@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { Modal } from "@/components/modal";
 import { CopyButton } from "@/components/copy-button";
@@ -15,18 +15,6 @@ type PromptListItem = {
   categorySlug?: string;
   categoryName?: string;
 };
-
-function CategoryTag({ slug, name }: { slug: string; name: string }) {
-  const c = categoryColor(slug);
-  return (
-    <span
-      style={{ background: c.bg, color: c.text, boxShadow: `inset 0 0 0 1px ${c.ring}` }}
-      className="mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium"
-    >
-      {name}
-    </span>
-  );
-}
 
 type Category = {
   id: string;
@@ -44,47 +32,117 @@ type PromptDetail = {
   category: { name: string };
 };
 
+function CategoryTag({ name, index }: { name: string; index: number }) {
+  const c = categoryColor(index);
+  return (
+    <span
+      style={{ background: c.bg, color: c.text, boxShadow: `inset 0 0 0 1px ${c.ring}` }}
+      className="mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+    >
+      {name}
+    </span>
+  );
+}
+
 const PAGE_SIZE = 9;
 
 export function PromptsExplorer({
   categories,
-  promptsByCategory,
+  initialCategorySlug,
+  initialItems,
 }: {
   categories: Category[];
-  promptsByCategory: Record<string, PromptListItem[]>;
+  initialCategorySlug: string;
+  initialItems: PromptListItem[];
 }) {
-  const [activeCategory, setActiveCategory] = useState<string>(categories[0]?.slug ?? "");
+  const [activeCategory, setActiveCategory] = useState<string>(initialCategorySlug);
   const [search, setSearch] = useState("");
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [items, setItems] = useState<PromptListItem[]>(initialItems);
+  const [loadingItems, setLoadingItems] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [searchResults, setSearchResults] = useState<PromptListItem[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const [detail, setDetail] = useState<PromptDetail | null>(null);
   const [loading, setLoading] = useState(false);
+  const requestId = useRef(0);
 
-  const term = search.trim().toLowerCase();
-  const isSearching = term.length > 0;
-
+  // índice fixo por categoria (não muda com filtro/busca) — cada categoria
+  // sempre cai na mesma cor da paleta, sem duas vizinhas repetirem.
+  const categoryIndexBySlug = useMemo(
+    () => Object.fromEntries(categories.map((c, i) => [c.slug, i])),
+    [categories]
+  );
   const categoryNameBySlug = useMemo(
     () => Object.fromEntries(categories.map((c) => [c.slug, c.name])),
     [categories]
   );
 
-  const searchResults = useMemo(() => {
-    if (!isSearching) return [];
-    return Object.entries(promptsByCategory)
-      .flatMap(([slug, items]) =>
-        items.map((p) => ({ ...p, categorySlug: slug, categoryName: categoryNameBySlug[slug] }))
-      )
-      .filter(
-        (p) =>
-          p.title.toLowerCase().includes(term) || p.tags.some((t) => t.toLowerCase().includes(term))
-      )
-      .slice(0, 60);
-  }, [isSearching, term, promptsByCategory, categoryNameBySlug]);
+  const isSearching = debouncedSearch.trim().length > 0;
+
+  // debounce da busca — evita disparar uma request por tecla digitada
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(search), 300);
+    return () => clearTimeout(t);
+  }, [search]);
+
+  useEffect(() => {
+    const term = debouncedSearch.trim();
+    // string vazia: não há nada pra buscar. Não precisa limpar searchResults
+    // aqui — enquanto isSearching for false a UI nem renderiza esse estado,
+    // e ele é sobrescrito assim que uma busca de verdade roda de novo.
+    if (!term) return;
+    const myRequest = ++requestId.current;
+    // Padrão de fetch-em-effect com guard de corrida (myRequest) — é o caso
+    // que a própria doc do React aceita pra "Fetching data" em efeitos;
+    // o lint novo marca qualquer setState direto no corpo do efeito, mas
+    // aqui é necessário pra mostrar o loading assim que o termo muda.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSearchLoading(true);
+    fetch(`/api/prompts?q=${encodeURIComponent(term)}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (myRequest !== requestId.current) return; // resposta velha, ignora
+        setSearchResults(data.items ?? []);
+      })
+      .finally(() => {
+        if (myRequest === requestId.current) setSearchLoading(false);
+      });
+  }, [debouncedSearch]);
 
   const activeCategoryName = categoryNameBySlug[activeCategory];
-  const categoryItems = promptsByCategory[activeCategory] ?? [];
-  const shown = categoryItems.slice(0, visibleCount);
-  const remaining = categoryItems.length - shown.length;
+  const activeCategoryTotal = categories.find((c) => c.slug === activeCategory)?.total ?? 0;
+  const remaining = activeCategoryTotal - items.length;
+
+  const switchCategory = (slug: string) => {
+    if (slug === activeCategory) return;
+    setActiveCategory(slug);
+    setItems([]);
+    setLoadingItems(true);
+    const myRequest = ++requestId.current;
+    fetch(`/api/prompts?category=${encodeURIComponent(slug)}&offset=0&limit=${PAGE_SIZE}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (myRequest !== requestId.current) return;
+        setItems(data.items ?? []);
+      })
+      .finally(() => {
+        if (myRequest === requestId.current) setLoadingItems(false);
+      });
+  };
+
+  const loadMore = () => {
+    setLoadingMore(true);
+    fetch(
+      `/api/prompts?category=${encodeURIComponent(activeCategory)}&offset=${items.length}&limit=${PAGE_SIZE}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setItems((prev) => [...prev, ...(data.items ?? [])]);
+      })
+      .finally(() => setLoadingMore(false));
+  };
 
   const openPrompt = async (slug: string) => {
     setOpenSlug(slug);
@@ -115,10 +173,7 @@ export function PromptsExplorer({
           {categories.map((c) => (
             <button
               key={c.slug}
-              onClick={() => {
-                setActiveCategory(c.slug);
-                setVisibleCount(PAGE_SIZE);
-              }}
+              onClick={() => switchCategory(c.slug)}
               className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all ${
                 activeCategory === c.slug
                   ? "btn-primary border-transparent"
@@ -132,28 +187,38 @@ export function PromptsExplorer({
       )}
 
       {isSearching ? (
-        <PromptGrid items={searchResults} onOpen={openPrompt} />
+        searchLoading && searchResults.length === 0 ? (
+          <div className="py-12 text-center text-sm text-muted">Buscando...</div>
+        ) : (
+          <PromptGrid items={searchResults} onOpen={openPrompt} categoryIndexBySlug={categoryIndexBySlug} />
+        )
       ) : (
         <>
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">
-            {categories.find((c) => c.slug === activeCategory)?.name}{" "}
+            {activeCategoryName}{" "}
             <span className="text-muted/60">
-              — {shown.length} de {categoryItems.length}
+              — {items.length} de {activeCategoryTotal}
             </span>
           </h2>
-          <PromptGrid
-            items={shown}
-            onOpen={openPrompt}
-            categorySlug={activeCategory}
-            categoryName={activeCategoryName}
-          />
-          {remaining > 0 && (
+          {loadingItems ? (
+            <div className="py-12 text-center text-sm text-muted">Carregando...</div>
+          ) : (
+            <PromptGrid
+              items={items}
+              onOpen={openPrompt}
+              categorySlug={activeCategory}
+              categoryName={activeCategoryName}
+              categoryIndexBySlug={categoryIndexBySlug}
+            />
+          )}
+          {remaining > 0 && !loadingItems && (
             <div className="mt-6 flex justify-center">
               <button
-                onClick={() => setVisibleCount((v) => v + PAGE_SIZE)}
-                className="btn-secondary rounded-lg px-5 py-2 text-sm font-medium"
+                onClick={loadMore}
+                disabled={loadingMore}
+                className="btn-secondary rounded-lg px-5 py-2 text-sm font-medium disabled:opacity-60"
               >
-                Ver mais ({remaining} restantes)
+                {loadingMore ? "Carregando..." : `Ver mais (${remaining} restantes)`}
               </button>
             </div>
           )}
@@ -202,11 +267,13 @@ function PromptGrid({
   onOpen,
   categorySlug,
   categoryName,
+  categoryIndexBySlug,
 }: {
   items: PromptListItem[];
   onOpen: (slug: string) => void;
   categorySlug?: string;
   categoryName?: string;
+  categoryIndexBySlug: Record<string, number>;
 }) {
   if (items.length === 0) {
     return <p className="py-12 text-center text-sm text-muted">Nenhum prompt encontrado.</p>;
@@ -216,22 +283,23 @@ function PromptGrid({
       {items.map((p) => {
         const slug = p.categorySlug ?? categorySlug;
         const name = p.categoryName ?? categoryName;
+        const index = slug ? categoryIndexBySlug[slug] ?? 0 : 0;
         return (
-        <button
-          key={p.slug}
-          onClick={() => onOpen(p.slug)}
-          className="card-surface flex flex-col items-start rounded-xl p-5 text-left hover:border-accent/50"
-        >
-          {slug && name && <CategoryTag slug={slug} name={name} />}
-          <h3 className="font-semibold leading-snug">{p.title}</h3>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {p.tags.slice(0, 3).map((t) => (
-              <span key={t} className="rounded-full bg-surface-2 px-2 py-0.5 text-[11px] text-muted">
-                #{t}
-              </span>
-            ))}
-          </div>
-        </button>
+          <button
+            key={p.slug}
+            onClick={() => onOpen(p.slug)}
+            className="card-surface flex flex-col items-start rounded-xl p-5 text-left hover:border-accent/50"
+          >
+            {slug && name && <CategoryTag name={name} index={index} />}
+            <h3 className="font-semibold leading-snug">{p.title}</h3>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {p.tags.slice(0, 3).map((t) => (
+                <span key={t} className="rounded-full bg-surface-2 px-2 py-0.5 text-[11px] text-muted">
+                  #{t}
+                </span>
+              ))}
+            </div>
+          </button>
         );
       })}
     </div>

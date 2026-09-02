@@ -7,9 +7,10 @@ import { Modal } from "@/components/modal";
 import { CopyButton } from "@/components/copy-button";
 import { siteConfig } from "@/lib/site-config";
 import { categoryColor } from "@/lib/category-colors";
+import { skillEmoji } from "@/lib/skill-emoji";
 
-function CategoryTag({ slug, name }: { slug: string; name: string }) {
-  const c = categoryColor(slug);
+function CategoryTag({ index, name }: { index: number; name: string }) {
+  const c = categoryColor(index);
   return (
     <span
       style={{ background: c.bg, color: c.text, boxShadow: `inset 0 0 0 1px ${c.ring}` }}
@@ -65,6 +66,13 @@ export function SkillsExplorer({
   const [tab, setTab] = useState<"skill" | "advanced">("skill");
   const [loading, setLoading] = useState(false);
   const [locked, setLocked] = useState(false);
+
+  // índice fixo por categoria (ordem em que o servidor mandou) — usado só
+  // pra escolher a cor da pill, sem depender de hash de string.
+  const categoryIndexBySlug = useMemo(
+    () => Object.fromEntries(categories.map((c, i) => [c.slug, i])),
+    [categories]
+  );
 
   // slugs do Pack Especialista — só entram aqui de fato bloqueados quando o
   // usuário não tem o plano "especialista" (checado de novo no servidor).
@@ -162,10 +170,9 @@ export function SkillsExplorer({
                 <span className="badge-solid-accent inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide">
                   {isLocked ? <Icon name="lock" className="h-3 w-3" /> : "🔥"} Skill em destaque
                 </span>
-                <Icon
-                  name={isLocked ? "lock" : s.icon}
-                  className="absolute right-5 top-5 h-7 w-7 text-accent-2 drop-shadow-[0_0_10px_rgba(242,118,46,0.5)]"
-                />
+                <span className="absolute right-5 top-5 text-2xl drop-shadow-[0_0_10px_rgba(242,118,46,0.5)]">
+                  {isLocked ? "🔒" : skillEmoji(s.icon)}
+                </span>
                 <h3 className="mt-4 pr-8 text-lg font-bold">{s.name}</h3>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted">{s.shortDescription}</p>
               </button>
@@ -223,8 +230,8 @@ export function SkillsExplorer({
                       onClick={() => openSkill(s.slug)}
                       className="card-surface relative flex flex-col items-start rounded-2xl p-5 text-left hover:border-accent/50"
                     >
-                      <CategoryTag slug={c.slug} name={c.name} />
-                      <Icon name={s.icon} className="absolute right-5 top-5 h-6 w-6 text-accent/90" />
+                      <CategoryTag index={categoryIndexBySlug[c.slug] ?? 0} name={c.name} />
+                      <span className="absolute right-5 top-5 text-xl">{skillEmoji(s.icon)}</span>
                       <h3 className="mt-4 pr-6 font-semibold">{s.name}</h3>
                       <p className="mt-1.5 text-sm leading-relaxed text-muted">{s.shortDescription}</p>
                     </button>
@@ -261,7 +268,7 @@ export function SkillsExplorer({
           ) : (
             <div>
               <div className="mb-1 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-accent">
-                <Icon name={detail.icon} className="h-4 w-4" />
+                <span className="text-sm">{skillEmoji(detail.icon)}</span>
                 {detail.category?.name}
               </div>
               <h2 className="text-lg font-bold">{detail.name}</h2>

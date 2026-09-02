@@ -1,6 +1,7 @@
 import { requireUser } from "@/lib/auth-helpers";
 import { getBonusItems } from "@/lib/queries";
 import { Icon } from "@/components/icon";
+import { skillEmoji } from "@/lib/skill-emoji";
 
 export default async function BonusPage() {
   await requireUser();
@@ -30,8 +31,8 @@ export default async function BonusPage() {
             }`}
           >
             <div className="flex items-start gap-4">
-              <div className="icon-chip h-11 w-11 shrink-0 rounded-lg">
-                <Icon name={item.icon} className="h-5 w-5" />
+              <div className="icon-chip h-11 w-11 shrink-0 rounded-lg text-xl">
+                {skillEmoji(item.icon)}
               </div>
               <div className="min-w-0 flex-1">
                 {item.locked && (
