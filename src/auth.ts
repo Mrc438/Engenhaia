@@ -37,6 +37,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           name: user.name,
           email: user.email,
           image: user.image ?? undefined,
+          plan: user.plan,
         };
       },
     }),
@@ -45,12 +46,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.plan = (user as { plan?: string }).plan ?? "basico";
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
+        // busca o plano atual no banco a cada request — assim, se alguém
+        // liberar o Pack Especialista pra um usuário depois da compra, o
+        // acesso reflete na hora, sem precisar deslogar/logar de novo.
+        const [row] = await db
+          .select({ plan: users.plan })
+          .from(users)
+          .where(eq(users.id, token.id as string))
+          .limit(1);
+        session.user.plan = row?.plan ?? (token.plan as string) ?? "basico";
       }
       return session;
     },

@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { requireUser } from "@/lib/auth-helpers";
-import { getSkillCounts, getPromptCounts, getCommunityStats } from "@/lib/queries";
+import {
+  getSkillCounts,
+  getPromptCounts,
+  getCommunityStats,
+  getPackEspecialistaCount,
+} from "@/lib/queries";
 import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icon";
 
@@ -44,11 +49,17 @@ const areas = [
 
 export default async function InicioPage() {
   const user = await requireUser();
-  const [skillCount, promptCount, communityStats] = await Promise.all([
+  const [skillCount, promptCount, communityStats, packCount] = await Promise.all([
     getSkillCounts(),
     getPromptCounts(),
     getCommunityStats(),
+    getPackEspecialistaCount(),
   ]);
+
+  // o total de skills só conta o Pack Especialista pra quem realmente comprou —
+  // o número exibido tem que bater com o que a pessoa tem liberado de fato.
+  const hasPackEspecialista = user.plan === "especialista";
+  const availableSkillCount = skillCount - (hasPackEspecialista ? 0 : packCount);
 
   const firstName = (user.name ?? "").split(" ")[0] || "engenheiro";
 
@@ -85,7 +96,7 @@ export default async function InicioPage() {
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <StatCard icon="sparkles" label="Skills disponíveis" value={skillCount} />
+        <StatCard icon="sparkles" label="Skills disponíveis" value={availableSkillCount} />
         <StatCard icon="library" label="Prompts na biblioteca" value={promptCount} />
         <StatCard icon="users" label="Engenheiros na comunidade" value={communityStats.members} />
       </div>

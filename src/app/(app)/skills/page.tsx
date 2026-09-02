@@ -3,15 +3,20 @@ import { getSkillCategories, getSkillCounts } from "@/lib/queries";
 import { SkillsExplorer } from "@/components/skills-explorer";
 
 export default async function SkillsPage() {
-  await requireUser();
+  const user = await requireUser();
   const [categories, total] = await Promise.all([getSkillCategories(), getSkillCounts()]);
   const packEspecialista = categories.find((c) => c.slug === "pack-especialista");
   const packCount = packEspecialista?.skills.length ?? 0;
+  const hasPackEspecialista = user.plan === "especialista";
+  const availableTotal = total - (hasPackEspecialista ? 0 : packCount);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
       <span className="badge-accent inline-flex items-center rounded-full px-3 py-1 text-xs font-medium">
-        {total} skills liberadas · {packCount} no Pack Especialista
+        {availableTotal} skills liberadas
+        {hasPackEspecialista
+          ? ` · ${packCount} no Pack Especialista`
+          : ` · +${packCount} no Pack Especialista (bloqueado)`}
       </span>
       <h1 className="mt-4 text-2xl font-bold sm:text-3xl">
         Cada etapa da obra com a skill certa no seu bolso.
@@ -22,7 +27,7 @@ export default async function SkillsPage() {
       </p>
 
       <div className="mt-8">
-        <SkillsExplorer categories={categories} />
+        <SkillsExplorer categories={categories} hasPackEspecialista={hasPackEspecialista} />
       </div>
     </div>
   );

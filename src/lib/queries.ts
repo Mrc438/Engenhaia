@@ -25,6 +25,17 @@ export async function getPromptCounts() {
   return row?.value ?? 0;
 }
 
+// tamanho do Pack Especialista (10 skills pagas à parte) — usado pra calcular
+// quanto do total cada usuário realmente tem liberado, conforme o plano dele.
+export async function getPackEspecialistaCount() {
+  const [row] = await db
+    .select({ value: count() })
+    .from(skills)
+    .innerJoin(skillCategories, eq(skills.categoryId, skillCategories.id))
+    .where(eq(skillCategories.slug, "pack-especialista"));
+  return row?.value ?? 0;
+}
+
 export async function getSkillCategories() {
   return db.query.skillCategories.findMany({
     orderBy: asc(skillCategories.order),

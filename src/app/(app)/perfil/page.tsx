@@ -4,6 +4,7 @@ import { Icon } from "@/components/icon";
 
 export default async function PerfilPage() {
   const user = await requireUser();
+  const hasPackEspecialista = user.plan === "especialista";
 
   return (
     <div className="mx-auto max-w-lg px-4 py-8 sm:px-6 lg:px-8">
@@ -51,6 +52,17 @@ export default async function PerfilPage() {
               {tag}
             </span>
           ))}
+          {hasPackEspecialista ? (
+            <span className="badge-accent inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium">
+              <Icon name="sparkles" className="h-3 w-3" />
+              Pack Especialista ativo
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1 rounded-full border border-dashed border-border-strong px-3 py-1 text-xs text-muted">
+              <Icon name="lock" className="h-3 w-3" />
+              Pack Especialista não incluído
+            </span>
+          )}
         </div>
       </div>
     </div>

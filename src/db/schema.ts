@@ -29,7 +29,7 @@ export const users = pgTable("users", {
   passwordHash: text("password_hash").notNull(),
   image: text("image"),
   role: text("role").notNull().default("member"), // "member" | "admin"
-  plan: text("plan").notNull().default("vitalicio"),
+  plan: text("plan").notNull().default("basico"), // "basico" | "especialista" (Pack Especialista)
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

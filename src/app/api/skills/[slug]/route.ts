@@ -14,5 +14,11 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
     return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
 
+  // trava real no servidor — o Pack Especialista só sai daqui pra quem tem
+  // o plano "especialista", independente do que a UI já esconde/desabilita.
+  if (skill.category.slug === "pack-especialista" && session.user.plan !== "especialista") {
+    return NextResponse.json({ error: "locked" }, { status: 403 });
+  }
+
   return NextResponse.json({ skill });
 }

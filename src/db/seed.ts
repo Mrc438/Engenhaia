@@ -109,13 +109,32 @@ async function main() {
   const passwordHash = await bcrypt.hash("mudeisso123", 10);
   const [admin] = await db
     .insert(users)
-    .values({ name: "Admin", email: "admin@exemplo.com.br", passwordHash, role: "admin" })
+    .values({
+      name: "Admin",
+      email: "admin@exemplo.com.br",
+      passwordHash,
+      role: "admin",
+      plan: "especialista", // conta de teste com tudo liberado, Pack Especialista incluso
+    })
     .onConflictDoNothing({ target: users.email })
     .returning();
   const adminUser =
     admin ??
     (await db.query.users.findFirst({ where: (u, { eq }) => eq(u.email, "admin@exemplo.com.br") }));
   if (!adminUser) throw new Error("Não foi possível criar/encontrar usuário admin");
+
+  // conta de teste com o plano básico (sem o Pack Especialista) — pra
+  // conferir que o acabamento de bloqueio bate com quem NÃO comprou o pack.
+  await db
+    .insert(users)
+    .values({
+      name: "Teste Básico",
+      email: "teste.basico@exemplo.com.br",
+      passwordHash,
+      role: "member",
+      plan: "basico",
+    })
+    .onConflictDoNothing({ target: users.email });
 
   const dummyHash = await bcrypt.hash(`conta-de-exibicao-${Date.now()}`, 4);
 
@@ -232,7 +251,8 @@ async function main() {
   console.log(
     `Seed concluído: ${totalSkills} skills, ${totalPrompts} prompts, ${totalLessons} aulas, ${totalPosts} posts de comunidade, ${bonusItemsSeed.length} itens de bônus.`
   );
-  console.log(`Login de teste -> email: admin@exemplo.com.br / senha: mudeisso123 (TROQUE em produção)`);
+  console.log(`Login de teste (plano especialista, tudo liberado) -> email: admin@exemplo.com.br / senha: mudeisso123 (TROQUE em produção)`);
+  console.log(`Login de teste (plano básico, Pack Especialista bloqueado) -> email: teste.basico@exemplo.com.br / senha: mudeisso123`);
   process.exit(0);
 }
 
