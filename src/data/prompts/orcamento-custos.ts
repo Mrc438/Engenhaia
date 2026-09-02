@@ -1,0 +1,88 @@
+import { PromptSeed } from "../types";
+
+export const orcamentoCustosPrompts: PromptSeed[] = [
+  {
+    slug: "composicao-custo-unitario-servico",
+    title: "Composição de custo unitário de serviço",
+    tags: ["composicao", "custo-unitario"],
+    body: "Vou te passar um serviço de obra (por exemplo, alvenaria de vedação em bloco cerâmico de 14 cm) e quero montar a composição de custo unitário dele do zero, separando materiais, mão de obra e equipamentos com seus respectivos índices de consumo por unidade de medida. Organize a composição em uma tabela com colunas de insumo, unidade, coeficiente de consumo e observação sobre a origem típica desse coeficiente (perda de material, produtividade de equipe etc.), sem preencher nenhum preço unitário. Explique também onde entram encargos sociais e BDI nessa cadeia, deixando claro que eles não fazem parte da composição unitária de custo direto. Como os valores de referência de tabelas oficiais tipo SINAPI mudam de mês a mês e variam por UF, não insira nenhum preço: só a estrutura de quantidades, cabendo a mim inserir os valores vigentes consultados na fonte oficial.",
+    order: 1,
+  },
+  {
+    slug: "calculo-taxa-bdi-obra",
+    title: "Cálculo de taxa de BDI",
+    tags: ["bdi", "taxa"],
+    body: "Preciso estruturar o cálculo da taxa de BDI (Bonificação e Despesas Indiretas) para uma obra que vou descrever, considerando os componentes clássicos: despesas administrativas centrais, custos financeiros, seguros e garantias, riscos, tributos incidentes sobre o faturamento e o lucro da construtora. Monte a fórmula passo a passo mostrando como cada componente entra no numerador ou denominador da equação usual de BDI, e explique por que simplesmente somar os percentuais item a item (BDI aditivo) distorce o resultado em vez de usar a fórmula multiplicativa correta. Peça que eu informe os percentuais estimados de cada componente e devolva o BDI final calculado com o raciocínio visível em cada etapa, sem chutar nenhuma alíquota tributária. Alíquotas de impostos e percentuais de referência de mercado mudam com frequência e por regime tributário, então trate qualquer número desse tipo como algo que preciso confirmar antes de aplicar na planilha.",
+    order: 2,
+  },
+  {
+    slug: "estrutura-planilha-orcamentaria-obra",
+    title: "Estruturação de planilha orçamentária",
+    tags: ["planilha", "estrutura"],
+    body: "Ajude-me a estruturar a planilha orçamentária de uma obra descrita por mim (tipo de edificação, área construída aproximada, padrão de acabamento), organizando os serviços em etapas na ordem executiva usual: serviços preliminares, infraestrutura, superestrutura, vedações, instalações, revestimentos, esquadrias, pintura e serviços finais/limpeza. Para cada etapa, liste os itens que normalmente compõem essa parte do orçamento com sua unidade de medida típica, sem atribuir quantidade nem preço, já que isso depende do projeto executivo real. Sugira também uma numeração hierárquica de itens (tipo EAP orçamentária) que facilite depois cruzar com o cronograma físico-financeiro. Fique só na estrutura e nas unidades: quantitativos, preços de tabela oficial e totais dependem do projeto e da fonte de preços vigente, que cabe a mim preencher.",
+    order: 3,
+  },
+  {
+    slug: "curva-abc-insumos-obra",
+    title: "Curva ABC de insumos da obra",
+    tags: ["curva-abc", "insumos"],
+    body: "Tenho uma lista de insumos de uma obra com seus valores totais no orçamento (vou te passar insumo e valor total de cada um) e preciso montar o raciocínio de uma curva ABC de materiais e serviços para saber onde concentrar esforço de negociação e controle. Explique o método: ordenar os itens do maior para o menor valor, calcular o percentual acumulado sobre o total geral e classificar em faixas A (até cerca de 80% do valor acumulado), B (até cerca de 95%) e C (o restante). Aplique esse raciocínio aos números que eu fornecer e devolva a classificação final numa tabela, indicando quantos itens caíram em cada faixa. Se eu não informar o valor de algum insumo, escreva 'não visível' nesse campo em vez de estimar, porque o resultado da curva depende diretamente dos valores reais do meu orçamento.",
+    order: 4,
+  },
+  {
+    slug: "analise-proposta-fornecedor-material",
+    title: "Análise de proposta de fornecedor",
+    tags: ["fornecedor", "proposta"],
+    body: "Recebi propostas de fornecedores diferentes para um mesmo material ou serviço de obra e quero uma análise comparativa estruturada antes de decidir. Peça que eu informe, para cada proposta, o preço, o prazo de entrega, a condição de pagamento, a garantia oferecida e se o frete está incluso, e monte uma tabela comparativa lado a lado com esses critérios. Calcule também o custo efetivo aproximado de cada proposta trazendo prazo de pagamento e eventuais descontos para uma base comparável, e aponte riscos ocultos comuns nesse tipo de negociação (frete não incluso, prazo de entrega incompatível com o cronograma, garantia mais curta que o padrão do mercado). Encerre destacando que o preço final negociado e a validade da proposta do fornecedor devem ser reconfirmados por mim antes do fechamento, já que propostas comerciais têm prazo de validade e podem mudar.",
+    order: 5,
+  },
+  {
+    slug: "orcamento-parametrico-rapido-area",
+    title: "Orçamento paramétrico rápido por área",
+    tags: ["parametrico", "estimativa"],
+    body: "Preciso de uma estimativa paramétrica rápida de custo de obra a partir da área construída e do padrão de acabamento (popular, médio ou alto) que eu informar, útil só para uma primeira ordem de grandeza antes do projeto executivo. Explique a lógica do método: aplicar um custo por metro quadrado de referência ao padrão informado e depois ajustar esse valor por fatores como número de pavimentos, complexidade de fundação e região do país. Monte o raciocínio de cálculo em etapas claras, mas não insira nenhum valor de R$/m² pronto — peça que eu informe o índice de referência que estou usando (por exemplo, um CUB regional vigente) e aplique os ajustes sobre esse número. Deixe registrado que índices desse tipo mudam mensalmente por sindicato regional e que essa estimativa serve só de referência inicial, nunca como orçamento executivo.",
+    order: 6,
+  },
+  {
+    slug: "comparativo-orcamento-solucoes-construtivas",
+    title: "Comparativo de orçamento entre soluções construtivas",
+    tags: ["comparativo", "sistema-construtivo"],
+    body: "Quero comparar o impacto orçamentário de duas ou três soluções construtivas alternativas para um mesmo elemento da obra (por exemplo, laje maciça versus laje treliçada versus laje pré-moldada, ou alvenaria estrutural versus alvenaria convencional com pilares) que vou especificar. Monte uma estrutura de comparação considerando não só o custo direto do material e mão de obra, mas também prazo de execução, necessidade de equipamento especial, desperdício típico e impacto em serviços dependentes (como revestimento ou instalações embutidas). Organize a resposta numa tabela com vantagens, desvantagens e observações de custo relativo entre as opções, sem preencher valores em reais. Como o custo real de cada solução depende de cotação local, disponibilidade de mão de obra especializada na região e tabela de preços vigente, oriente que os valores finais sejam levantados e confirmados por mim antes da decisão.",
+    order: 7,
+  },
+  {
+    slug: "controle-custo-realizado-planejado",
+    title: "Controle de custo realizado x planejado",
+    tags: ["controle", "custo-realizado"],
+    body: "Estou acompanhando uma obra em andamento e preciso estruturar um controle de custo realizado versus planejado por etapa do orçamento. A partir dos dados que eu fornecer (valor orçado de cada etapa e valor efetivamente gasto até o momento), monte a lógica de cálculo do desvio absoluto e do desvio percentual por etapa, identificando quais itens já ultrapassaram o previsto e quais ainda têm folga. Sugira também como projetar o custo final estimado da obra (curva de tendência) a partir do ritmo de gasto observado até agora, deixando claro que essa projeção é uma estimativa e não um valor definitivo. Para qualquer etapa em que eu não informar valor realizado, registre como 'não visível' em vez de supor um número, para não distorcer o painel de controle.",
+    order: 8,
+  },
+  {
+    slug: "analise-aditivo-custo-contratual",
+    title: "Análise de aditivo de custo contratual",
+    tags: ["aditivo", "contrato"],
+    body: "Recebi (ou vou emitir) um pedido de aditivo de custo em um contrato de obra e preciso de uma análise técnica antes de aprovar ou justificar o valor. Peça que eu descreva o serviço adicional ou a alteração de escopo, o motivo alegado (erro de projeto, condição de terreno imprevista, solicitação de mudança do cliente) e o valor pleiteado, e organize uma checklist de verificação: se o item já não estava coberto implicitamente no escopo original, se a composição de custo do aditivo é compatível com preços de mercado da mesma família de serviço, se há memória de cálculo do quantitativo adicional e se o percentual de aditivo acumulado no contrato ainda está dentro do limite legal ou contratual aplicável. Aponte também um resumo do impacto desse aditivo no orçamento total. Não estime nenhum preço unitário do aditivo por conta própria: peça a composição detalhada e trate qualquer valor de tabela oficial citado como algo a confirmar na fonte vigente.",
+    order: 9,
+  },
+  {
+    slug: "estimativa-custo-manutencao-predial",
+    title: "Estimativa de custo de manutenção predial",
+    tags: ["manutencao", "estimativa"],
+    body: "Preciso montar uma estimativa de custo de manutenção predial preventiva anual para uma edificação que vou descrever (tipologia, idade aproximada, sistemas existentes como elevador, bombas, impermeabilização, pintura de fachada). Organize a estimativa por sistema, indicando a periodicidade recomendada de intervenção de cada um (por exemplo, repintura de fachada a cada X anos, revisão de impermeabilização, manutenção de sistemas de combate a incêndio) e o tipo de serviço envolvido em cada ciclo, sem atribuir nenhum valor em reais. Sugira uma lógica de reserva técnica anual (percentual do valor de reposição do ativo, por exemplo) que costuma ser usada nesse tipo de planejamento, deixando claro que se trata de metodologia e não de percentual fechado. Reforce que qualquer custo de referência de mercado ou de tabela oficial precisa ser levantado e validado por mim na data em que a manutenção for de fato orçada.",
+    order: 10,
+  },
+  {
+    slug: "rateio-custo-indireto-canteiro",
+    title: "Rateio de custo indireto de canteiro",
+    tags: ["custo-indireto", "canteiro"],
+    body: "Tenho uma lista de custos indiretos de canteiro de obra (administração local, engenheiro residente, aluguel de equipamentos de apoio, container, energia e água provisórias, entre outros que vou informar com seus valores mensais) e quero ratear esse custo entre as etapas ou frentes de serviço do orçamento para saber o peso indireto de cada uma. Explique o método de rateio proporcional ao valor direto de cada etapa (ou a outro critério que eu escolher, como duração em meses de cada etapa) e aplique o cálculo aos dados que eu fornecer, mostrando o valor de custo indireto alocado por etapa e o novo valor total de cada uma. Ao final, monte uma tabela-resumo comparando custo direto, custo indireto rateado e custo total por etapa. Qualquer valor que eu não informar deve aparecer como 'não visível', já que o rateio só é confiável com os números reais do canteiro.",
+    order: 11,
+  },
+  {
+    slug: "checklist-revisao-orcamento-antes-fechamento",
+    title: "Checklist de revisão de orçamento antes do fechamento",
+    tags: ["checklist", "revisao"],
+    body: "Antes de fechar e enviar um orçamento de obra, quero uma checklist completa de revisão para reduzir o risco de erro. Organize os pontos em blocos: consistência entre quantitativo e projeto (todo item do projeto tem correspondência no orçamento e vice-versa), coerência de unidades de medida entre composição e planilha, aplicação correta e uniforme do BDI sobre os itens que devem recebê-lo, presença de itens que costumam ser esquecidos (canteiro, ligações provisórias, limpeza final, taxas e ARTs/RRTs) e verificação de que nenhum preço unitário ficou desatualizado em relação à última consulta de tabela oficial ou cotação de mercado. Para cada bloco, descreva o que exatamente deve ser conferido linha a linha. Encerre lembrando que essa checklist não substitui a conferência final de valores na fonte de preços vigente, responsabilidade que continua sendo minha antes de enviar o orçamento ao cliente.",
+    order: 12,
+  },
+];

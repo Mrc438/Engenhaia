@@ -1,0 +1,88 @@
+import { PromptSeed } from "../types";
+
+export const instalacoesPrediaisPrompts: PromptSeed[] = [
+  {
+    slug: "rede-agua-fria-coluna-predial",
+    title: "Rede de Água Fria (NBR 5626)",
+    tags: ["hidraulica", "agua-fria", "dimensionamento"],
+    body: "Estou reformando o sistema de água fria de um apartamento de 85 m² em prédio de 8 pavimentos, com pressão disponível de 25 mca no barrilete e o ponto de entrega no 4º pavimento, e preciso redimensionar a coluna e os sub-ramais para atender cozinha, dois banheiros e área de serviço. Aplique o método dos pesos relativos da NBR 5626 para estimar as vazões de projeto, defina os diâmetros mínimos de cada trecho e verifique se a velocidade fica dentro do limite normativo. Organize a resposta em memorial de cálculo por trecho, tabela de diâmetros comerciais recomendados e um alerta específico sobre risco de golpe de aríete nos registros de fechamento rápido. Encerre reforçando que o memorial deve ser assinado por profissional habilitado com ART antes de qualquer execução e que a pressão residual nos pontos de utilização precisa ser conferida em campo.",
+    order: 1,
+  },
+  {
+    slug: "esgoto-remanejamento-banheiro",
+    title: "Ramal de Esgoto Remanejado",
+    tags: ["esgoto", "nbr8160", "sanitario"],
+    body: "Preciso remanejar um banheiro no 6º pavimento de um edifício residencial e a nova posição do vaso sanitário exigirá um ramal de descarga conectado a um tubo de queda existente que já recebe contribuição de outros 5 pavimentos. Calcule, conforme a NBR 8160, a Unidade Hunter de Contribuição (UHC) do banheiro remanejado, verifique se o tubo de queda tem folga de capacidade para a vazão adicional e indique o diâmetro mínimo do novo ramal e da ventilação correspondente. Traga a resposta dividida em memorial de UHC por aparelho, verificação de capacidade do tubo de queda existente e recomendação de inclinação mínima do ramal. Se algum dado de vazão do sistema existente depender de vistoria in loco, escreva claramente que não é possível estimar sem levantamento em campo, e frise que a intervenção em tubulação coletiva só deve ser executada com projeto assinado por responsável técnico.",
+    order: 2,
+  },
+  {
+    slug: "aguas-pluviais-calha-cobertura-metalica",
+    title: "Águas Pluviais em Cobertura Metálica",
+    tags: ["pluvial", "nbr10844", "cobertura"],
+    body: "Um galpão industrial com 40 m de largura e cobertura em telha metálica trapezoidal vai receber uma ampliação de área de captação e o projeto atual não deixa claro se a calha e os condutores verticais suportam a nova vazão de chuva. Com base na NBR 10844, adote uma intensidade pluviométrica compatível com a região informada pelo usuário, calcule a vazão de projeto pela área de contribuição e dimensione a calha, os condutores verticais e horizontais necessários para escoar essa vazão sem transbordamento. Estruture a entrega em memorial de cálculo de vazão, dimensionamento de calha com declividade mínima recomendada e dimensionamento dos condutores com indicação do número de descidas necessárias. Finalize pedindo que o profissional confirme a intensidade pluviométrica local junto ao órgão municipal ou à norma regional antes de fechar o projeto, já que o valor influencia diretamente todos os diâmetros calculados.",
+    order: 3,
+  },
+  {
+    slug: "quadro-distribuicao-residencial-nbr5410",
+    title: "Quadro de Distribuição Residencial",
+    tags: ["eletrica", "nbr5410", "circuitos"],
+    body: "Vou montar o quadro de distribuição de uma casa térrea de 120 m² com chuveiro elétrico, ar-condicionado split, forno elétrico embutido e iluminação em todos os ambientes, e preciso definir a divisão de circuitos antes de fechar o projeto elétrico. Dimensione, com base na NBR 5410, os circuitos terminais separando tomadas de uso geral, tomadas de uso específico e iluminação, calcule a corrente de projeto de cada circuito e indique a seção mínima dos condutores e a corrente nominal dos disjuntores correspondentes. Apresente o resultado em uma tabela por circuito com carga instalada, corrente de projeto, seção do condutor e disjuntor, seguida de um resumo da demanda total do quadro para dimensionar o disjuntor geral. Ao final, lembre que o memorial de cálculo e o diagrama unifilar precisam ser assinados por engenheiro eletricista com ART e que o padrão de entrada deve ser conferido com as normas técnicas da concessionária local antes da execução.",
+    order: 4,
+  },
+  {
+    slug: "central-glp-predio-residencial",
+    title: "Central de Gás GLP Predial",
+    tags: ["gas", "glp", "predial"],
+    body: "Um edifício residencial de 12 unidades vai substituir os botijões individuais por uma central de GLP localizada em área externa térrea, com prumada única alimentando cada apartamento. Considerando as vazões de projeto de fogão, aquecedor de passagem e forno em cada unidade, dimensione conforme a NBR 15526 o diâmetro da tubulação de distribuição por trecho, verifique a perda de carga admissível até o ponto mais desfavorável e indique a capacidade mínima da central em número de botijões P13 ou P45. Organize a resposta em memorial de vazões por unidade consumidora, dimensionamento de trechos da prumada e verificação de perda de carga, seguido de recomendações de ventilação do abrigo da central conforme a NBR 13523. Feche destacando que o projeto de gás exige profissional habilitado com ART específica e que o abastecimento e a instalação da central precisam ser homologados pela distribuidora de GLP local antes da entrada em operação.",
+    order: 5,
+  },
+  {
+    slug: "carga-termica-split-sala-comercial",
+    title: "Carga Térmica para Split Comercial",
+    tags: ["avac", "climatizacao", "carga-termica"],
+    body: "Preciso escolher a capacidade de um ar-condicionado split para uma sala comercial de 28 m², pé-direito de 2,80 m, fachada oeste com bastante insolação à tarde, ocupação de até 6 pessoas e dois computadores fixos. Use um método simplificado de estimativa de carga térmica (por exemplo, ganhos por área, ocupação, equipamentos e insolação) para chegar a uma carga total em BTU/h e recomende a capacidade comercial de split mais adequada, já considerando uma margem de segurança razoável. Entregue o resultado como uma lista de ganhos térmicos parciais (envoltória, pessoas, equipamentos, insolação), a soma total e a capacidade final sugerida em BTU/h. Avise que esse cálculo simplificado serve para pré-dimensionamento e que, para especificação definitiva de equipamento e dutos, recomenda-se memorial de carga térmica detalhado assinado por profissional habilitado.",
+    order: 6,
+  },
+  {
+    slug: "poco-elevador-reforma-predial",
+    title: "Poço de Elevador em Reforma",
+    tags: ["elevadores", "poco", "reforma"],
+    body: "Um prédio residencial de 4 pavimentos, construído sem previsão de elevador, quer instalar um elevador em um poço novo construído junto à escada, e o síndico pediu uma checagem preliminar de viabilidade dimensional antes de contratar o projeto executivo. Verifique, com base na NBR NM 207 (elevadores elétricos) ou na NBR 16042 (elevadores hidráulicos, conforme a tecnologia informada), as dimensões mínimas de poço, folga de cabeceira, profundidade de fosso e área da casa de máquinas compatíveis com uma cabine para 6 a 8 passageiros. Apresente a checagem em formato de lista de verificação, comparando cada dimensão mínima normativa com o espaço disponível informado, e sinalize com destaque qualquer medida que fique abaixo do exigido. Conclua recomendando que a instalação só avance com projeto de elevador elaborado por empresa especializada e profissional habilitado, além de compatibilização estrutural com o engenheiro responsável pela obra.",
+    order: 7,
+  },
+  {
+    slug: "spda-galpao-cobertura-metalica",
+    title: "SPDA em Galpão Metálico",
+    tags: ["spda", "nbr5419", "aterramento"],
+    body: "Um galpão logístico com estrutura e cobertura metálicas, área de 2.000 m² e localizado em região de alta incidência de descargas atmosféricas, ainda não tem sistema de proteção contra descargas atmosféricas definido no projeto. A partir dos dados de densidade de descargas da região e do uso da edificação, defina o nível de proteção recomendado pela NBR 5419, avalie se a própria estrutura metálica pode ser aproveitada como captor e condutor de descida natural, e dimensione o sistema de aterramento complementar necessário. Estruture a resposta em avaliação de risco simplificada, escolha do nível de proteção, aproveitamento da estrutura metálica existente e especificação do sistema de aterramento com valor de resistência a ser buscado. Reforce que a análise de risco completa e o projeto final de SPDA precisam ser assinados por engenheiro habilitado, com ART, antes da instalação de qualquer componente.",
+    order: 8,
+  },
+  {
+    slug: "automacao-predial-integracao-sistemas",
+    title: "Automação Predial Integrada",
+    tags: ["automacao", "bms", "predial"],
+    body: "Estou especificando um sistema de automação predial para um edifício comercial de 6 pavimentos que precisa integrar iluminação, climatização central e controle de acesso em uma única plataforma de gerenciamento (BMS). Liste os pontos de automação típicos para cada sistema (iluminação por setor, temperatura e vazão de ar por pavimento, catracas e fechaduras eletrônicas), sugira um protocolo de comunicação adequado à integração pretendida (como KNX, BACnet ou Modbus) e explique de forma resumida como esses protocolos podem coexistir na mesma rede predial. Organize a entrega em tabela de pontos de automação por sistema, protocolo recomendado com justificativa e um esquema textual de como a rede de automação se conecta à rede de dados do edifício. Encerre indicando que a escolha final de marca, controlador e topologia de rede deve ser validada por projetista de automação predial e compatibilizada com o projeto elétrico e de cabeamento estruturado.",
+    order: 9,
+  },
+  {
+    slug: "cabeamento-estruturado-escritorio",
+    title: "Cabeamento Estruturado em Escritório",
+    tags: ["cabeamento", "nbr14565", "rede"],
+    body: "Um escritório novo de 400 m², distribuído em um único pavimento, vai receber uma sala de telecomunicações central e vou distribuir os pontos de rede para 60 estações de trabalho, cabeando tudo em categoria 6. Com base na NBR 14565, verifique se a distância máxima do cabeamento horizontal (limite de 90 m de link permanente) é respeitada considerando a posição da sala de telecomunicações em relação aos pontos mais distantes, dimensione a quantidade de patch panels e portas de switch necessárias e recomende a organização do rack (alimentação, patch panels, switches, organizadores de cabos). Apresente a resposta em: verificação de distâncias críticas, dimensionamento de portas com margem de expansão de 20%, e layout sugerido do rack de cima para baixo. Finalize alertando que a certificação final do cabeamento (teste de link permanente) deve ser feita por instalador certificado e documentada antes da entrega da obra.",
+    order: 10,
+  },
+  {
+    slug: "recalque-reservatorio-pressao-insuficiente",
+    title: "Recalque para Pressão Insuficiente",
+    tags: ["hidraulica", "recalque", "reservatorio"],
+    body: "Moradores dos três últimos pavimentos de um prédio de 12 andares reclamam de pressão insuficiente de água nos horários de pico, e o reservatório superior atual parece estar subdimensionado ou o conjunto motobomba de recalque está subestimado para a demanda atual. Estime, a partir do número de unidades habitacionais e da NBR 5626, a vazão de recalque necessária e a altura manométrica total até o reservatório superior, dimensione a potência aproximada do conjunto motobomba e verifique se o volume do reservatório superior atende à reserva mínima recomendada para o prédio. Traga o resultado como memorial de vazão de recalque, cálculo simplificado de altura manométrica (geométrica mais perdas de carga estimadas) e potência de bomba resultante, seguido de uma nota sobre o volume de reserva do reservatório superior. Deixe explícito que a especificação final da bomba e o projeto hidráulico de recalque exigem profissional habilitado com ART e teste de pressão em campo após a instalação.",
+    order: 11,
+  },
+  {
+    slug: "retrofit-instalacoes-predio-antigo",
+    title: "Retrofit de Instalações em Prédio Antigo",
+    tags: ["retrofit", "compatibilizacao", "instalacoes"],
+    body: "Um edifício residencial construído há mais de 40 anos vai passar por retrofit geral, e as instalações de elétrica, hidráulica e gás foram executadas em épocas diferentes, sem projeto unificado disponível, o que está dificultando o planejamento da obra. Monte um roteiro de diagnóstico para compatibilizar os três sistemas durante o retrofit, indicando quais pontos típicos costumam gerar conflito (por exemplo, shafts compartilhados, prumadas de gás próximas a quadros elétricos, tubulações de esgoto cruzando trajetos elétricos) e quais normas atuais (NBR 5410, NBR 5626, NBR 15526) devem servir de referência para a atualização. Organize a resposta em checklist de interferências prováveis por sistema, prioridades de substituição por risco (segurança elétrica e vazamento de gás primeiro) e uma recomendação de sequência de obra para minimizar retrabalho. Encerre avisando que qualquer estimativa de estado das instalações existentes sem inspeção real deve ser marcada como não visível e que o levantamento cadastral em campo, assinado por responsável técnico, é pré-requisito antes de qualquer intervenção.",
+    order: 12,
+  },
+];
