@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icon";
+import { NavLinkPendingDot } from "@/components/nav-link-status";
 
 export function MobileNav() {
   const pathname = usePathname();
@@ -22,6 +23,7 @@ export function MobileNav() {
           >
             <Icon name={item.icon} className={`h-3.5 w-3.5 ${active ? "" : "text-muted"}`} />
             {item.label}
+            <NavLinkPendingDot />
           </Link>
         );
       })}

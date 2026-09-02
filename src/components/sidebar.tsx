@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icon";
 import { SignOutButton } from "@/components/sign-out-button";
+import { NavLinkPendingDot } from "@/components/nav-link-status";
 
 export function Sidebar({ user }: { user: { name: string; email: string } }) {
   const pathname = usePathname();
@@ -48,6 +49,7 @@ export function Sidebar({ user }: { user: { name: string; email: string } }) {
                 className={`h-4 w-4 transition-colors ${active ? "text-accent" : "text-muted group-hover:text-foreground"}`}
               />
               {item.label}
+              <NavLinkPendingDot />
             </Link>
           );
         })}
