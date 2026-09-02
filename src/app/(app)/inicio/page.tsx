@@ -1,13 +1,8 @@
 import Link from "next/link";
 import { requireUser } from "@/lib/auth-helpers";
-import {
-  getSkillCounts,
-  getPromptCounts,
-  getCommunityStats,
-  getPackEspecialistaCount,
-} from "@/lib/queries";
 import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icon";
+import { QuickGuideButton } from "@/components/quick-guide-button";
 
 const areas = [
   {
@@ -49,18 +44,6 @@ const areas = [
 
 export default async function InicioPage() {
   const user = await requireUser();
-  const [skillCount, promptCount, communityStats, packCount] = await Promise.all([
-    getSkillCounts(),
-    getPromptCounts(),
-    getCommunityStats(),
-    getPackEspecialistaCount(),
-  ]);
-
-  // o total de skills só conta o Pack Especialista pra quem realmente comprou —
-  // o número exibido tem que bater com o que a pessoa tem liberado de fato.
-  const hasPackEspecialista = user.plan === "especialista";
-  const availableSkillCount = skillCount - (hasPackEspecialista ? 0 : packCount);
-
   const firstName = (user.name ?? "").split(" ")[0] || "engenheiro";
 
   return (
@@ -70,7 +53,7 @@ export default async function InicioPage() {
           <Icon name="layout-dashboard" className="h-3.5 w-3.5" />
           Painel inicial
         </span>
-        <h1 className="mt-4 text-2xl font-bold sm:text-3xl">
+        <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
           Bem-vindo de volta, {firstName}.
         </h1>
         <p className="mt-2 max-w-xl text-sm text-muted">
@@ -85,20 +68,17 @@ export default async function InicioPage() {
             Começar agora
             <Icon name="arrow-right" className="h-4 w-4" />
           </Link>
-          <Link
-            href="/aulas"
-            className="btn-secondary inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium"
-          >
-            <Icon name="circle-help" className="h-4 w-4" />
-            Abrir guia rápido
-          </Link>
+          <QuickGuideButton />
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <StatCard icon="sparkles" label="Skills disponíveis" value={availableSkillCount} />
-        <StatCard icon="library" label="Prompts na biblioteca" value={promptCount} />
-        <StatCard icon="users" label="Engenheiros na comunidade" value={communityStats.members} />
+      <div className="card-surface-static mt-6 flex items-start gap-3 rounded-xl border-dashed p-4">
+        <Icon name="lock" className="mt-0.5 h-4 w-4 shrink-0 text-muted" />
+        <p className="text-sm text-muted">
+          Alguns conteúdos são exclusivos: eles só aparecem liberados pra quem adquiriu o produto
+          correspondente (como o Pack Especialista, dentro de Skills). Se você comprou e ainda
+          aparece bloqueado, saia e entre novamente na conta.
+        </p>
       </div>
 
       <h2 className="mt-10 text-sm font-semibold uppercase tracking-wide text-muted">
@@ -106,20 +86,21 @@ export default async function InicioPage() {
       </h2>
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {areas.map((area) => (
-          <div key={area.href} className="card-surface flex flex-col rounded-2xl p-5">
+          <Link
+            key={area.href}
+            href={area.href}
+            className="card-surface flex flex-col rounded-2xl p-5"
+          >
             <div className="icon-chip mb-3 h-11 w-11 rounded-full">
               <Icon name={area.icon} className="h-5 w-5" />
             </div>
             <h3 className="font-semibold">{area.title}</h3>
             <p className="mt-1 flex-1 text-sm text-muted">{area.description}</p>
-            <Link
-              href={area.href}
-              className="btn-primary mt-4 inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold"
-            >
+            <span className="btn-primary pointer-events-none mt-4 flex w-full items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 text-sm font-semibold">
               {area.cta}
               <Icon name="arrow-right" className="h-3.5 w-3.5" />
-            </Link>
-          </div>
+            </span>
+          </Link>
         ))}
       </div>
 
@@ -130,20 +111,6 @@ export default async function InicioPage() {
         </a>
         .
       </p>
-    </div>
-  );
-}
-
-function StatCard({ icon, label, value }: { icon: string; label: string; value: number }) {
-  return (
-    <div className="card-surface flex items-center gap-3 rounded-xl px-5 py-4">
-      <div className="icon-chip h-10 w-10 rounded-full">
-        <Icon name={icon} className="h-5 w-5" />
-      </div>
-      <div>
-        <p className="text-xl font-bold leading-tight">{value.toLocaleString("pt-BR")}</p>
-        <p className="text-xs text-muted">{label}</p>
-      </div>
     </div>
   );
 }

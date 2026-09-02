@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { Modal } from "@/components/modal";
 import { CopyButton } from "@/components/copy-button";
+import { categoryColor } from "@/lib/category-colors";
 
 type PromptListItem = {
   id: string;
@@ -11,7 +12,21 @@ type PromptListItem = {
   title: string;
   tags: string[];
   order: number;
+  categorySlug?: string;
+  categoryName?: string;
 };
+
+function CategoryTag({ slug, name }: { slug: string; name: string }) {
+  const c = categoryColor(slug);
+  return (
+    <span
+      style={{ background: c.bg, color: c.text, boxShadow: `inset 0 0 0 1px ${c.ring}` }}
+      className="mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+    >
+      {name}
+    </span>
+  );
+}
 
 type Category = {
   id: string;
@@ -48,17 +63,25 @@ export function PromptsExplorer({
   const term = search.trim().toLowerCase();
   const isSearching = term.length > 0;
 
+  const categoryNameBySlug = useMemo(
+    () => Object.fromEntries(categories.map((c) => [c.slug, c.name])),
+    [categories]
+  );
+
   const searchResults = useMemo(() => {
     if (!isSearching) return [];
-    return Object.values(promptsByCategory)
-      .flat()
+    return Object.entries(promptsByCategory)
+      .flatMap(([slug, items]) =>
+        items.map((p) => ({ ...p, categorySlug: slug, categoryName: categoryNameBySlug[slug] }))
+      )
       .filter(
         (p) =>
           p.title.toLowerCase().includes(term) || p.tags.some((t) => t.toLowerCase().includes(term))
       )
       .slice(0, 60);
-  }, [isSearching, term, promptsByCategory]);
+  }, [isSearching, term, promptsByCategory, categoryNameBySlug]);
 
+  const activeCategoryName = categoryNameBySlug[activeCategory];
   const categoryItems = promptsByCategory[activeCategory] ?? [];
   const shown = categoryItems.slice(0, visibleCount);
   const remaining = categoryItems.length - shown.length;
@@ -118,7 +141,12 @@ export function PromptsExplorer({
               — {shown.length} de {categoryItems.length}
             </span>
           </h2>
-          <PromptGrid items={shown} onOpen={openPrompt} />
+          <PromptGrid
+            items={shown}
+            onOpen={openPrompt}
+            categorySlug={activeCategory}
+            categoryName={activeCategoryName}
+          />
           {remaining > 0 && (
             <div className="mt-6 flex justify-center">
               <button
@@ -172,21 +200,29 @@ export function PromptsExplorer({
 function PromptGrid({
   items,
   onOpen,
+  categorySlug,
+  categoryName,
 }: {
   items: PromptListItem[];
   onOpen: (slug: string) => void;
+  categorySlug?: string;
+  categoryName?: string;
 }) {
   if (items.length === 0) {
     return <p className="py-12 text-center text-sm text-muted">Nenhum prompt encontrado.</p>;
   }
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {items.map((p) => (
+      {items.map((p) => {
+        const slug = p.categorySlug ?? categorySlug;
+        const name = p.categoryName ?? categoryName;
+        return (
         <button
           key={p.slug}
           onClick={() => onOpen(p.slug)}
           className="card-surface flex flex-col items-start rounded-xl p-5 text-left hover:border-accent/50"
         >
+          {slug && name && <CategoryTag slug={slug} name={name} />}
           <h3 className="font-semibold leading-snug">{p.title}</h3>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {p.tags.slice(0, 3).map((t) => (
@@ -196,7 +232,8 @@ function PromptGrid({
             ))}
           </div>
         </button>
-      ))}
+        );
+      })}
     </div>
   );
 }

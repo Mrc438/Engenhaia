@@ -6,6 +6,19 @@ import { Icon } from "@/components/icon";
 import { Modal } from "@/components/modal";
 import { CopyButton } from "@/components/copy-button";
 import { siteConfig } from "@/lib/site-config";
+import { categoryColor } from "@/lib/category-colors";
+
+function CategoryTag({ slug, name }: { slug: string; name: string }) {
+  const c = categoryColor(slug);
+  return (
+    <span
+      style={{ background: c.bg, color: c.text, boxShadow: `inset 0 0 0 1px ${c.ring}` }}
+      className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
+    >
+      {name}
+    </span>
+  );
+}
 
 type SkillListItem = {
   id: string;
@@ -197,6 +210,7 @@ export function SkillsExplorer({
                       className="card-surface-static relative flex flex-col items-start rounded-2xl border-dashed p-5 text-left opacity-70"
                     >
                       <span className="badge-outline inline-flex items-center rounded-full px-3 py-1 text-xs font-medium">
+                        <Icon name="lock" className="mr-1 h-3 w-3" />
                         {c.name}
                       </span>
                       <Icon name="lock" className="absolute right-5 top-5 h-5 w-5 text-muted" />
@@ -209,9 +223,7 @@ export function SkillsExplorer({
                       onClick={() => openSkill(s.slug)}
                       className="card-surface relative flex flex-col items-start rounded-2xl p-5 text-left hover:border-accent/50"
                     >
-                      <span className="badge-outline inline-flex items-center rounded-full px-3 py-1 text-xs font-medium">
-                        {c.name}
-                      </span>
+                      <CategoryTag slug={c.slug} name={c.name} />
                       <Icon name={s.icon} className="absolute right-5 top-5 h-6 w-6 text-accent/90" />
                       <h3 className="mt-4 pr-6 font-semibold">{s.name}</h3>
                       <p className="mt-1.5 text-sm leading-relaxed text-muted">{s.shortDescription}</p>

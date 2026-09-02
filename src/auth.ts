@@ -53,15 +53,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
-        // busca o plano atual no banco a cada request — assim, se alguém
-        // liberar o Pack Especialista pra um usuário depois da compra, o
-        // acesso reflete na hora, sem precisar deslogar/logar de novo.
-        const [row] = await db
-          .select({ plan: users.plan })
-          .from(users)
-          .where(eq(users.id, token.id as string))
-          .limit(1);
-        session.user.plan = row?.plan ?? (token.plan as string) ?? "basico";
+        // plano vem do token (definido no login) — não consultamos o banco
+        // a cada navegação pra não deixar toda troca de página lenta. Se o
+        // Pack Especialista for liberado depois da compra, o usuário só
+        // precisa sair e entrar de novo pra ver refletido.
+        session.user.plan = (token.plan as string) ?? "basico";
       }
       return session;
     },

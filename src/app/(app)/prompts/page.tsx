@@ -22,7 +22,9 @@ export default async function PromptsPage() {
       <span className="inline-flex items-center rounded-full bg-accent/15 px-3 py-1 text-xs font-medium text-accent">
         {total} prompts
       </span>
-      <h1 className="mt-4 text-2xl font-bold sm:text-3xl">Biblioteca de Prompts</h1>
+      <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
+        Biblioteca de prompts prontos.
+      </h1>
       <p className="mt-2 max-w-2xl text-sm text-muted">
         Copie, cole no seu assistente de IA e ajuste com os dados reais da sua obra. Todo prompt é
         um rascunho técnico — revise sempre com o engenheiro responsável (ART).

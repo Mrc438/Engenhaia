@@ -23,20 +23,38 @@ export default async function AulasPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      <span className="badge-accent inline-flex items-center rounded-full px-3 py-1 text-xs font-medium">
-        Curso
-      </span>
-      <h1 className="mt-4 text-2xl font-bold sm:text-3xl">Apresentação do curso e visão geral da plataforma</h1>
-      <p className="mt-2 max-w-2xl text-sm text-muted">
-        Passo a passo em vídeo pra instalar, configurar e usar as Skills e Prompts no dia a dia.{" "}
-        {totalDone}/{totalLessons} aulas concluídas.
-      </p>
-
-      <div className="mt-4 h-2 w-full max-w-sm overflow-hidden rounded-full bg-surface-2">
+      <div className="card-surface-static relative overflow-hidden rounded-2xl p-6 sm:p-10">
         <div
-          className="h-full bg-accent transition-all"
-          style={{ width: `${totalLessons ? (totalDone / totalLessons) * 100 : 0}%` }}
-        />
+          aria-hidden
+          className="pointer-events-none absolute inset-0 select-none overflow-hidden"
+        >
+          <span className="absolute -top-3 right-2 whitespace-nowrap text-[4.5rem] font-black uppercase leading-none tracking-tight text-foreground/[0.04] sm:text-[6.5rem]">
+            Engenharia
+          </span>
+          <span className="absolute -bottom-6 right-2 whitespace-nowrap text-[4.5rem] font-black uppercase leading-none tracking-tight text-accent/10 sm:text-[6.5rem]">
+            Civil
+          </span>
+        </div>
+
+        <div className="relative">
+          <span className="badge-accent inline-flex items-center rounded-full px-3 py-1 text-xs font-medium">
+            Curso
+          </span>
+          <h1 className="mt-4 max-w-xl text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
+            Apresentação do curso e visão geral da plataforma
+          </h1>
+          <p className="mt-3 max-w-2xl text-sm text-muted">
+            Passo a passo em vídeo pra instalar, configurar e usar as Skills e Prompts no dia a
+            dia. {totalDone}/{totalLessons} aulas concluídas.
+          </p>
+
+          <div className="mt-4 h-2 w-full max-w-sm overflow-hidden rounded-full bg-surface-2">
+            <div
+              className="h-full bg-accent transition-all"
+              style={{ width: `${totalLessons ? (totalDone / totalLessons) * 100 : 0}%` }}
+            />
+          </div>
+        </div>
       </div>
 
       <h2 className="mt-10 text-sm font-semibold uppercase tracking-wide text-muted">
@@ -48,9 +66,14 @@ export default async function AulasPage() {
           return (
             <div key={m.slug} className="card-surface rounded-xl p-5">
               <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="font-semibold">{m.title}</h3>
-                  <p className="mt-1 text-sm text-muted">{m.summary}</p>
+                <div className="flex items-center gap-3">
+                  <div className="icon-chip h-10 w-10 shrink-0 rounded-lg">
+                    <Icon name="clapperboard" className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">{m.title}</h3>
+                    <p className="mt-1 text-sm text-muted">{m.summary}</p>
+                  </div>
                 </div>
                 <span className="shrink-0 text-xs text-muted">
                   {doneInModule}/{m.lessons.length}

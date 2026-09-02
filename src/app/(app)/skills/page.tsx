@@ -18,7 +18,7 @@ export default async function SkillsPage() {
           ? ` · ${packCount} no Pack Especialista`
           : ` · +${packCount} no Pack Especialista (bloqueado)`}
       </span>
-      <h1 className="mt-4 text-2xl font-bold sm:text-3xl">
+      <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
         Cada etapa da obra com a skill certa no seu bolso.
       </h1>
       <p className="mt-2 max-w-2xl text-sm text-muted">

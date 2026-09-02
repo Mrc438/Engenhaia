@@ -69,20 +69,22 @@ export default async function ComunidadePage() {
       <span className="badge-accent inline-flex items-center rounded-full px-3 py-1 text-xs font-medium">
         Espaço da comunidade
       </span>
-      <h1 className="mt-4 text-2xl font-bold sm:text-3xl">
+      <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
         Onde a <span className="text-accent">obra</span> conversa.
       </h1>
       <p className="mt-2 max-w-2xl text-sm text-muted">
         Poste caso, poste erro, poste foto suja de barro. Quem ensina mais sobe no ranking — e
         ajuda todo mundo a virar um engenheiro melhor.
       </p>
-      <div className="mt-4 flex gap-6 text-sm">
-        <span>
-          <strong>{stats.posts}</strong> <span className="text-muted">publicações</span>
-        </span>
-        <span>
-          <strong>{stats.members}</strong> <span className="text-muted">engenheiros ativos</span>
-        </span>
+      <div className="mt-6 flex flex-wrap gap-8">
+        <div>
+          <p className="text-2xl font-bold leading-tight">{stats.posts}</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-muted">Publicações</p>
+        </div>
+        <div>
+          <p className="text-2xl font-bold leading-tight">{stats.members}</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-muted">Engenheiros ativos</p>
+        </div>
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_300px]">

@@ -11,7 +11,9 @@ export default async function BonusPage() {
       <span className="badge-accent inline-flex items-center rounded-full px-3 py-1 text-xs font-medium">
         Bônus exclusivo
       </span>
-      <h1 className="mt-4 text-2xl font-bold sm:text-3xl">Materiais extras da sua compra</h1>
+      <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
+        Materiais extras da sua compra.
+      </h1>
       <p className="mt-2 max-w-2xl text-sm text-muted">
         Além das Skills e da Biblioteca de Prompts, você também tem acesso a estes materiais de
         apoio.
@@ -45,11 +47,21 @@ export default async function BonusPage() {
                     <Icon name="lock" className="h-3.5 w-3.5" />
                     {item.lockNote ?? "Conteúdo bloqueado — disponível apenas para quem adquiriu o produto extra."}
                   </p>
+                ) : item.actionUrl ? (
+                  <a
+                    href={item.actionUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary mt-3 flex w-full items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 text-sm font-semibold"
+                  >
+                    {item.actionLabel}
+                    <Icon name="external-link" className="h-3.5 w-3.5" />
+                  </a>
                 ) : (
-                  <button className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline">
+                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
                     {item.actionLabel}
                     <Icon name="arrow-right" className="h-3.5 w-3.5" />
-                  </button>
+                  </span>
                 )}
               </div>
             </div>
