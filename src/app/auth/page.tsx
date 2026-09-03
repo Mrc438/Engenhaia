@@ -17,8 +17,7 @@ export default async function AuthPage() {
           <div className="icon-chip mb-3 h-12 w-12 rounded-xl">
             <Icon name="hard-hat" className="h-6 w-6" />
           </div>
-          <h1 className="text-lg font-semibold">{siteConfig.brandName}</h1>
-          <p className="mt-1 text-sm text-muted">{siteConfig.brandTagline}</p>
+          <h1 className="text-lg font-semibold">{siteConfig.brandTagline}</h1>
         </div>
 
         <div className="card-surface-static rounded-xl p-6">

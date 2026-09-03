@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: `${siteConfig.brandName} — ${siteConfig.brandTagline}`,
+  title: siteConfig.brandTagline,
   description: siteConfig.productClaim,
 };
 

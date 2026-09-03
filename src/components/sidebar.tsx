@@ -34,8 +34,7 @@ export function Sidebar({
           <Icon name="hard-hat" className="h-5 w-5" />
         </div>
         <div className="min-w-0">
-          <p className="truncate text-sm font-semibold leading-tight">{siteConfig.brandName}</p>
-          <p className="truncate text-xs text-muted leading-tight">{siteConfig.brandTagline}</p>
+          <p className="truncate text-sm font-semibold leading-tight">{siteConfig.brandTagline}</p>
         </div>
       </div>
 

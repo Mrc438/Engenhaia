@@ -3,6 +3,7 @@ import "@fontsource/space-grotesk/latin.css";
 import "@fontsource/inter/latin.css";
 import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icon";
+import { AulasCarousel, TOTAL_AULAS, TOTAL_MODULOS } from "@/components/aulas-carousel";
 
 // Tipografia copiada da lander de referência: Space Grotesk nos títulos,
 // Inter no corpo — só se aplica dentro desta página (ver .font-lp-body em
@@ -249,30 +250,32 @@ export function LandingPage() {
           className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.35]"
           style={{ maskImage: "radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%)" }}
         />
-        <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-5 py-10 sm:px-8 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-20">
-          <div>
-            <span className="badge-outline inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-              <Icon name="sparkles" className="h-3.5 w-3.5" />
-              {siteConfig.brandTagline}
-            </span>
-            <h1 className="mt-5 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.4rem]">
+        <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center gap-12 px-5 py-20 sm:px-8">
+          <div className="w-full max-w-3xl text-center">
+            <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-[60px] lg:leading-[63px]">
               O assistente de IA que você já usa
               <span className="text-gradient-accent block">vira seu engenheiro civil sênior.</span>
             </h1>
-            <p className="mt-5 max-w-xl text-base text-muted sm:text-lg">
+            <p className="mx-auto mt-6 max-w-2xl text-base text-muted sm:text-lg">
               {TOTAL_SKILLS_BASICO} skills prontas de{" "}
               <strong className="font-semibold text-foreground">cálculo, documentação, gestão de obra e comercial</strong>,
               mais uma biblioteca com {TOTAL_PROMPTS} prompts avançados. Tudo por{" "}
               <strong className="font-semibold text-accent-2">{siteConfig.price}</strong>, pagamento único. Você cola,
               manda a tarefa do dia real e recebe um rascunho técnico pra revisar, ajustar e assinar.
             </p>
-            <div className="mt-8 flex flex-col items-start gap-3">
-              <PrimaryCta>Quero minhas skills</PrimaryCta>
+            <div className="mt-10 flex flex-col items-center gap-4">
+              <a
+                href="#oferta"
+                className="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-8 py-3.5 text-sm font-bold uppercase tracking-wide sm:text-base"
+              >
+                Ver a oferta
+                <Icon name="arrow-right" className="h-4 w-4" />
+              </a>
               <p className="text-xs text-muted">
                 Acesso imediato · Copia e cola · Funciona com o assistente de IA que você já usa
               </p>
             </div>
-            <div className="mt-8 grid grid-cols-1 gap-2.5 text-sm sm:grid-cols-3">
+            <div className="mt-12 grid grid-cols-1 gap-2.5 text-sm sm:grid-cols-3">
               {[
                 { icon: "shield-check", label: "Garantia de 7 dias" },
                 { icon: "zap", label: "Acesso imediato" },
@@ -290,35 +293,37 @@ export function LandingPage() {
           </div>
 
           {/* Mockup ilustrativo — composição própria, não é screenshot de nenhum produto */}
-          <div className="relative">
-            <div
-              className="absolute -inset-6 -z-10 rounded-[2rem] opacity-40 blur-3xl"
-              style={{ backgroundImage: "linear-gradient(135deg, var(--accent-2), var(--accent))" }}
-            />
-            <div className="card-glow overflow-hidden rounded-2xl">
-              <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
-                <span className="h-2.5 w-2.5 rounded-full bg-danger/70" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#f2b02e]/70" />
-                <span className="h-2.5 w-2.5 rounded-full bg-success/70" />
-                <span className="ml-2 text-xs font-medium text-muted">Skill: Memorial Descritivo</span>
-              </div>
-              <div className="space-y-3 p-4 sm:p-5">
-                <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-surface-2 px-4 py-2.5 text-sm">
-                  Cola aí o memorial da reforma do apartamento 302: 68m², alvenaria + reforço em concreto,
-                  troca de instalação elétrica e hidráulica.
+          <div className="relative flex w-full justify-center">
+            <div className="relative w-full max-w-lg">
+              <div
+                className="absolute -inset-6 -z-10 rounded-[2rem] opacity-40 blur-3xl"
+                style={{ backgroundImage: "linear-gradient(135deg, var(--accent-2), var(--accent))" }}
+              />
+              <div className="card-glow overflow-hidden rounded-2xl">
+                <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
+                  <span className="h-2.5 w-2.5 rounded-full bg-danger/70" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#f2b02e]/70" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-success/70" />
+                  <span className="ml-2 text-xs font-medium text-muted">Skill: Memorial Descritivo</span>
                 </div>
-                <div className="mr-auto max-w-[90%] rounded-2xl rounded-tl-sm border border-border bg-surface px-4 py-3 text-sm">
-                  <p className="font-semibold text-accent-2">Memorial Descritivo — Reforma Ap. 302</p>
-                  <p className="mt-2 text-muted">1. Identificação da obra e responsável técnico (ART)</p>
-                  <p className="text-muted">2. Descrição dos serviços — demolição, alvenaria, reforço</p>
-                  <p className="text-muted">3. Instalações elétricas e hidrossanitárias (NBR 5410 / 5626)</p>
-                  <p className="mt-2 text-xs italic text-muted">
-                    Revise os dados de projeto antes de assinar — texto gerado com o que você informou.
-                  </p>
-                </div>
-                <div className="flex items-center gap-2 rounded-full border border-dashed border-border px-3 py-2 text-xs text-muted">
-                  <Icon name="clock" className="h-3.5 w-3.5" />
-                  Rascunho pronto em segundos — a revisão técnica continua sendo sua.
+                <div className="space-y-3 p-4 sm:p-5">
+                  <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-surface-2 px-4 py-2.5 text-sm">
+                    Cola aí o memorial da reforma do apartamento 302: 68m², alvenaria + reforço em concreto,
+                    troca de instalação elétrica e hidráulica.
+                  </div>
+                  <div className="mr-auto max-w-[90%] rounded-2xl rounded-tl-sm border border-border bg-surface px-4 py-3 text-sm">
+                    <p className="font-semibold text-accent-2">Memorial Descritivo — Reforma Ap. 302</p>
+                    <p className="mt-2 text-muted">1. Identificação da obra e responsável técnico (ART)</p>
+                    <p className="text-muted">2. Descrição dos serviços — demolição, alvenaria, reforço</p>
+                    <p className="text-muted">3. Instalações elétricas e hidrossanitárias (NBR 5410 / 5626)</p>
+                    <p className="mt-2 text-xs italic text-muted">
+                      Revise os dados de projeto antes de assinar — texto gerado com o que você informou.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 rounded-full border border-dashed border-border px-3 py-2 text-xs text-muted">
+                    <Icon name="clock" className="h-3.5 w-3.5" />
+                    Rascunho pronto em segundos — a revisão técnica continua sendo sua.
+                  </div>
                 </div>
               </div>
             </div>
@@ -359,39 +364,36 @@ export function LandingPage() {
       {/* Problema + Solução (bloco claro — mesmo tratamento da referência)  */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-light-alt">
-        <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
-          <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Você não estudou anos de engenharia pra virar a noite formatando planilha.
+        <div className="mx-auto w-full max-w-3xl px-5 py-20 sm:px-8">
+          <h2 className="text-center text-4xl font-semibold tracking-tight sm:text-5xl">
+            Você não virou engenheiro pra passar a noite mexendo em planilha.
           </h2>
-          <div className="mt-8 space-y-4 text-sm text-muted sm:text-base">
+          <div className="mt-8 space-y-4 text-base text-muted">
             <p>
-              Nem pra remontar o mesmo orçamento pela enésima vez, conferir composição na mão, redigir laudo do
-              zero ou correr atrás de cronograma quando o cliente cobra pra ontem.
+              Nem pra remontar o mesmo orçamento pela enésima vez. Nem pra conferir composição na mão, redigir
+              laudo do zero ou correr atrás de cronograma quando o prazo já venceu.
             </p>
-            <p className="font-semibold text-foreground">É exatamente aí que o seu dia inteiro desaparece.</p>
+            <p className="font-semibold text-foreground">É aí que o seu dia desaparece.</p>
             <p>
-              O trabalho que paga de verdade — decidir, calcular, assinar, fechar contrato — fica esperando
-              enquanto tarefa repetitiva engole a agenda. Tarefa que qualquer assistente de IA bem configurado
-              deveria estar resolvendo por você.
+              O trabalho que paga — calcular, decidir, assinar — fica esperando. Tarefa repetitiva toma a agenda
+              inteira. Tarefa que um bom assistente de IA resolveria em minutos.
             </p>
           </div>
           <div className="card-surface-static mt-8 rounded-xl border-l-4 border-l-danger/60 p-5">
             <p className="text-xs font-semibold uppercase tracking-wide text-danger">Aí você já tentou usar IA</p>
-            <p className="mt-2 text-sm text-muted">
-              Abriu o ChatGPT ou o Claude, pediu um orçamento e recebeu uma resposta genérica, sem base técnica,
-              que não serve pra nada real. Concluiu: <em>&quot;isso não funciona pra engenharia&quot;</em>.
-            </p>
-            <p className="mt-2 text-sm text-muted">
-              O problema nunca foi a IA — foi ela vir crua, sem contexto, sem norma, sem método. Configurar isso
-              direito sozinho levaria semanas testando prompt. Tempo que você não tem sobrando.
+            <p className="mt-3 text-base text-muted">Abriu o ChatGPT, pediu um orçamento e recebeu resposta genérica.</p>
+            <p className="mt-2 text-base text-muted">Sem base técnica. Sem norma. Sem contexto da sua obra.</p>
+            <p className="mt-2 text-base text-muted">
+              Concluiu que IA não serve pra engenharia — mas o problema nunca foi a IA. Foi ela vir crua, sem
+              configuração.
             </p>
           </div>
         </div>
       </section>
 
       <section className="section-light">
-        <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
-          <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">
+        <div className="mx-auto w-full max-w-3xl px-5 py-20 sm:px-8">
+          <h2 className="text-center text-4xl font-semibold tracking-tight sm:text-5xl">
             Foi exatamente isso que a gente resolveu.
           </h2>
           <div className="card-surface-static mt-8 rounded-2xl p-6 sm:p-8">
@@ -416,13 +418,13 @@ export function LandingPage() {
       {/* Skills                                                            */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-light-alt">
-        <div className="mx-auto w-full max-w-6xl px-5 pb-16 sm:px-8 sm:pb-20">
+        <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <span className="badge-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
               <Icon name="sparkles" className="h-3.5 w-3.5" />
               {TOTAL_SKILLS_BASICO} skills inclusas
             </span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">Cada etapa da obra, uma skill.</h2>
+            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Cada etapa da obra, uma skill.</h2>
             <p className="mt-3 text-sm text-muted sm:text-base">
               Todas as {TOTAL_SKILLS_BASICO} skills vêm juntas no pacote, organizadas por categoria. Sem versão
               capada, sem upsell escondido.
@@ -474,13 +476,13 @@ export function LandingPage() {
       {/* Prompts                                                           */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-light">
-        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+        <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <span className="badge-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
               <Icon name="library" className="h-3.5 w-3.5" />
               {TOTAL_PROMPTS} prompts avançados
             </span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
               Pras situações que não cabem numa skill fixa.
             </h2>
             <p className="mt-3 text-sm text-muted sm:text-base">
@@ -511,9 +513,9 @@ export function LandingPage() {
       {/* Como funciona                                                     */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-light">
-        <div className="mx-auto w-full max-w-5xl px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto w-full max-w-5xl px-5 py-20 sm:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
               Você está usando em menos de 5 minutos.
             </h2>
             <p className="mt-3 text-sm text-muted sm:text-base">
@@ -536,13 +538,13 @@ export function LandingPage() {
       {/* Bônus                                                             */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-light-alt">
-        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+        <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <span className="badge-solid-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
               <Icon name="gift" className="h-3.5 w-3.5" />
               Incluso no pacote
             </span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
               + 6 bônus, sem custo extra.
             </h2>
             <p className="mt-3 text-sm text-muted sm:text-base">
@@ -565,31 +567,41 @@ export function LandingPage() {
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Aulas + Comunidade                                                */}
+      {/* Aulas                                                             */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-light">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            <div className="card-surface-static rounded-2xl p-6 sm:p-8">
-              <span className="icon-chip flex h-11 w-11 rounded-xl">
-                <Icon name="book-open" className="h-5 w-5" />
-              </span>
-              <h3 className="mt-4 text-xl font-bold">Aulas passo a passo</h3>
-              <p className="mt-2 text-sm text-muted">
-                3 módulos com 7 aulas curtas: como funciona o app, como instalar sua primeira skill, boas práticas
-                conversando com a IA e como aproveitar a comunidade. Do zero até o dia a dia.
-              </p>
-            </div>
-            <div className="card-surface-static rounded-2xl p-6 sm:p-8">
-              <span className="icon-chip flex h-11 w-11 rounded-xl">
-                <Icon name="users" className="h-5 w-5" />
-              </span>
-              <h3 className="mt-4 text-xl font-bold">Comunidade de engenheiros</h3>
-              <p className="mt-2 text-sm text-muted">
-                Travou numa NBR, num BDI, num laudo pra ontem? Joga no feed fechado e troca ideia com quem também
-                usa IA no operacional — sem custo extra, incluso no pacote.
-              </p>
-            </div>
+        <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="badge-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+              <Icon name="book-open" className="h-3.5 w-3.5" />
+              {TOTAL_AULAS} aulas em {TOTAL_MODULOS} módulos
+            </span>
+            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Do zero ao dia a dia, em aulas curtas.
+            </h2>
+            <p className="mt-3 text-sm text-muted sm:text-base">
+              Passo a passo pra instalar sua primeira skill, usar a biblioteca de prompts e aproveitar a
+              comunidade — sem enrolação.
+            </p>
+          </div>
+          <AulasCarousel />
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* Comunidade                                                        */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="section-light-alt">
+        <div className="mx-auto w-full max-w-3xl px-5 py-20 sm:px-8">
+          <div className="card-surface-static flex flex-col items-center gap-4 rounded-2xl p-6 text-center sm:p-8">
+            <span className="icon-chip flex h-11 w-11 rounded-xl">
+              <Icon name="users" className="h-5 w-5" />
+            </span>
+            <h3 className="text-xl font-bold">Comunidade de engenheiros</h3>
+            <p className="max-w-md text-sm text-muted">
+              Travou numa NBR, num BDI, num laudo pra ontem? Joga no feed fechado e troca ideia com quem também
+              usa IA no operacional — sem custo extra, incluso no pacote.
+            </p>
           </div>
         </div>
       </section>
@@ -600,9 +612,9 @@ export function LandingPage() {
       {/* que fica escura, com o card em si sendo um painel translúcido).     */}
       {/* ---------------------------------------------------------------- */}
       <section id="oferta" className="section-dark">
-        <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto w-full max-w-3xl px-5 py-20 sm:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
               Tudo pronto por menos do que custa
               <span className="text-gradient-accent block">uma hora do seu tempo.</span>
             </h2>
@@ -660,26 +672,32 @@ export function LandingPage() {
       {/* igual à referência.                                                */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-light">
-        <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="card-surface-static flex flex-col items-center gap-4 rounded-2xl p-6 text-center sm:p-8">
-            <span className="icon-chip-solid flex h-14 w-14 rounded-full">
-              <Icon name="shield-check" className="h-6 w-6" />
+        <div className="mx-auto w-full max-w-3xl px-5 py-20 sm:px-8">
+          <div
+            className="card-surface-static mx-auto flex max-w-4xl flex-col items-center gap-8 rounded-3xl p-8 text-center sm:p-10 md:flex-row md:text-left"
+            style={{ borderColor: "rgba(255, 129, 1, 0.4)" }}
+          >
+            <span className="icon-chip-solid flex size-24 shrink-0 rounded-full">
+              <Icon name="shield-check" className="h-10 w-10" />
             </span>
-            <h3 className="text-xl font-bold">7 dias de garantia incondicional</h3>
-            <p className="max-w-md text-sm text-muted">
-              Testa nas suas tarefas reais. Se em 7 dias achar que não economizou tempo nenhum, manda um e-mail e
-              devolvemos <strong className="text-foreground">cada centavo</strong>. Sem pergunta, sem letra miúda.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 text-xs font-medium text-muted">
-              <span className="flex items-center gap-1.5">
-                <Icon name="check" className="h-3.5 w-3.5 text-success" /> Zero risco
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Icon name="check" className="h-3.5 w-3.5 text-success" /> 7 dias completos
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Icon name="check" className="h-3.5 w-3.5 text-success" /> Reembolso 100%
-              </span>
+            <div>
+              <h3 className="text-xl font-bold">7 dias de garantia incondicional</h3>
+              <p className="mt-2 text-sm text-muted md:max-w-md">
+                Testa nas suas tarefas reais. Se em 7 dias achar que não economizou tempo nenhum, manda um e-mail
+                e devolvemos <strong className="text-foreground">cada centavo</strong>. Sem pergunta, sem letra
+                miúda.
+              </p>
+              <div className="mt-4 flex flex-wrap justify-center gap-4 text-xs font-medium text-muted md:justify-start">
+                <span className="flex items-center gap-1.5">
+                  <Icon name="check" className="h-3.5 w-3.5 text-success" /> Zero risco
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Icon name="check" className="h-3.5 w-3.5 text-success" /> 7 dias completos
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Icon name="check" className="h-3.5 w-3.5 text-success" /> Reembolso 100%
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -690,13 +708,23 @@ export function LandingPage() {
       {/* referência.                                                        */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-light-alt">
-        <div className="mx-auto w-full max-w-3xl px-5 py-12 sm:px-8 sm:py-16">
-          <p className="text-center text-sm text-muted">
-            A gente não vende curso de engenharia. Você é o engenheiro — quem entende de cálculo, norma e
-            responsabilidade técnica é você. O que a gente entrega é a IA já configurada pra trabalhar do seu
-            lado, com o contexto técnico certo, pra você parar de perder tempo no operacional e focar no que só
-            você pode fazer: decidir, revisar e assinar.
-          </p>
+        <div className="mx-auto w-full max-w-3xl px-5 py-20 sm:px-8">
+          <h2 className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+            A gente não vende curso de engenharia.
+          </h2>
+          <div className="mt-6 space-y-4 text-lg text-muted">
+            <p>
+              Você é o engenheiro — quem entende de cálculo, norma e responsabilidade técnica é você.
+            </p>
+            <p>
+              O que a gente entrega é o assistente de IA que você já usa, já configurado com o contexto técnico
+              certo, pra você parar de perder tempo no operacional e voltar a focar no que só você pode fazer:
+              decidir, revisar e assinar.
+            </p>
+            <p className="font-semibold text-foreground">
+              A ferramenta acelera. A responsabilidade técnica continua sendo sua — como tem que ser.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -706,9 +734,9 @@ export function LandingPage() {
       {/* antes do FAQ.                                                       */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-light">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">O que muda no seu dia a dia.</h2>
+            <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">O que muda no seu dia a dia.</h2>
             <p className="mt-3 text-sm text-muted sm:text-base">
               Três exemplos de tarefa operacional que costuma tomar tempo — e como fica com a skill certa.
             </p>
@@ -740,8 +768,8 @@ export function LandingPage() {
       {/* FAQ                                                               */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-light-alt">
-        <div className="mx-auto w-full max-w-2xl px-5 sm:px-8">
-          <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">Perguntas frequentes</h2>
+        <div className="mx-auto w-full max-w-2xl px-5 py-20 sm:px-8">
+          <h2 className="text-center text-4xl font-semibold tracking-tight sm:text-5xl">Perguntas frequentes</h2>
           <div className="mt-8 space-y-3">
             {FAQ_ITEMS.map((item) => (
               <details key={item.question} className="card-surface-static group rounded-xl px-5 py-4">
@@ -763,8 +791,8 @@ export function LandingPage() {
       {/* CTA final                                                         */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-dark relative overflow-hidden">
-        <div className="relative mx-auto w-full max-w-2xl px-5 py-16 text-center sm:px-8 sm:py-20">
-          <h2 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
+        <div className="relative mx-auto w-full max-w-2xl px-5 py-20 text-center sm:px-8">
+          <h2 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
             Você pode continuar refazendo planilha na mão.
             <span className="text-gradient-accent block">Ou botar {TOTAL_SKILLS_BASICO} skills pra trabalhar hoje.</span>
           </h2>
