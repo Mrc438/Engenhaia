@@ -256,6 +256,27 @@ button:hover .icon-chip {
   color: transparent;
 }
 
+/* pill "eyebrow" de destaque — fundo em gradiente claro (mais concentrado
+   em laranja-clarinho à esquerda, esmaecendo pra quase-branco à direita) com
+   texto em negrito na cor do texto normal (não laranja), pra ter mais
+   contraste que o badge-accent padrão do app — igual à referência. Só usada
+   dentro da landing (ícone continua laranja via text-accent-2 no próprio
+   ícone). */
+.lp-pill {
+  color: var(--foreground);
+  font-weight: 700;
+  background: linear-gradient(90deg, rgba(255, 129, 1, 0.26), rgba(255, 177, 92, 0.05));
+  border: 1px solid rgba(255, 129, 1, 0.3);
+}
+
+/* barra de cabeçalho sólida dos cards de bônus (faixa "BÔNUS N") — mesma
+   cor do gradiente dourado dos botões, só que como bloco de destaque no
+   topo do card em vez de pill. */
+.lp-bonus-bar {
+  background-image: linear-gradient(135deg, var(--accent-2), var(--accent));
+  color: var(--accent-foreground);
+}
+
 /* textura de pontos bem sutil por trás do hero — mesmo espírito do grão do
    body, só que num padrão de grid pra dar profundidade sem chamar atenção */
 .bg-dot-grid {
