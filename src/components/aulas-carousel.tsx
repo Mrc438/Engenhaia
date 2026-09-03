@@ -1,65 +1,74 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Icon } from "@/components/icon";
 import { modulosSeed } from "@/data/aulas/modulos";
 
-// Carrossel de aulas pra landing page. Usa os módulos/aulas REAIS de
-// src/data/aulas/modulos.ts (nada inventado) — só não tem imagem ainda
-// (placeholder), a pedido: "vamos popular com as imagens depois".
+// Carrossel de aulas pra landing page — estrutura pedida pelo usuário com
+// print de referência: cards de imagem lado a lado (2 por vez), setas
+// flutuando sobre as bordas, sem bolinhas de contagem, e só uma legenda
+// (título + descrição) embaixo referente ao card em foco (o da esquerda).
 //
-// Formato pedido: 3 cards verticais (retrato) — 1 no mobile, 2 no tablet,
-// 3 no desktop —, avançando sozinho com uma animação de slide (classe
-// .lp-aula-card em globals.css, dispara de novo a cada troca de key) e
-// também com arraste manual (touch/mouse) além das setas e dots.
+// Só 3 cards no carrossel (a pedido: "são só 3 cards") — as 3 artes reais
+// que o usuário forneceu (public/aulas/*.webp, vindas de
+// "Downloads/EngenhaIA/Slides Landing Page"). Título de cada card vem do
+// próprio nome do arquivo de origem; descrição é texto original nosso
+// (não copiado de referência nenhuma) batendo com os números REAIS do
+// catálogo (51 skills — não "50"). TOTAL_AULAS/TOTAL_MODULOS (usados no
+// resto da página, ex. pill "8 aulas em 3 módulos") continuam vindo dos
+// módulos REAIS de src/data/aulas/modulos.ts — nada inventado ali.
 
 type CarouselItem = {
-  moduleOrder: number;
-  moduleTitle: string;
   title: string;
   description: string;
+  image: string;
 };
 
-const ITEMS: CarouselItem[] = modulosSeed
-  .slice()
-  .sort((a, b) => a.order - b.order)
-  .flatMap((modulo) =>
-    modulo.lessons
-      .slice()
-      .sort((a, b) => a.order - b.order)
-      .map((lesson) => ({
-        moduleOrder: modulo.order,
-        moduleTitle: modulo.title,
-        title: lesson.title,
-        description: lesson.description,
-      })),
-  );
+const ALL_LESSONS_COUNT = modulosSeed.reduce((sum, modulo) => sum + modulo.lessons.length, 0);
 
-export const TOTAL_AULAS = ITEMS.length;
+export const TOTAL_AULAS = ALL_LESSONS_COUNT;
 export const TOTAL_MODULOS = modulosSeed.length;
+
+const ITEMS: CarouselItem[] = [
+  {
+    title: "Comece Aqui",
+    description: "Como entrar na plataforma e dar os primeiros passos com o Claude.",
+    image: "/aulas/comece-aqui.webp",
+  },
+  {
+    title: "Instalando as Skills",
+    // 51 = soma real de SKILL_CATEGORIES em landing-page.tsx (TOTAL_SKILLS_BASICO) —
+    // mesma fonte da verdade, só não dá pra importar direto (landing-page.tsx já
+    // importa TOTAL_AULAS/TOTAL_MODULOS deste arquivo, criaria import circular).
+    description: "Passo a passo pra instalar e ativar as 51 skills da engenharia civil.",
+    image: "/aulas/instalando-skills.webp",
+  },
+  {
+    title: "Use o Claude como um Profissional",
+    description: "Boas práticas e atalhos pra integrar o Claude na sua rotina de verdade.",
+    image: "/aulas/use-profissional.webp",
+  },
+];
 
 const AUTO_ADVANCE_MS = 4500;
 const DRAG_THRESHOLD_PX = 40;
 
-function LessonCard({ item, className = "" }: { item: CarouselItem; className?: string }) {
+function LessonCard({ item, className = "", featured = false }: { item: CarouselItem; className?: string; featured?: boolean }) {
   return (
-    <div className={`lp-aula-card card-surface flex h-full flex-col overflow-hidden rounded-2xl ${className}`}>
-      {/* placeholder de imagem — populamos com prints reais das aulas depois */}
-      <div className="flex aspect-[3/4] items-center justify-center bg-surface-2">
-        <div className="flex flex-col items-center gap-2 text-muted">
-          <span className="icon-chip flex h-12 w-12 rounded-full sm:h-14 sm:w-14">
-            <Icon name="play" className="h-5 w-5" />
-          </span>
-          <span className="text-xs font-medium">Imagem da aula em breve</span>
-        </div>
-      </div>
-      <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <span className="text-xs font-semibold uppercase tracking-wide text-accent-2">
-          Módulo {item.moduleOrder} · {item.moduleTitle}
-        </span>
-        <h3 className="mt-2 text-base font-bold sm:text-lg">{item.title}</h3>
-        <p className="mt-1.5 text-sm text-muted">{item.description}</p>
-      </div>
+    <div
+      className={`lp-aula-card relative aspect-[2/3] overflow-hidden rounded-2xl ${
+        featured ? "ring-2 ring-accent/40" : ""
+      } ${className}`}
+      style={featured ? { boxShadow: "var(--shadow-glow)" } : undefined}
+    >
+      <Image
+        src={item.image}
+        alt={item.title}
+        fill
+        sizes="(min-width: 640px) 340px, 90vw"
+        className="object-cover"
+      />
     </div>
   );
 }
@@ -118,53 +127,44 @@ export function AulasCarousel() {
 
   const first = ITEMS[index];
   const second = ITEMS[(index + 1) % total];
-  const third = ITEMS[(index + 2) % total];
 
   return (
     <div
-      className="mx-auto mt-10 w-full max-w-4xl"
+      className="relative mx-auto mt-10 w-full max-w-2xl"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={handlePointerLeave}
     >
+      <button
+        type="button"
+        onClick={() => goTo(index - 1)}
+        aria-label="Aula anterior"
+        className="absolute left-0 top-[38%] z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-background text-foreground shadow-md transition-transform hover:scale-105"
+      >
+        <Icon name="chevron-left" className="h-4 w-4" />
+      </button>
+      <button
+        type="button"
+        onClick={() => goTo(index + 1)}
+        aria-label="Próxima aula"
+        className="absolute right-0 top-[38%] z-10 flex h-10 w-10 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-background text-foreground shadow-md transition-transform hover:scale-105"
+      >
+        <Icon name="chevron-right" className="h-4 w-4" />
+      </button>
+
       <div
-        className="grid cursor-grab touch-pan-y grid-cols-1 select-none gap-4 active:cursor-grabbing sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+        className="grid cursor-grab touch-pan-y grid-cols-1 select-none gap-4 active:cursor-grabbing sm:grid-cols-2 sm:gap-6"
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
       >
-        <LessonCard key={first.title} item={first} />
-        <LessonCard key={second.title} item={second} className="hidden sm:flex" />
-        <LessonCard key={third.title} item={third} className="hidden lg:flex" />
+        <LessonCard key={first.title} item={first} featured />
+        <LessonCard key={second.title} item={second} className="hidden sm:block" />
       </div>
 
-      <div className="mt-5 flex items-center justify-between">
-        <button
-          type="button"
-          onClick={() => goTo(index - 1)}
-          aria-label="Aula anterior"
-          className="icon-chip flex h-10 w-10 rounded-full transition-transform hover:scale-105"
-        >
-          <Icon name="chevron-left" className="h-4 w-4" />
-        </button>
-        <div className="flex items-center gap-1.5">
-          {ITEMS.map((lesson, i) => (
-            <span
-              key={lesson.title}
-              className={`h-1.5 rounded-full transition-all ${
-                i === index ? "w-5 bg-accent-2" : "w-1.5 bg-border"
-              }`}
-            />
-          ))}
-        </div>
-        <button
-          type="button"
-          onClick={() => goTo(index + 1)}
-          aria-label="Próxima aula"
-          className="icon-chip flex h-10 w-10 rounded-full transition-transform hover:scale-105"
-        >
-          <Icon name="chevron-right" className="h-4 w-4" />
-        </button>
+      <div className="mt-5">
+        <h3 className="text-lg font-bold">{first.title}</h3>
+        <p className="mt-1.5 text-sm text-muted">{first.description}</p>
       </div>
-      <p className="mt-3 text-center text-xs text-muted">Arraste para o lado para ver mais</p>
+      <p className="mt-3 text-xs text-muted">Arraste para o lado para ver mais</p>
     </div>
   );
 }
