@@ -277,6 +277,34 @@ button:hover .icon-chip {
   color: var(--accent-foreground);
 }
 
+/* "caixinha de produto" dos cards de bônus — mockup 3D só em CSS (nenhuma
+   imagem de terceiro): duas camadas por trás, levemente giradas e
+   desbotadas, simulando uma pilha de capas atrás da capa da frente. */
+.lp-bonus-box {
+  position: relative;
+}
+.lp-bonus-box::before,
+.lp-bonus-box::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: 0.85rem;
+  background-image: linear-gradient(135deg, var(--accent-2), var(--accent));
+}
+.lp-bonus-box::before {
+  transform: rotate(-18deg) translate(6px, 4px);
+  opacity: 0.35;
+}
+.lp-bonus-box::after {
+  transform: rotate(-9deg) translate(3px, 2px);
+  opacity: 0.65;
+}
+.lp-bonus-box-face {
+  position: relative;
+  z-index: 1;
+}
+
 /* deslize automático do carrossel de Aulas: a cada troca de card (a cada
    tick do auto-avanço) o item novo entra deslizando da direita, em vez de
    trocar de forma seca — o "arraste" é do próprio carrossel, não do usuário.

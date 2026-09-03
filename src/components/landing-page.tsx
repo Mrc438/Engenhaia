@@ -568,12 +568,18 @@ export function LandingPage() {
                   Bônus {i + 1}
                 </div>
                 <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:p-8">
-                  <span className="icon-chip flex h-16 w-16 shrink-0 rounded-2xl">
-                    <Icon name={item.icon} className="h-7 w-7" />
-                  </span>
+                  <div className="lp-bonus-box h-16 w-16 shrink-0 sm:h-[4.5rem] sm:w-[4.5rem]">
+                    <div className="lp-bonus-box-face icon-chip-solid flex h-full w-full items-center justify-center rounded-2xl">
+                      <Icon name={item.icon} className="h-7 w-7" />
+                    </div>
+                  </div>
                   <div>
                     <h3 className="text-lg font-bold">{item.title}</h3>
                     <p className="mt-1.5 text-sm text-muted">{item.description}</p>
+                    <p className="mt-2.5 text-sm">
+                      <span className="text-muted line-through">Valor R$97</span>{" "}
+                      <span className="font-bold text-success">GRÁTIS</span>
+                    </p>
                   </div>
                 </div>
               </div>
