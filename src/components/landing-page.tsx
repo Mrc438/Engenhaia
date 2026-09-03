@@ -1,6 +1,14 @@
 import Link from "next/link";
+import "@fontsource/space-grotesk/latin.css";
+import "@fontsource/inter/latin.css";
 import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icon";
+
+// Tipografia copiada da lander de referência: Space Grotesk nos títulos,
+// Inter no corpo — só se aplica dentro desta página (ver .font-lp-body em
+// globals.css), o resto do app (logado) continua no --font-sans padrão.
+// Vêm de @fontsource (arquivos de fonte auto-hospedados via npm) em vez de
+// next/font/google pra não depender de rede até o Google Fonts em build.
 
 // ============================================================================
 // Landing page institucional (pública, fora do login). Nível de acabamento
@@ -217,7 +225,7 @@ function PrimaryCta({
 
 export function LandingPage() {
   return (
-    <div className="flex min-h-screen flex-col pb-24 lg:pb-0">
+    <div className="font-lp-body flex min-h-screen flex-col pb-24 lg:pb-0">
       {/* ---------------------------------------------------------------- */}
       {/* Header                                                            */}
       {/* ---------------------------------------------------------------- */}
@@ -236,7 +244,7 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Hero                                                              */}
       {/* ---------------------------------------------------------------- */}
-      <section className="relative overflow-hidden">
+      <section className="section-dark relative overflow-hidden">
         <div
           className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.35]"
           style={{ maskImage: "radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%)" }}
@@ -321,7 +329,7 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Marquee                                                           */}
       {/* ---------------------------------------------------------------- */}
-      <div className="marquee-viewport overflow-hidden border-y border-border bg-surface py-4">
+      <div className="section-dark marquee-viewport overflow-hidden border-y border-border py-4">
         <div className="marquee-track gap-10 whitespace-nowrap text-sm font-semibold uppercase tracking-wide text-muted">
           {[...Array(2)].map((_, dup) => (
             <span key={dup} className="flex items-center gap-10 pr-10">
@@ -350,7 +358,7 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Problema + Solução (bloco claro — mesmo tratamento da referência)  */}
       {/* ---------------------------------------------------------------- */}
-      <section className="section-light">
+      <section className="section-light-alt">
         <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
           <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">
             Você não estudou anos de engenharia pra virar a noite formatando planilha.
@@ -379,8 +387,10 @@ export function LandingPage() {
             </p>
           </div>
         </div>
+      </section>
 
-        <div className="mx-auto w-full max-w-3xl px-5 pb-16 sm:px-8 sm:pb-20">
+      <section className="section-light">
+        <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
           <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">
             Foi exatamente isso que a gente resolveu.
           </h2>
@@ -405,7 +415,7 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Skills                                                            */}
       {/* ---------------------------------------------------------------- */}
-      <section className="section-light">
+      <section className="section-light-alt">
         <div className="mx-auto w-full max-w-6xl px-5 pb-16 sm:px-8 sm:pb-20">
           <div className="mx-auto max-w-2xl text-center">
             <span className="badge-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
@@ -463,7 +473,7 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Prompts                                                           */}
       {/* ---------------------------------------------------------------- */}
-      <section className="section-light border-t border-border py-16 sm:py-20">
+      <section className="section-light">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <span className="badge-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
@@ -525,7 +535,7 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Bônus                                                             */}
       {/* ---------------------------------------------------------------- */}
-      <section className="section-light border-t border-border py-16 sm:py-20">
+      <section className="section-light-alt">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <span className="badge-solid-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
@@ -585,43 +595,11 @@ export function LandingPage() {
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Resultados esperados (sem depoimento fabricado)                   */}
+      {/* Preço — bloco inteiro escuro (igual à referência: o card de oferta   */}
+      {/* não é um card claro flutuando num fundo claro, é a seção INTEIRA    */}
+      {/* que fica escura, com o card em si sendo um painel translúcido).     */}
       {/* ---------------------------------------------------------------- */}
-      <section className="section-light border-t border-border py-16 sm:py-20">
-        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">O que muda no seu dia a dia.</h2>
-            <p className="mt-3 text-sm text-muted sm:text-base">
-              Três exemplos de tarefa operacional que costuma tomar tempo — e como fica com a skill certa.
-            </p>
-          </div>
-          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3">
-            {OUTCOMES.map((o) => (
-              <div key={o.title} className="card-surface rounded-2xl p-6">
-                <span className="icon-chip flex h-10 w-10 rounded-lg">
-                  <Icon name={o.icon} className="h-4.5 w-4.5" />
-                </span>
-                <h3 className="mt-3 font-semibold">{o.title}</h3>
-                <div className="mt-3 space-y-2 text-sm">
-                  <p className="flex items-start gap-2 text-muted">
-                    <Icon name="x" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-danger" />
-                    {o.before}
-                  </p>
-                  <p className="flex items-start gap-2 text-foreground">
-                    <Icon name="check" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-success" />
-                    {o.after}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Preço                                                             */}
-      {/* ---------------------------------------------------------------- */}
-      <section id="oferta" className="section-light">
+      <section id="oferta" className="section-dark">
         <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
@@ -634,7 +612,7 @@ export function LandingPage() {
             </p>
           </div>
 
-          <div className="card-glow section-dark relative mt-10 overflow-hidden rounded-2xl p-6 sm:p-8">
+          <div className="card-glow backdrop-blur-sm relative mt-10 overflow-hidden rounded-2xl p-6 sm:p-8">
             <span className="badge-solid-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
               <Icon name="star" className="h-3.5 w-3.5" />
               Oferta única
@@ -674,9 +652,16 @@ export function LandingPage() {
 
             <PrimaryCta className="mt-6 w-full">Quero começar agora — {siteConfig.price}</PrimaryCta>
           </div>
+        </div>
+      </section>
 
-          {/* Garantia */}
-          <div className="card-surface-static mt-6 flex flex-col items-center gap-4 rounded-2xl p-6 text-center sm:p-8">
+      {/* ---------------------------------------------------------------- */}
+      {/* Garantia — seção clara própria, separada do bloco escuro de preço,  */}
+      {/* igual à referência.                                                */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="section-light">
+        <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
+          <div className="card-surface-static flex flex-col items-center gap-4 rounded-2xl p-6 text-center sm:p-8">
             <span className="icon-chip-solid flex h-14 w-14 rounded-full">
               <Icon name="shield-check" className="h-6 w-6" />
             </span>
@@ -697,8 +682,16 @@ export function LandingPage() {
               </span>
             </div>
           </div>
+        </div>
+      </section>
 
-          <p className="mt-8 text-center text-sm text-muted">
+      {/* ---------------------------------------------------------------- */}
+      {/* "A gente não vende curso" — faixa própria (bg alternado), igual à   */}
+      {/* referência.                                                        */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="section-light-alt">
+        <div className="mx-auto w-full max-w-3xl px-5 py-12 sm:px-8 sm:py-16">
+          <p className="text-center text-sm text-muted">
             A gente não vende curso de engenharia. Você é o engenheiro — quem entende de cálculo, norma e
             responsabilidade técnica é você. O que a gente entrega é a IA já configurada pra trabalhar do seu
             lado, com o contexto técnico certo, pra você parar de perder tempo no operacional e focar no que só
@@ -708,9 +701,45 @@ export function LandingPage() {
       </section>
 
       {/* ---------------------------------------------------------------- */}
+      {/* Resultados esperados (sem depoimento fabricado) — ocupa aqui a mesma */}
+      {/* posição que a referência dá aos depoimentos: depois da garantia,     */}
+      {/* antes do FAQ.                                                       */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="section-light">
+        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">O que muda no seu dia a dia.</h2>
+            <p className="mt-3 text-sm text-muted sm:text-base">
+              Três exemplos de tarefa operacional que costuma tomar tempo — e como fica com a skill certa.
+            </p>
+          </div>
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3">
+            {OUTCOMES.map((o) => (
+              <div key={o.title} className="card-surface rounded-2xl p-6">
+                <span className="icon-chip flex h-10 w-10 rounded-lg">
+                  <Icon name={o.icon} className="h-4.5 w-4.5" />
+                </span>
+                <h3 className="mt-3 font-semibold">{o.title}</h3>
+                <div className="mt-3 space-y-2 text-sm">
+                  <p className="flex items-start gap-2 text-muted">
+                    <Icon name="x" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-danger" />
+                    {o.before}
+                  </p>
+                  <p className="flex items-start gap-2 text-foreground">
+                    <Icon name="check" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-success" />
+                    {o.after}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------------- */}
       {/* FAQ                                                               */}
       {/* ---------------------------------------------------------------- */}
-      <section className="section-light border-t border-border py-16 sm:py-20">
+      <section className="section-light-alt">
         <div className="mx-auto w-full max-w-2xl px-5 sm:px-8">
           <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">Perguntas frequentes</h2>
           <div className="mt-8 space-y-3">
@@ -733,14 +762,7 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* CTA final                                                         */}
       {/* ---------------------------------------------------------------- */}
-      <section className="relative overflow-hidden border-t border-border">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-60"
-          style={{
-            backgroundImage:
-              "radial-gradient(900px 420px at 20% 0%, rgba(242,118,46,0.16), transparent 65%), radial-gradient(700px 380px at 90% 100%, rgba(242,118,46,0.10), transparent 60%)",
-          }}
-        />
+      <section className="section-dark relative overflow-hidden">
         <div className="relative mx-auto w-full max-w-2xl px-5 py-16 text-center sm:px-8 sm:py-20">
           <h2 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
             Você pode continuar refazendo planilha na mão.
@@ -759,24 +781,26 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Footer                                                            */}
       {/* ---------------------------------------------------------------- */}
-      <footer className="mx-auto w-full max-w-4xl px-5 py-10 text-center sm:px-8">
-        <p className="font-semibold">{siteConfig.brandTagline}</p>
-        <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-muted">
-          Este produto é um acesso digital imediato que disponibiliza skills e prompts prontos para uso com
-          assistentes de IA de terceiros (como ChatGPT, Claude e Gemini). Não possui vínculo institucional com
-          OpenAI, Anthropic, Google ou qualquer outro provedor de IA. Os resultados podem variar conforme o uso
-          e não substituem o julgamento profissional do engenheiro habilitado nem a responsabilidade técnica
-          (ART/RRT).
-        </p>
-        <p className="mt-4 text-xs text-muted">
-          Dúvidas?{" "}
-          <a href={`mailto:${siteConfig.supportEmail}`} className="text-accent-2 hover:underline">
-            {siteConfig.supportEmail}
-          </a>
-        </p>
-        <p className="mt-4 text-xs text-muted">
-          © {new Date().getFullYear()} {siteConfig.brandTagline} · Todos os direitos reservados.
-        </p>
+      <footer className="section-light">
+        <div className="mx-auto w-full max-w-4xl px-5 py-10 text-center sm:px-8">
+          <p className="font-semibold">{siteConfig.brandTagline}</p>
+          <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-muted">
+            Este produto é um acesso digital imediato que disponibiliza skills e prompts prontos para uso com
+            assistentes de IA de terceiros (como ChatGPT, Claude e Gemini). Não possui vínculo institucional com
+            OpenAI, Anthropic, Google ou qualquer outro provedor de IA. Os resultados podem variar conforme o uso
+            e não substituem o julgamento profissional do engenheiro habilitado nem a responsabilidade técnica
+            (ART/RRT).
+          </p>
+          <p className="mt-4 text-xs text-muted">
+            Dúvidas?{" "}
+            <a href={`mailto:${siteConfig.supportEmail}`} className="text-accent-2 hover:underline">
+              {siteConfig.supportEmail}
+            </a>
+          </p>
+          <p className="mt-4 text-xs text-muted">
+            © {new Date().getFullYear()} {siteConfig.brandTagline} · Todos os direitos reservados.
+          </p>
+        </div>
       </footer>
 
       {/* ---------------------------------------------------------------- */}

@@ -245,9 +245,12 @@ button:hover .icon-chip {
 /* de acabamento acima (card-surface, card-glow, btn-primary, badges...). */
 /* ---------------------------------------------------------------------- */
 
-/* texto com gradiente do acento — pra destacar a segunda linha de um H1/H2 */
+/* texto com gradiente do acento — pra destacar a segunda linha de um H1/H2.
+   Só usado na landing (ver landing-page.tsx) — por isso já sai direto no
+   gradiente dourado exato da lander de referência, em vez de var(--accent-2)/
+   var(--accent) (que são o laranja padrão do resto do app). */
 .text-gradient-accent {
-  background-image: linear-gradient(135deg, var(--accent-2), var(--accent));
+  background-image: linear-gradient(135deg, #ff9933, #ee560c);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -287,54 +290,107 @@ button:hover .icon-chip {
 /* barra de CTA fixa no rodapé, só em telas pequenas — some quando o footer
    final (com o mesmo CTA) já está visível, via :has() no elemento sentinela */
 .sticky-cta-bar {
+  /* dourado da referência (não o --accent/--accent-2 laranja padrão do
+     app), pro botão de dentro (.btn-primary) sair na cor certa também. */
+  --accent: #ee560c;
+  --accent-2: #ff8101;
   position: fixed;
   inset-inline: 0;
   bottom: 0;
   z-index: 40;
-  border-top: 1px solid var(--border);
-  background: rgba(12, 11, 15, 0.92);
+  /* preto quase puro + fio dourado no topo — igual à barra fixa da lander de
+     referência (bg-primary/95 + border-gold/30), não o cinza-arroxeado do
+     resto do app. */
+  border-top: 1px solid rgba(255, 129, 1, 0.3);
+  background: rgba(12, 4, 2, 0.95);
   backdrop-filter: blur(10px);
   box-shadow: 0 -12px 30px -12px rgba(0, 0, 0, 0.6);
 }
 
 /* ---------------------------------------------------------------------- */
-/* Blocos claros — na lander de referência (iaclaude.iaengenhariacivil.com.br)   */
-/* o corpo da página é majoritariamente CLARO, com só uns blocos escuros de   */
-/* destaque (hero, faixa de termos, card de oferta, CTA final) por cima. A    */
-/* engapp inteira é escura, mas a landing pode alternar — .section-light e    */
-/* .section-dark reescrevem as MESMAS variáveis que card-surface, badge-*,    */
-/* btn-primary etc. já usam, então qualquer componente existente vira claro   */
-/* (ou volta a ficar escuro, se aninhado dentro de um bloco claro) só por     */
-/* herdar a variável — sem precisar trocar a classe de cada componente.       */
+/* Cores da landing — copiadas 1:1 (valores exatos, extraídos via devtools)  */
+/* da lander de referência (iaclaude.iaengenhariacivil.com.br). O corpo dela  */
+/* alterna DUAS faixas claras quase iguais (--background e --secondary) e     */
+/* só fica escuro em 4 blocos pontuais (hero, faixa de termos, card de       */
+/* oferta, CTA final) com o mesmo gradiente radial escuro em todos.          */
+/*                                                                            */
+/* A engapp inteira é escura (é o tema do produto logado), mas a landing é    */
+/* pública e teve o tema clonado à parte: .section-light / .section-light-   */
+/* alt / .section-dark reescrevem as MESMAS variáveis que card-surface,      */
+/* badge-*, btn-primary etc. já usam (inclusive --accent/--accent-2, pro     */
+/* dourado da referência substituir o laranja padrão do app só aqui dentro), */
+/* então qualquer componente existente já nasce na cor certa, sem precisar   */
+/* trocar a classe de cada um. Fora da landing nada muda — só o app logado   */
+/* segue com a paleta laranja original. */
 /* ---------------------------------------------------------------------- */
 
-.section-light {
-  --background: #f7f2ea;
-  --surface: #ffffff;
-  --surface-2: #f1e9db;
-  --border: #e5dac8;
-  --border-strong: #d6c7ac;
-  --foreground: #201a11;
-  --muted: #6f6353;
-  /* --accent-2 também é usado como COR DE TEXTO (badge, preço, ícone) — o tom
-     claro (#ffb15c) foi calibrado pra contraste em fundo escuro; em fundo
-     claro precisa de uma versão mais escurecida pra continuar legível. */
-  --accent-2: #b8540f;
-  background: var(--background);
+.section-light,
+.section-light-alt,
+.section-dark {
+  --border-strong: #c9d4d7;
+  --accent: #ee560c;
+  --accent-2: #ff8101;
   color: var(--foreground);
 }
 
-/* pra "voltar" ao escuro dentro de um .section-light (ex.: o card da oferta,
-   que na referência continua escuro mesmo com o resto da seção claro) */
-.section-dark {
-  --background: #0c0b0f;
-  --surface: #16151a;
-  --surface-2: #1e1c24;
-  --border: #2a2833;
-  --border-strong: #3b3846;
-  --foreground: #f5f4f7;
-  --muted: #a5a1ad;
-  --accent-2: #ffb15c;
+/* tom claro principal (--background da referência: quase branco) */
+.section-light {
+  --background: #f8fbfb;
+  --surface: #ffffff;
+  --surface-2: #ecf3f5;
+  --border: #dfe6e8;
+  --foreground: #060e15;
+  --muted: #545f68;
   background: var(--background);
-  color: var(--foreground);
+}
+
+/* tom claro alternativo (--secondary da referência: branco puxando pro
+   verde-menta) — usado de seção em seção pra criar a mesma faixa/faixa da
+   referência, em vez de um bloco claro só, uniforme */
+.section-light-alt {
+  --background: #ebf4f2;
+  --surface: #ffffff;
+  --surface-2: #dde9e6;
+  --border: #dfe6e8;
+  --foreground: #060e15;
+  --muted: #545f68;
+  background: var(--background);
+}
+
+/* bloco escuro (hero, faixa de termos, card de oferta, CTA final) — mesmo
+   gradiente radial escuro (--gradient-hero) da referência nos 4 lugares.
+   --surface vira um branco bem translúcido (era um card sólido no tema
+   escuro do app) porque na referência o card de oferta, dentro do bloco
+   escuro, é um painel translúcido com blur — não um card opaco. */
+.section-dark {
+  --background: #0c0402;
+  --surface: rgba(248, 251, 251, 0.04);
+  --surface-2: rgba(248, 251, 251, 0.08);
+  --border: rgba(248, 251, 251, 0.15);
+  --border-strong: rgba(248, 251, 251, 0.25);
+  --foreground: #f8fbfb;
+  --muted: rgba(248, 251, 251, 0.7);
+  background: radial-gradient(1200px 600px at 20% 0%, rgba(127, 38, 0, 0.5), transparent 60%),
+    radial-gradient(900px 500px at 90% 20%, rgba(236, 90, 0, 0.3), transparent 60%),
+    linear-gradient(180deg, #180804 0%, #0c0402 100%);
+}
+
+/* tipografia da landing — Space Grotesk nos títulos e Inter no corpo do
+   texto, igual à referência (o resto do app segue no --font-sans padrão,
+   isso aqui só vale dentro do wrapper .font-lp-body da própria landing). */
+.font-lp-body {
+  font-family: "Inter", system-ui, sans-serif;
+}
+.font-lp-body h1,
+.font-lp-body h2,
+.font-lp-body h3 {
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* rodapé da landing: branco puro (--card da referência), não o quase-branco
+   --background — por isso pega var(--surface) em vez do background que
+   .section-light normalmente pinta */
+footer.section-light {
+  background: var(--surface);
 }
