@@ -296,3 +296,45 @@ button:hover .icon-chip {
   backdrop-filter: blur(10px);
   box-shadow: 0 -12px 30px -12px rgba(0, 0, 0, 0.6);
 }
+
+/* ---------------------------------------------------------------------- */
+/* Blocos claros — na lander de referência (iaclaude.iaengenhariacivil.com.br)   */
+/* o corpo da página é majoritariamente CLARO, com só uns blocos escuros de   */
+/* destaque (hero, faixa de termos, card de oferta, CTA final) por cima. A    */
+/* engapp inteira é escura, mas a landing pode alternar — .section-light e    */
+/* .section-dark reescrevem as MESMAS variáveis que card-surface, badge-*,    */
+/* btn-primary etc. já usam, então qualquer componente existente vira claro   */
+/* (ou volta a ficar escuro, se aninhado dentro de um bloco claro) só por     */
+/* herdar a variável — sem precisar trocar a classe de cada componente.       */
+/* ---------------------------------------------------------------------- */
+
+.section-light {
+  --background: #f7f2ea;
+  --surface: #ffffff;
+  --surface-2: #f1e9db;
+  --border: #e5dac8;
+  --border-strong: #d6c7ac;
+  --foreground: #201a11;
+  --muted: #6f6353;
+  /* --accent-2 também é usado como COR DE TEXTO (badge, preço, ícone) — o tom
+     claro (#ffb15c) foi calibrado pra contraste em fundo escuro; em fundo
+     claro precisa de uma versão mais escurecida pra continuar legível. */
+  --accent-2: #b8540f;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* pra "voltar" ao escuro dentro de um .section-light (ex.: o card da oferta,
+   que na referência continua escuro mesmo com o resto da seção claro) */
+.section-dark {
+  --background: #0c0b0f;
+  --surface: #16151a;
+  --surface-2: #1e1c24;
+  --border: #2a2833;
+  --border-strong: #3b3846;
+  --foreground: #f5f4f7;
+  --muted: #a5a1ad;
+  --accent-2: #ffb15c;
+  background: var(--background);
+  color: var(--foreground);
+}

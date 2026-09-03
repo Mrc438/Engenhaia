@@ -185,7 +185,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "E se não servir pra mim?",
-    answer: `${siteConfig.brandName} tem 7 dias de garantia incondicional. Não gostou, devolvemos 100% — sem perguntas.`,
+    answer: "Você tem 7 dias de garantia incondicional. Não gostou, devolvemos 100% — sem perguntas.",
   },
 ] as const;
 
@@ -226,7 +226,7 @@ export function LandingPage() {
           <span className="icon-chip flex h-9 w-9 rounded-lg">
             <Icon name="hard-hat" className="h-4.5 w-4.5" />
           </span>
-          <span className="font-semibold tracking-tight">{siteConfig.brandName}</span>
+          <span className="font-semibold tracking-tight">{siteConfig.brandTagline}</span>
         </div>
         <Link href="/auth" className="text-sm font-medium text-muted transition-colors hover:text-foreground">
           Já sou aluno
@@ -348,121 +348,122 @@ export function LandingPage() {
       </div>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Problema                                                          */}
+      {/* Problema + Solução (bloco claro — mesmo tratamento da referência)  */}
       {/* ---------------------------------------------------------------- */}
-      <section className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
-        <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">
-          Você não estudou anos de engenharia pra virar a noite formatando planilha.
-        </h2>
-        <div className="mt-8 space-y-4 text-sm text-muted sm:text-base">
-          <p>
-            Nem pra remontar o mesmo orçamento pela enésima vez, conferir composição na mão, redigir laudo do
-            zero ou correr atrás de cronograma quando o cliente cobra pra ontem.
-          </p>
-          <p className="font-semibold text-foreground">É exatamente aí que o seu dia inteiro desaparece.</p>
-          <p>
-            O trabalho que paga de verdade — decidir, calcular, assinar, fechar contrato — fica esperando
-            enquanto tarefa repetitiva engole a agenda. Tarefa que qualquer assistente de IA bem configurado
-            deveria estar resolvendo por você.
-          </p>
+      <section className="section-light">
+        <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
+          <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Você não estudou anos de engenharia pra virar a noite formatando planilha.
+          </h2>
+          <div className="mt-8 space-y-4 text-sm text-muted sm:text-base">
+            <p>
+              Nem pra remontar o mesmo orçamento pela enésima vez, conferir composição na mão, redigir laudo do
+              zero ou correr atrás de cronograma quando o cliente cobra pra ontem.
+            </p>
+            <p className="font-semibold text-foreground">É exatamente aí que o seu dia inteiro desaparece.</p>
+            <p>
+              O trabalho que paga de verdade — decidir, calcular, assinar, fechar contrato — fica esperando
+              enquanto tarefa repetitiva engole a agenda. Tarefa que qualquer assistente de IA bem configurado
+              deveria estar resolvendo por você.
+            </p>
+          </div>
+          <div className="card-surface-static mt-8 rounded-xl border-l-4 border-l-danger/60 p-5">
+            <p className="text-xs font-semibold uppercase tracking-wide text-danger">Aí você já tentou usar IA</p>
+            <p className="mt-2 text-sm text-muted">
+              Abriu o ChatGPT ou o Claude, pediu um orçamento e recebeu uma resposta genérica, sem base técnica,
+              que não serve pra nada real. Concluiu: <em>&quot;isso não funciona pra engenharia&quot;</em>.
+            </p>
+            <p className="mt-2 text-sm text-muted">
+              O problema nunca foi a IA — foi ela vir crua, sem contexto, sem norma, sem método. Configurar isso
+              direito sozinho levaria semanas testando prompt. Tempo que você não tem sobrando.
+            </p>
+          </div>
         </div>
-        <div className="card-surface-static mt-8 rounded-xl border-l-4 border-l-danger/60 p-5">
-          <p className="text-xs font-semibold uppercase tracking-wide text-danger">Aí você já tentou usar IA</p>
-          <p className="mt-2 text-sm text-muted">
-            Abriu o ChatGPT ou o Claude, pediu um orçamento e recebeu uma resposta genérica, sem base técnica,
-            que não serve pra nada real. Concluiu: <em>&quot;isso não funciona pra engenharia&quot;</em>.
-          </p>
-          <p className="mt-2 text-sm text-muted">
-            O problema nunca foi a IA — foi ela vir crua, sem contexto, sem norma, sem método. Configurar isso
-            direito sozinho levaria semanas testando prompt. Tempo que você não tem sobrando.
-          </p>
-        </div>
-      </section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Solução                                                           */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="mx-auto w-full max-w-3xl px-5 pb-16 sm:px-8 sm:pb-20">
-        <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">
-          Foi exatamente isso que a gente resolveu.
-        </h2>
-        <div className="card-surface-static mt-8 rounded-2xl p-6 sm:p-8">
-          <span className="badge-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-            <Icon name="sparkles" className="h-3.5 w-3.5" />
-            {siteConfig.brandName}
-          </span>
-          <p className="mt-4 text-sm text-muted sm:text-base">
-            É um conjunto de skills e prompts já configurados pra engenharia civil. Cada um vem com o contexto
-            técnico, o método e a estrutura de resposta certa embutidos — você não escreve prompt nenhum. Copia,
-            manda a tarefa do dia real, e recebe a resposta no formato que você já usaria.
-          </p>
-          <p className="mt-3 text-sm text-muted sm:text-base">
-            Não é mágica e não substitui você. Você continua sendo o responsável técnico. A IA faz o trabalho
-            pesado de rascunho, cálculo organizado e redação — você revisa, ajusta e assina.
-          </p>
+        <div className="mx-auto w-full max-w-3xl px-5 pb-16 sm:px-8 sm:pb-20">
+          <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Foi exatamente isso que a gente resolveu.
+          </h2>
+          <div className="card-surface-static mt-8 rounded-2xl p-6 sm:p-8">
+            <span className="badge-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+              <Icon name="sparkles" className="h-3.5 w-3.5" />
+              {siteConfig.brandTagline}
+            </span>
+            <p className="mt-4 text-sm text-muted sm:text-base">
+              É um conjunto de skills e prompts já configurados pra engenharia civil. Cada um vem com o contexto
+              técnico, o método e a estrutura de resposta certa embutidos — você não escreve prompt nenhum. Copia,
+              manda a tarefa do dia real, e recebe a resposta no formato que você já usaria.
+            </p>
+            <p className="mt-3 text-sm text-muted sm:text-base">
+              Não é mágica e não substitui você. Você continua sendo o responsável técnico. A IA faz o trabalho
+              pesado de rascunho, cálculo organizado e redação — você revisa, ajusta e assina.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* ---------------------------------------------------------------- */}
       {/* Skills                                                            */}
       {/* ---------------------------------------------------------------- */}
-      <section className="mx-auto w-full max-w-6xl px-5 pb-16 sm:px-8 sm:pb-20">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="badge-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-            <Icon name="sparkles" className="h-3.5 w-3.5" />
-            {TOTAL_SKILLS_BASICO} skills inclusas
-          </span>
-          <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">Cada etapa da obra, uma skill.</h2>
-          <p className="mt-3 text-sm text-muted sm:text-base">
-            Todas as {TOTAL_SKILLS_BASICO} skills vêm juntas no pacote, organizadas por categoria. Sem versão
-            capada, sem upsell escondido.
-          </p>
-        </div>
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
-          {SKILL_CATEGORIES.map((cat) => (
-            <div key={cat.name} className="card-surface rounded-2xl p-6">
-              <div className="flex items-start justify-between gap-3">
-                <span className="icon-chip flex h-11 w-11 rounded-xl">
-                  <Icon name={cat.icon} className="h-5 w-5" />
-                </span>
-                <span className="badge-outline rounded-full px-2.5 py-1 text-xs font-semibold">
-                  {cat.count} SKILLS
-                </span>
-              </div>
-              <h3 className="mt-4 font-semibold">{cat.name}</h3>
-              <p className="mt-1 text-sm text-muted">{cat.description}</p>
-              <ul className="mt-4 space-y-1.5 border-t border-border pt-4 text-sm text-muted">
-                {cat.examples.map((ex) => (
-                  <li key={ex} className="flex items-center gap-2">
-                    <Icon name="sparkles" className="h-3 w-3 shrink-0 text-accent-2" />
-                    {ex}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="card-surface-static mt-6 flex flex-col items-start gap-3 rounded-xl p-5 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3">
-            <span className="icon-chip flex h-10 w-10 shrink-0 rounded-lg">
-              <Icon name="star" className="h-4.5 w-4.5" />
+      <section className="section-light">
+        <div className="mx-auto w-full max-w-6xl px-5 pb-16 sm:px-8 sm:pb-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="badge-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+              <Icon name="sparkles" className="h-3.5 w-3.5" />
+              {TOTAL_SKILLS_BASICO} skills inclusas
             </span>
-            <p className="text-sm text-muted">
-              Quer ir além? O <strong className="text-foreground">Pack Especialista</strong> soma mais{" "}
-              {PACK_ESPECIALISTA_COUNT} skills (fundações, elétrica, PPCI, topografia e mais) — liberado dentro
-              da própria plataforma, quando você quiser.
+            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">Cada etapa da obra, uma skill.</h2>
+            <p className="mt-3 text-sm text-muted sm:text-base">
+              Todas as {TOTAL_SKILLS_BASICO} skills vêm juntas no pacote, organizadas por categoria. Sem versão
+              capada, sem upsell escondido.
             </p>
           </div>
-        </div>
-        <div className="mt-8 flex justify-center">
-          <PrimaryCta>Quero as {TOTAL_SKILLS_BASICO} skills</PrimaryCta>
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
+            {SKILL_CATEGORIES.map((cat) => (
+              <div key={cat.name} className="card-surface rounded-2xl p-6">
+                <div className="flex items-start justify-between gap-3">
+                  <span className="icon-chip flex h-11 w-11 rounded-xl">
+                    <Icon name={cat.icon} className="h-5 w-5" />
+                  </span>
+                  <span className="badge-outline rounded-full px-2.5 py-1 text-xs font-semibold">
+                    {cat.count} SKILLS
+                  </span>
+                </div>
+                <h3 className="mt-4 font-semibold">{cat.name}</h3>
+                <p className="mt-1 text-sm text-muted">{cat.description}</p>
+                <ul className="mt-4 space-y-1.5 border-t border-border pt-4 text-sm text-muted">
+                  {cat.examples.map((ex) => (
+                    <li key={ex} className="flex items-center gap-2">
+                      <Icon name="sparkles" className="h-3 w-3 shrink-0 text-accent-2" />
+                      {ex}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div className="card-surface-static mt-6 flex flex-col items-start gap-3 rounded-xl p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
+              <span className="icon-chip flex h-10 w-10 shrink-0 rounded-lg">
+                <Icon name="star" className="h-4.5 w-4.5" />
+              </span>
+              <p className="text-sm text-muted">
+                Quer ir além? O <strong className="text-foreground">Pack Especialista</strong> soma mais{" "}
+                {PACK_ESPECIALISTA_COUNT} skills (fundações, elétrica, PPCI, topografia e mais) — liberado dentro
+                da própria plataforma, quando você quiser.
+              </p>
+            </div>
+          </div>
+          <div className="mt-8 flex justify-center">
+            <PrimaryCta>Quero as {TOTAL_SKILLS_BASICO} skills</PrimaryCta>
+          </div>
         </div>
       </section>
 
       {/* ---------------------------------------------------------------- */}
       {/* Prompts                                                           */}
       {/* ---------------------------------------------------------------- */}
-      <section className="border-t border-border bg-surface/40 py-16 sm:py-20">
+      <section className="section-light border-t border-border py-16 sm:py-20">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <span className="badge-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
@@ -499,30 +500,32 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Como funciona                                                     */}
       {/* ---------------------------------------------------------------- */}
-      <section className="mx-auto w-full max-w-5xl px-5 py-16 sm:px-8 sm:py-20">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Você está usando em menos de 5 minutos.
-          </h2>
-          <p className="mt-3 text-sm text-muted sm:text-base">
-            Sem instalar nada no computador, sem código. Se você sabe copiar e colar, você consegue.
-          </p>
-        </div>
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3">
-          {HOW_IT_WORKS.map((step) => (
-            <div key={step.step} className="card-surface-static rounded-2xl p-6">
-              <span className="icon-chip-solid flex h-10 w-10 rounded-full text-sm font-bold">{step.step}</span>
-              <h3 className="mt-4 font-semibold">{step.title}</h3>
-              <p className="mt-1.5 text-sm text-muted">{step.description}</p>
-            </div>
-          ))}
+      <section className="section-light">
+        <div className="mx-auto w-full max-w-5xl px-5 py-16 sm:px-8 sm:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+              Você está usando em menos de 5 minutos.
+            </h2>
+            <p className="mt-3 text-sm text-muted sm:text-base">
+              Sem instalar nada no computador, sem código. Se você sabe copiar e colar, você consegue.
+            </p>
+          </div>
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3">
+            {HOW_IT_WORKS.map((step) => (
+              <div key={step.step} className="card-surface-static rounded-2xl p-6">
+                <span className="icon-chip-solid flex h-10 w-10 rounded-full text-sm font-bold">{step.step}</span>
+                <h3 className="mt-4 font-semibold">{step.title}</h3>
+                <p className="mt-1.5 text-sm text-muted">{step.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ---------------------------------------------------------------- */}
       {/* Bônus                                                             */}
       {/* ---------------------------------------------------------------- */}
-      <section className="border-t border-border bg-surface/40 py-16 sm:py-20">
+      <section className="section-light border-t border-border py-16 sm:py-20">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <span className="badge-solid-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
@@ -554,27 +557,29 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Aulas + Comunidade                                                */}
       {/* ---------------------------------------------------------------- */}
-      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-          <div className="card-surface-static rounded-2xl p-6 sm:p-8">
-            <span className="icon-chip flex h-11 w-11 rounded-xl">
-              <Icon name="book-open" className="h-5 w-5" />
-            </span>
-            <h3 className="mt-4 text-xl font-bold">Aulas passo a passo</h3>
-            <p className="mt-2 text-sm text-muted">
-              3 módulos com 7 aulas curtas: como funciona o app, como instalar sua primeira skill, boas práticas
-              conversando com a IA e como aproveitar a comunidade. Do zero até o dia a dia.
-            </p>
-          </div>
-          <div className="card-surface-static rounded-2xl p-6 sm:p-8">
-            <span className="icon-chip flex h-11 w-11 rounded-xl">
-              <Icon name="users" className="h-5 w-5" />
-            </span>
-            <h3 className="mt-4 text-xl font-bold">Comunidade de engenheiros</h3>
-            <p className="mt-2 text-sm text-muted">
-              Travou numa NBR, num BDI, num laudo pra ontem? Joga no feed fechado e troca ideia com quem também
-              usa IA no operacional — sem custo extra, incluso no pacote.
-            </p>
+      <section className="section-light">
+        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+            <div className="card-surface-static rounded-2xl p-6 sm:p-8">
+              <span className="icon-chip flex h-11 w-11 rounded-xl">
+                <Icon name="book-open" className="h-5 w-5" />
+              </span>
+              <h3 className="mt-4 text-xl font-bold">Aulas passo a passo</h3>
+              <p className="mt-2 text-sm text-muted">
+                3 módulos com 7 aulas curtas: como funciona o app, como instalar sua primeira skill, boas práticas
+                conversando com a IA e como aproveitar a comunidade. Do zero até o dia a dia.
+              </p>
+            </div>
+            <div className="card-surface-static rounded-2xl p-6 sm:p-8">
+              <span className="icon-chip flex h-11 w-11 rounded-xl">
+                <Icon name="users" className="h-5 w-5" />
+              </span>
+              <h3 className="mt-4 text-xl font-bold">Comunidade de engenheiros</h3>
+              <p className="mt-2 text-sm text-muted">
+                Travou numa NBR, num BDI, num laudo pra ontem? Joga no feed fechado e troca ideia com quem também
+                usa IA no operacional — sem custo extra, incluso no pacote.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -582,7 +587,7 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Resultados esperados (sem depoimento fabricado)                   */}
       {/* ---------------------------------------------------------------- */}
-      <section className="border-t border-border bg-surface/40 py-16 sm:py-20">
+      <section className="section-light border-t border-border py-16 sm:py-20">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">O que muda no seu dia a dia.</h2>
@@ -616,94 +621,96 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Preço                                                             */}
       {/* ---------------------------------------------------------------- */}
-      <section id="oferta" className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
-        <div className="text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Tudo pronto por menos do que custa
-            <span className="text-gradient-accent block">uma hora do seu tempo.</span>
-          </h2>
-          <p className="mt-3 text-sm text-muted sm:text-base">
-            {TOTAL_SKILLS_BASICO} skills + biblioteca com {TOTAL_PROMPTS} prompts + aulas + comunidade. Um
-            investimento só, acesso vitalício.
-          </p>
-        </div>
-
-        <div className="card-glow relative mt-10 overflow-hidden rounded-2xl p-6 sm:p-8">
-          <span className="badge-solid-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-            <Icon name="star" className="h-3.5 w-3.5" />
-            Oferta única
-          </span>
-          <h3 className="mt-4 text-2xl font-bold">{siteConfig.brandName}</h3>
-          <p className="mt-1 text-sm text-muted">
-            {siteConfig.productClaim}
-          </p>
-
-          <div className="mt-6 flex items-baseline gap-2">
-            <span className="text-lg font-semibold text-muted">R$</span>
-            <span className="text-5xl font-extrabold text-accent-2">
-              {siteConfig.price.replace("R$", "").trim()}
-            </span>
+      <section id="oferta" className="section-light">
+        <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
+          <div className="text-center">
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+              Tudo pronto por menos do que custa
+              <span className="text-gradient-accent block">uma hora do seu tempo.</span>
+            </h2>
+            <p className="mt-3 text-sm text-muted sm:text-base">
+              {TOTAL_SKILLS_BASICO} skills + biblioteca com {TOTAL_PROMPTS} prompts + aulas + comunidade. Um
+              investimento só, acesso vitalício.
+            </p>
           </div>
-          <p className="text-sm text-muted">pagamento único · acesso vitalício</p>
 
-          <ul className="mt-6 space-y-3 text-sm">
-            {[
-              `As ${TOTAL_SKILLS_BASICO} skills completas`,
-              `Biblioteca com ${TOTAL_PROMPTS} prompts avançados`,
-              "Guia de instalação passo a passo",
-              "Aulas: como usar a plataforma na prática",
-              "Comunidade de engenheiros usando IA no operacional",
-              "6 bônus inclusos (planilhas, checklist, modelos e mais)",
-            ].map((item) => (
-              <li key={item} className="flex items-center gap-3">
-                <CheckIcon />
-                {item}
-              </li>
-            ))}
-          </ul>
-
-          <p className="mt-5 text-xs text-muted">
-            Se paga na primeira tarefa que você não refaz do zero à mão.
-          </p>
-
-          <PrimaryCta className="mt-6 w-full">Quero começar agora — {siteConfig.price}</PrimaryCta>
-        </div>
-
-        {/* Garantia */}
-        <div className="card-surface-static mt-6 flex flex-col items-center gap-4 rounded-2xl p-6 text-center sm:p-8">
-          <span className="icon-chip-solid flex h-14 w-14 rounded-full">
-            <Icon name="shield-check" className="h-6 w-6" />
-          </span>
-          <h3 className="text-xl font-bold">7 dias de garantia incondicional</h3>
-          <p className="max-w-md text-sm text-muted">
-            Testa nas suas tarefas reais. Se em 7 dias achar que não economizou tempo nenhum, manda um e-mail e
-            devolvemos <strong className="text-foreground">cada centavo</strong>. Sem pergunta, sem letra miúda.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 text-xs font-medium text-muted">
-            <span className="flex items-center gap-1.5">
-              <Icon name="check" className="h-3.5 w-3.5 text-success" /> Zero risco
+          <div className="card-glow section-dark relative mt-10 overflow-hidden rounded-2xl p-6 sm:p-8">
+            <span className="badge-solid-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+              <Icon name="star" className="h-3.5 w-3.5" />
+              Oferta única
             </span>
-            <span className="flex items-center gap-1.5">
-              <Icon name="check" className="h-3.5 w-3.5 text-success" /> 7 dias completos
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Icon name="check" className="h-3.5 w-3.5 text-success" /> Reembolso 100%
-            </span>
+            <h3 className="mt-4 text-2xl font-bold">{siteConfig.brandTagline}</h3>
+            <p className="mt-1 text-sm text-muted">
+              {siteConfig.productClaim}
+            </p>
+
+            <div className="mt-6 flex items-baseline gap-2">
+              <span className="text-lg font-semibold text-muted">R$</span>
+              <span className="text-5xl font-extrabold text-accent-2">
+                {siteConfig.price.replace("R$", "").trim()}
+              </span>
+            </div>
+            <p className="text-sm text-muted">pagamento único · acesso vitalício</p>
+
+            <ul className="mt-6 space-y-3 text-sm">
+              {[
+                `As ${TOTAL_SKILLS_BASICO} skills completas`,
+                `Biblioteca com ${TOTAL_PROMPTS} prompts avançados`,
+                "Guia de instalação passo a passo",
+                "Aulas: como usar a plataforma na prática",
+                "Comunidade de engenheiros usando IA no operacional",
+                "6 bônus inclusos (planilhas, checklist, modelos e mais)",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3">
+                  <CheckIcon />
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-5 text-xs text-muted">
+              Se paga na primeira tarefa que você não refaz do zero à mão.
+            </p>
+
+            <PrimaryCta className="mt-6 w-full">Quero começar agora — {siteConfig.price}</PrimaryCta>
           </div>
-        </div>
 
-        <p className="mt-8 text-center text-sm text-muted">
-          A gente não vende curso de engenharia. Você é o engenheiro — quem entende de cálculo, norma e
-          responsabilidade técnica é você. O que a gente entrega é a IA já configurada pra trabalhar do seu
-          lado, com o contexto técnico certo, pra você parar de perder tempo no operacional e focar no que só
-          você pode fazer: decidir, revisar e assinar.
-        </p>
+          {/* Garantia */}
+          <div className="card-surface-static mt-6 flex flex-col items-center gap-4 rounded-2xl p-6 text-center sm:p-8">
+            <span className="icon-chip-solid flex h-14 w-14 rounded-full">
+              <Icon name="shield-check" className="h-6 w-6" />
+            </span>
+            <h3 className="text-xl font-bold">7 dias de garantia incondicional</h3>
+            <p className="max-w-md text-sm text-muted">
+              Testa nas suas tarefas reais. Se em 7 dias achar que não economizou tempo nenhum, manda um e-mail e
+              devolvemos <strong className="text-foreground">cada centavo</strong>. Sem pergunta, sem letra miúda.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-xs font-medium text-muted">
+              <span className="flex items-center gap-1.5">
+                <Icon name="check" className="h-3.5 w-3.5 text-success" /> Zero risco
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Icon name="check" className="h-3.5 w-3.5 text-success" /> 7 dias completos
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Icon name="check" className="h-3.5 w-3.5 text-success" /> Reembolso 100%
+              </span>
+            </div>
+          </div>
+
+          <p className="mt-8 text-center text-sm text-muted">
+            A gente não vende curso de engenharia. Você é o engenheiro — quem entende de cálculo, norma e
+            responsabilidade técnica é você. O que a gente entrega é a IA já configurada pra trabalhar do seu
+            lado, com o contexto técnico certo, pra você parar de perder tempo no operacional e focar no que só
+            você pode fazer: decidir, revisar e assinar.
+          </p>
+        </div>
       </section>
 
       {/* ---------------------------------------------------------------- */}
       {/* FAQ                                                               */}
       {/* ---------------------------------------------------------------- */}
-      <section className="border-t border-border py-16 sm:py-20">
+      <section className="section-light border-t border-border py-16 sm:py-20">
         <div className="mx-auto w-full max-w-2xl px-5 sm:px-8">
           <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">Perguntas frequentes</h2>
           <div className="mt-8 space-y-3">
@@ -753,7 +760,7 @@ export function LandingPage() {
       {/* Footer                                                            */}
       {/* ---------------------------------------------------------------- */}
       <footer className="mx-auto w-full max-w-4xl px-5 py-10 text-center sm:px-8">
-        <p className="font-semibold">{siteConfig.brandName}</p>
+        <p className="font-semibold">{siteConfig.brandTagline}</p>
         <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-muted">
           Este produto é um acesso digital imediato que disponibiliza skills e prompts prontos para uso com
           assistentes de IA de terceiros (como ChatGPT, Claude e Gemini). Não possui vínculo institucional com
@@ -768,7 +775,7 @@ export function LandingPage() {
           </a>
         </p>
         <p className="mt-4 text-xs text-muted">
-          © {new Date().getFullYear()} {siteConfig.brandName} · Todos os direitos reservados.
+          © {new Date().getFullYear()} {siteConfig.brandTagline} · Todos os direitos reservados.
         </p>
       </footer>
 

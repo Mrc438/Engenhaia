@@ -7,7 +7,7 @@ import { LandingPage } from "@/components/landing-page";
 // subdomínio de marketing, cujo proxy (src/proxy.ts) reescreve a raiz "/"
 // pra esta rota, então quem visita o subdomínio nem vê "/landing" na URL.
 export const metadata: Metadata = {
-  title: `${siteConfig.brandName} — ${siteConfig.brandTagline}`,
+  title: siteConfig.brandTagline,
   description: siteConfig.productClaim,
 };
 
