@@ -279,14 +279,15 @@ button:hover .icon-chip {
 
 /* deslize automático do carrossel de Aulas: a cada troca de card (a cada
    tick do auto-avanço) o item novo entra deslizando da direita, em vez de
-   trocar de forma seca — o "arraste" é do próprio carrossel, não do usuário. */
+   trocar de forma seca — o "arraste" é do próprio carrossel, não do usuário.
+   Só a posição anima (sem opacity) — um fade combinado com a troca de
+   imagem (que recarrega do zero a cada troca de key) dava a impressão de
+   um "flash" branco no meio da transição. */
 @keyframes lp-slide-in {
   from {
-    opacity: 0;
     transform: translateX(28px);
   }
   to {
-    opacity: 1;
     transform: translateX(0);
   }
 }

@@ -6,9 +6,10 @@ import { Icon } from "@/components/icon";
 import { modulosSeed } from "@/data/aulas/modulos";
 
 // Carrossel de aulas pra landing page — estrutura pedida pelo usuário com
-// print de referência: cards de imagem lado a lado (2 por vez), setas
-// flutuando sobre as bordas, sem bolinhas de contagem, e só uma legenda
-// (título + descrição) embaixo referente ao card em foco (o da esquerda).
+// print de referência: cards de imagem lado a lado (2 por vez), legenda
+// (título + descrição) dentro do próprio card, abaixo da imagem, botão de
+// play que só aparece no hover, setas flutuando sobre as bordas, e sem
+// bolinhas de contagem.
 //
 // Só 3 cards no carrossel (a pedido: "são só 3 cards") — as 3 artes reais
 // que o usuário forneceu (public/aulas/*.webp, vindas de
@@ -57,18 +58,30 @@ const DRAG_THRESHOLD_PX = 40;
 function LessonCard({ item, className = "", featured = false }: { item: CarouselItem; className?: string; featured?: boolean }) {
   return (
     <div
-      className={`lp-aula-card relative aspect-[2/3] overflow-hidden rounded-2xl ${
+      className={`lp-aula-card card-surface group overflow-hidden rounded-2xl ${
         featured ? "ring-2 ring-accent/40" : ""
       } ${className}`}
       style={featured ? { boxShadow: "var(--shadow-glow)" } : undefined}
     >
-      <Image
-        src={item.image}
-        alt={item.title}
-        fill
-        sizes="(min-width: 640px) 340px, 90vw"
-        className="object-cover"
-      />
+      <div className="relative aspect-[2/3]">
+        <Image
+          src={item.image}
+          alt={item.title}
+          fill
+          sizes="(min-width: 640px) 340px, 90vw"
+          className="object-cover"
+        />
+        {/* botão de play só aparece no hover — a aula em si ainda não tem vídeo */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-opacity duration-200 group-hover:bg-black/20 group-hover:opacity-100">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full border-[3px] border-accent-2 bg-black/40 text-white backdrop-blur-sm">
+            <Icon name="play" className="h-5 w-5 translate-x-0.5" />
+          </span>
+        </div>
+      </div>
+      <div className="p-5 sm:p-6">
+        <h3 className="text-lg font-bold">{item.title}</h3>
+        <p className="mt-1.5 text-sm text-muted">{item.description}</p>
+      </div>
     </div>
   );
 }
@@ -160,11 +173,7 @@ export function AulasCarousel() {
         <LessonCard key={second.title} item={second} className="hidden sm:block" />
       </div>
 
-      <div className="mt-5">
-        <h3 className="text-lg font-bold">{first.title}</h3>
-        <p className="mt-1.5 text-sm text-muted">{first.description}</p>
-      </div>
-      <p className="mt-3 text-xs text-muted">Arraste para o lado para ver mais</p>
+      <p className="mt-3 text-center text-xs text-muted">Arraste para o lado para ver mais</p>
     </div>
   );
 }
