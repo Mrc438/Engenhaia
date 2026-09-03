@@ -9,7 +9,7 @@ import type { NextRequest } from "next/server";
 //
 // Pra trocar o subdomínio da campanha no futuro, só editar a lista abaixo —
 // não precisa mexer em mais nada nem redeployar a rota /landing em si.
-const LANDING_HOSTS = new Set(["iaclaude.engenhaia.com.br"]);
+const LANDING_HOSTS = new Set(["claude.engenhaia.com.br"]);
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
