@@ -115,6 +115,7 @@ async function main() {
       passwordHash,
       role: "admin",
       plan: "especialista", // conta de teste com tudo liberado, Pack Especialista incluso
+      hasProjetosPacote: true, // e também o pacote de projetos, pra testar a aba liberada
     })
     .onConflictDoNothing({ target: users.email })
     .returning();

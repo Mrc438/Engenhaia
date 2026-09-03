@@ -7,7 +7,11 @@ import { Icon } from "@/components/icon";
 import { SignOutButton } from "@/components/sign-out-button";
 import { NavLinkPendingDot } from "@/components/nav-link-status";
 
-export function Sidebar({ user }: { user: { name: string; email: string } }) {
+export function Sidebar({
+  user,
+}: {
+  user: { name: string; email: string; hasProjetosPacote: boolean };
+}) {
   const pathname = usePathname();
   const initials = user.name
     .split(" ")
@@ -15,6 +19,13 @@ export function Sidebar({ user }: { user: { name: string; email: string } }) {
     .slice(0, 2)
     .join("")
     .toUpperCase();
+
+  // Item com "requires" só aparece pra quem tem a entitlement correspondente
+  // (hoje só "projetosPacote" existe). Sem "requires", o item é público pra
+  // qualquer usuário logado.
+  const visibleNavItems = siteConfig.navItems.filter(
+    (item) => !("requires" in item) || (item.requires === "projetosPacote" && user.hasProjetosPacote)
+  );
 
   return (
     <aside className="hidden md:flex md:w-64 shrink-0 flex-col border-r border-border bg-surface">
@@ -29,7 +40,7 @@ export function Sidebar({ user }: { user: { name: string; email: string } }) {
       </div>
 
       <nav className="flex-1 space-y-1 px-3 py-4">
-        {siteConfig.navItems.map((item) => {
+        {visibleNavItems.map((item) => {
           const active = pathname === item.href || pathname?.startsWith(item.href + "/");
           return (
             <Link
@@ -65,13 +76,6 @@ export function Sidebar({ user }: { user: { name: string; email: string } }) {
             Abrir Claude
             <Icon name="external-link" className="ml-auto h-3.5 w-3.5 text-muted/70" />
           </a>
-          <div className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground/40">
-            <Icon name="folder-cog" className="h-4 w-4 text-muted/50" />
-            <span className="flex-1">Projetos AutoCAD</span>
-            <span className="badge-accent rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide">
-              Em breve
-            </span>
-          </div>
         </div>
       </nav>
 

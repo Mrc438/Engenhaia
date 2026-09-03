@@ -38,6 +38,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           email: user.email,
           image: user.image ?? undefined,
           plan: user.plan,
+          hasProjetosPacote: user.hasProjetosPacote,
         };
       },
     }),
@@ -47,17 +48,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         token.id = user.id;
         token.plan = (user as { plan?: string }).plan ?? "basico";
+        token.hasProjetosPacote = (user as { hasProjetosPacote?: boolean }).hasProjetosPacote ?? false;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
-        // plano vem do token (definido no login) — não consultamos o banco
-        // a cada navegação pra não deixar toda troca de página lenta. Se o
-        // Pack Especialista for liberado depois da compra, o usuário só
-        // precisa sair e entrar de novo pra ver refletido.
+        // plano/entitlements vêm do token (definidos no login) — não
+        // consultamos o banco a cada navegação pra não deixar toda troca de
+        // página lenta. Se o Pack Especialista ou o pacote de projetos for
+        // liberado depois da compra, o usuário só precisa sair e entrar de
+        // novo pra ver refletido.
         session.user.plan = (token.plan as string) ?? "basico";
+        session.user.hasProjetosPacote = (token.hasProjetosPacote as boolean) ?? false;
       }
       return session;
     },

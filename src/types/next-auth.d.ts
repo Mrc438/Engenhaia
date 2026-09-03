@@ -5,6 +5,7 @@ declare module "next-auth" {
     user: {
       id: string;
       plan: string;
+      hasProjetosPacote: boolean;
     } & DefaultSession["user"];
   }
 }

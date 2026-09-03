@@ -8,10 +8,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="flex min-h-screen flex-1">
-      <Sidebar user={{ name: user.name ?? "Você", email: user.email ?? "" }} />
+      <Sidebar
+        user={{ name: user.name ?? "Você", email: user.email ?? "", hasProjetosPacote: user.hasProjetosPacote }}
+      />
       <div className="flex min-w-0 flex-1 flex-col">
         <TopBanner />
-        <MobileNav />
+        <MobileNav hasProjetosPacote={user.hasProjetosPacote} />
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
     </div>

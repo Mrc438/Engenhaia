@@ -30,6 +30,7 @@ export const users = pgTable("users", {
   image: text("image"),
   role: text("role").notNull().default("member"), // "member" | "admin"
   plan: text("plan").notNull().default("basico"), // "basico" | "especialista" (Pack Especialista)
+  hasProjetosPacote: boolean("has_projetos_pacote").notNull().default(false), // compra separada, ainda liberada manualmente até o webhook da Payt existir (ver claude/webhook-payt-todo.md)
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

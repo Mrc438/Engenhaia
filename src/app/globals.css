@@ -239,3 +239,60 @@ button:hover .icon-chip {
     transform: translateY(0) scale(1);
   }
 }
+
+/* ---------------------------------------------------------------------- */
+/* Landing page — só o que a home institucional precisa além do sistema   */
+/* de acabamento acima (card-surface, card-glow, btn-primary, badges...). */
+/* ---------------------------------------------------------------------- */
+
+/* texto com gradiente do acento — pra destacar a segunda linha de um H1/H2 */
+.text-gradient-accent {
+  background-image: linear-gradient(135deg, var(--accent-2), var(--accent));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* textura de pontos bem sutil por trás do hero — mesmo espírito do grão do
+   body, só que num padrão de grid pra dar profundidade sem chamar atenção */
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(245, 244, 247, 0.15) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* faixa de termos passando (marquee) — usada logo abaixo do hero */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+.marquee-viewport:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* barra de CTA fixa no rodapé, só em telas pequenas — some quando o footer
+   final (com o mesmo CTA) já está visível, via :has() no elemento sentinela */
+.sticky-cta-bar {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 40;
+  border-top: 1px solid var(--border);
+  background: rgba(12, 11, 15, 0.92);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 -12px 30px -12px rgba(0, 0, 0, 0.6);
+}

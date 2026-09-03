@@ -6,12 +6,16 @@ import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icon";
 import { NavLinkPendingDot } from "@/components/nav-link-status";
 
-export function MobileNav() {
+export function MobileNav({ hasProjetosPacote }: { hasProjetosPacote: boolean }) {
   const pathname = usePathname();
+
+  const visibleNavItems = siteConfig.navItems.filter(
+    (item) => !("requires" in item) || (item.requires === "projetosPacote" && hasProjetosPacote)
+  );
 
   return (
     <nav className="flex md:hidden items-center gap-1 overflow-x-auto border-b border-border bg-surface px-2 py-2 scrollbar-thin">
-      {siteConfig.navItems.map((item) => {
+      {visibleNavItems.map((item) => {
         const active = pathname === item.href || pathname?.startsWith(item.href + "/");
         return (
           <Link
