@@ -52,7 +52,7 @@ const ITEMS: CarouselItem[] = [
   },
 ];
 
-const AUTO_ADVANCE_MS = 4500;
+const AUTO_ADVANCE_MS = 3000;
 const DRAG_THRESHOLD_PX = 40;
 
 function LessonCard({ item, className = "", featured = false }: { item: CarouselItem; className?: string; featured?: boolean }) {
