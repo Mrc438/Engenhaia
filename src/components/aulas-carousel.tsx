@@ -8,8 +8,10 @@ import { modulosSeed } from "@/data/aulas/modulos";
 // src/data/aulas/modulos.ts (nada inventado) — só não tem imagem ainda
 // (placeholder), a pedido: "vamos popular com as imagens depois".
 //
-// Formato pedido: cards verticais (retrato), dois por vez, avançando
-// sozinho — com pausa ao passar o mouse e setas/dots como alternativa manual.
+// Formato pedido: 3 cards verticais (retrato) — 1 no mobile, 2 no tablet,
+// 3 no desktop —, avançando sozinho com uma animação de slide (classe
+// .lp-aula-card em globals.css, dispara de novo a cada troca de key) e
+// também com arraste manual (touch/mouse) além das setas e dots.
 
 type CarouselItem = {
   moduleOrder: number;
@@ -37,10 +39,11 @@ export const TOTAL_AULAS = ITEMS.length;
 export const TOTAL_MODULOS = modulosSeed.length;
 
 const AUTO_ADVANCE_MS = 4500;
+const DRAG_THRESHOLD_PX = 40;
 
-function LessonCard({ item }: { item: CarouselItem }) {
+function LessonCard({ item, className = "" }: { item: CarouselItem; className?: string }) {
   return (
-    <div className="card-surface flex h-full flex-col overflow-hidden rounded-2xl">
+    <div className={`lp-aula-card card-surface flex h-full flex-col overflow-hidden rounded-2xl ${className}`}>
       {/* placeholder de imagem — populamos com prints reais das aulas depois */}
       <div className="flex aspect-[3/4] items-center justify-center bg-surface-2">
         <div className="flex flex-col items-center gap-2 text-muted">
@@ -66,6 +69,8 @@ export function AulasCarousel() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const dragStartX = useRef<number | null>(null);
+  const dragging = useRef(false);
 
   function goTo(next: number) {
     setIndex(((next % total) + total) % total);
@@ -81,18 +86,54 @@ export function AulasCarousel() {
     };
   }, [paused, total]);
 
+  function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    dragStartX.current = e.clientX;
+    dragging.current = true;
+    setPaused(true);
+  }
+
+  function handlePointerUp(e: React.PointerEvent<HTMLDivElement>) {
+    if (!dragging.current || dragStartX.current === null) {
+      setPaused(false);
+      return;
+    }
+    const delta = e.clientX - dragStartX.current;
+    if (delta > DRAG_THRESHOLD_PX) {
+      goTo(index - 1);
+    } else if (delta < -DRAG_THRESHOLD_PX) {
+      goTo(index + 1);
+    }
+    dragStartX.current = null;
+    dragging.current = false;
+    setPaused(false);
+  }
+
+  function handlePointerLeave() {
+    if (dragging.current) {
+      dragStartX.current = null;
+      dragging.current = false;
+    }
+    setPaused(false);
+  }
+
   const first = ITEMS[index];
   const second = ITEMS[(index + 1) % total];
+  const third = ITEMS[(index + 2) % total];
 
   return (
     <div
-      className="mx-auto mt-10 w-full max-w-3xl"
+      className="mx-auto mt-10 w-full max-w-4xl"
       onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      onMouseLeave={handlePointerLeave}
     >
-      <div className="grid grid-cols-2 gap-4 sm:gap-6">
+      <div
+        className="grid cursor-grab touch-pan-y grid-cols-1 select-none gap-4 active:cursor-grabbing sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
+      >
         <LessonCard key={first.title} item={first} />
-        <LessonCard key={second.title} item={second} />
+        <LessonCard key={second.title} item={second} className="hidden sm:flex" />
+        <LessonCard key={third.title} item={third} className="hidden lg:flex" />
       </div>
 
       <div className="mt-5 flex items-center justify-between">
@@ -123,9 +164,7 @@ export function AulasCarousel() {
           <Icon name="chevron-right" className="h-4 w-4" />
         </button>
       </div>
-      <p className="mt-3 text-center text-xs text-muted">
-        Aulas {index + 1}-{((index + 1) % total) + 1} de {total}
-      </p>
+      <p className="mt-3 text-center text-xs text-muted">Arraste para o lado para ver mais</p>
     </div>
   );
 }

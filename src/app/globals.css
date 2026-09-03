@@ -277,6 +277,28 @@ button:hover .icon-chip {
   color: var(--accent-foreground);
 }
 
+/* deslize automático do carrossel de Aulas: a cada troca de card (a cada
+   tick do auto-avanço) o item novo entra deslizando da direita, em vez de
+   trocar de forma seca — o "arraste" é do próprio carrossel, não do usuário. */
+@keyframes lp-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.lp-aula-card {
+  animation: lp-slide-in 0.6s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-aula-card {
+    animation: none;
+  }
+}
+
 /* textura de pontos bem sutil por trás do hero — mesmo espírito do grão do
    body, só que num padrão de grid pra dar profundidade sem chamar atenção */
 .bg-dot-grid {
