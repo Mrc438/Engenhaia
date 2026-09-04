@@ -166,6 +166,32 @@ const OUTCOMES = [
   },
 ] as const;
 
+// PLACEHOLDER — nomes, funções e falas fictícios só pra preencher o layout.
+// Depoimento fabricado apresentado como se fosse real é propaganda enganosa
+// (CDC) e viola política de anúncios (Meta/Google). TROCAR por depoimentos
+// reais de clientes (com autorização deles) antes de publicar a página.
+const REVIEW_ITEMS = [
+  {
+    name: "Ricardo Almeida",
+    role: "Engenheiro Civil",
+    quote:
+      "Montei um orçamento que levava meio dia em 20 minutos. A skill já entrega organizado — eu só revisei.",
+    tag: "Meio dia → 20 min",
+  },
+  {
+    name: "Fernanda Torres",
+    role: "Engenheira Civil",
+    quote: "O memorial saiu redondo, com a linguagem técnica que eu uso. Só revisei, imprimi e assinei.",
+    tag: "Memorial pronto pra assinar",
+  },
+  {
+    name: "Marcelo Souza",
+    role: "Engenheiro Civil",
+    quote: "Mandei a skill reescrever uma proposta minha e o cliente fechou. Direto, sem enrolação.",
+    tag: "Proposta que fechou",
+  },
+] as const;
+
 const FAQ_ITEMS = [
   {
     question: "Preciso saber usar IA?",
@@ -207,9 +233,11 @@ function CheckIcon() {
 function PrimaryCta({
   children,
   className = "",
+  showArrow = true,
 }: {
   children: React.ReactNode;
   className?: string;
+  showArrow?: boolean;
 }) {
   return (
     <CheckoutLink
@@ -217,7 +245,7 @@ function PrimaryCta({
       className={`btn-primary inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold uppercase tracking-wide sm:px-8 sm:text-base ${className}`}
     >
       {children}
-      <Icon name="arrow-right" className="h-4 w-4" />
+      {showArrow ? <Icon name="arrow-right" className="h-4 w-4" /> : null}
     </CheckoutLink>
   );
 }
@@ -664,21 +692,21 @@ export function LandingPage() {
               />
             </div>
 
-            <div className="mt-6 flex items-center gap-2">
+            <div className="mt-6 flex items-center justify-center gap-2 text-center">
               <span className="text-sm text-muted line-through">{siteConfig.originalPrice}</span>
               <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs font-bold text-success">
                 -{DISCOUNT_PERCENT}%
               </span>
             </div>
-            <div className="mt-1 flex items-baseline gap-2">
+            <div className="mt-1 flex items-baseline justify-center gap-2">
               <span className="text-lg font-semibold text-muted">R$</span>
               <span className="text-5xl font-extrabold text-accent-2">
                 {siteConfig.price.replace("R$", "").trim()}
               </span>
             </div>
-            <p className="text-sm text-muted">pagamento único · acesso vitalício</p>
+            <p className="text-center text-sm text-muted">pagamento único · acesso vitalício</p>
 
-            <ul className="mt-6 space-y-3 text-sm">
+            <ul className="mx-auto mt-6 w-fit space-y-3 text-left text-sm">
               {[
                 `As ${TOTAL_SKILLS_BASICO} skills completas`,
                 `Biblioteca com ${TOTAL_PROMPTS} prompts avançados`,
@@ -694,11 +722,13 @@ export function LandingPage() {
               ))}
             </ul>
 
-            <p className="mt-5 text-xs text-muted">
+            <p className="mt-5 text-center text-xs text-muted">
               Se paga na primeira tarefa que você não refaz do zero à mão.
             </p>
 
-            <PrimaryCta className="mt-6 w-full">Quero começar agora — {siteConfig.price}</PrimaryCta>
+            <PrimaryCta className="mt-6 w-full" showArrow={false}>
+              Quero começar agora — {siteConfig.price}
+            </PrimaryCta>
           </div>
         </div>
       </section>
@@ -801,6 +831,34 @@ export function LandingPage() {
       </section>
 
       {/* ---------------------------------------------------------------- */}
+      {/* Depoimentos — ver aviso de PLACEHOLDER acima de REVIEW_ITEMS.      */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="section-light">
+        <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8">
+          <h2 className="text-center text-4xl font-semibold tracking-tight sm:text-5xl">O que estão dizendo</h2>
+          <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
+            {REVIEW_ITEMS.map((review) => (
+              <div key={review.name} className="card-surface-static rounded-2xl p-6">
+                <div className="flex gap-0.5 text-accent-2">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Icon key={i} name="star" className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <p className="mt-4 text-sm leading-relaxed text-foreground">&ldquo;{review.quote}&rdquo;</p>
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+                  <div>
+                    <p className="text-sm font-semibold">{review.name}</p>
+                    <p className="text-xs text-muted">{review.role}</p>
+                  </div>
+                  <span className="badge-outline rounded-full px-3 py-1 text-xs font-medium">{review.tag}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------------- */}
       {/* FAQ                                                               */}
       {/* ---------------------------------------------------------------- */}
       <section className="section-light-alt">
@@ -808,7 +866,11 @@ export function LandingPage() {
           <h2 className="text-center text-4xl font-semibold tracking-tight sm:text-5xl">Perguntas frequentes</h2>
           <div className="mt-8 space-y-3">
             {FAQ_ITEMS.map((item) => (
-              <details key={item.question} className="card-surface-static group rounded-xl px-5 py-4">
+              <details
+                key={item.question}
+                className="card-surface-static group rounded-xl px-5 py-4"
+                style={{ boxShadow: "none" }}
+              >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold marker:content-none">
                   {item.question}
                   <Icon
@@ -829,7 +891,7 @@ export function LandingPage() {
       <section className="section-dark relative overflow-hidden">
         <div className="relative mx-auto w-full max-w-2xl px-5 py-20 text-center sm:px-8">
           <h2 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            Você pode continuar refazendo planilha na mão.
+            Você pode continuar passando a noite no memorial.
             <span className="text-gradient-accent block">Ou botar {TOTAL_SKILLS_BASICO} skills pra trabalhar hoje.</span>
           </h2>
           <p className="mt-4 text-sm text-muted sm:text-base">
@@ -839,16 +901,28 @@ export function LandingPage() {
             <PrimaryCta>Quero minhas skills agora — {siteConfig.price}</PrimaryCta>
           </div>
           <p className="mt-4 text-xs text-muted">Acesso imediato · 7 dias de garantia</p>
+
+          <div className="card-surface-static mx-auto mt-10 max-w-xl rounded-2xl p-6 text-left" style={{ boxShadow: "none" }}>
+            <p className="text-xs font-bold uppercase tracking-wide text-accent-2">P.S.</p>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Pensa no tempo que você gastou essa semana em tarefa que não era cálculo nem decisão técnica. Esse
+              tempo tem preço, e é bem mais que {siteConfig.price}. As skills começam a devolver esse tempo na
+              primeira tarefa. A garantia de 7 dias deixa o risco todo do nosso lado — você só testa.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* ---------------------------------------------------------------- */}
       {/* Footer                                                            */}
       {/* ---------------------------------------------------------------- */}
-      <footer className="section-light">
-        <div className="mx-auto w-full max-w-4xl px-5 py-10 text-center sm:px-8">
-          <p className="font-semibold">{siteConfig.brandTagline}</p>
-          <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-muted">
+      <footer className="section-light border-t border-border/60">
+        <div className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8">
+          <p className="flex items-center gap-2 font-semibold">
+            <Icon name="hard-hat" className="h-4 w-4 text-accent-2" />
+            {siteConfig.brandTagline}
+          </p>
+          <p className="mt-3 max-w-2xl text-xs leading-relaxed text-muted">
             Este produto é um acesso digital imediato que disponibiliza skills e prompts prontos para uso com
             assistentes de IA de terceiros (como ChatGPT, Claude e Gemini). Não possui vínculo institucional com
             OpenAI, Anthropic, Google ou qualquer outro provedor de IA. Os resultados podem variar conforme o uso
