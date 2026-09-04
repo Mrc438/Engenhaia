@@ -4,6 +4,7 @@ import "@fontsource/inter/latin.css";
 import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icon";
 import { AulasCarousel, TOTAL_AULAS, TOTAL_MODULOS } from "@/components/aulas-carousel";
+import { CheckoutLink } from "@/components/checkout-link";
 
 // Tipografia copiada da lander de referência: Space Grotesk nos títulos,
 // Inter no corpo — só se aplica dentro desta página (ver .font-lp-body em
@@ -214,13 +215,13 @@ function PrimaryCta({
   className?: string;
 }) {
   return (
-    <a
+    <CheckoutLink
       href={siteConfig.checkoutUrl}
       className={`btn-primary inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold uppercase tracking-wide sm:px-8 sm:text-base ${className}`}
     >
       {children}
       <Icon name="arrow-right" className="h-4 w-4" />
-    </a>
+    </CheckoutLink>
   );
 }
 
@@ -857,13 +858,13 @@ export function LandingPage() {
       {/* CTA fixo mobile                                                   */}
       {/* ---------------------------------------------------------------- */}
       <div className="sticky-cta-bar px-4 py-3 lg:hidden">
-        <a
+        <CheckoutLink
           href={siteConfig.checkoutUrl}
           className="btn-primary flex w-full items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-bold uppercase tracking-wide"
         >
           Quero as {TOTAL_SKILLS_BASICO} skills — {siteConfig.price}
           <Icon name="arrow-right" className="h-4 w-4" />
-        </a>
+        </CheckoutLink>
       </div>
     </div>
   );

@@ -8,11 +8,15 @@ export const siteConfig = {
   brandTagline: "Copiloto de IA do Engenheiro Civil",
   productClaim:
     "Skills e prompts prontos para acelerar cálculo, documentação, gestão de obra e comercial — com IA.",
-  price: "R$ 39,90",
+  price: "R$ 47,00",
   supportEmail: "suporte@engenhaia.com.br",
   // Link de checkout (Payt) da oferta principal. TROCAR pelo link real antes
   // de publicar a landing page — todos os botões "Quero..." apontam pra cá.
   checkoutUrl: "https://pay.payt.com.br/COLOQUE-O-LINK-REAL-AQUI",
+  // ID do Pixel da Meta (Events Manager) — usado no layout raiz (PageView
+  // automático em toda página) e no clique dos botões de compra
+  // (InitiateCheckout, ver landing-page.tsx).
+  metaPixelId: "1960478244625063",
   // Link da pasta/arquivo com o pacote de 250 mil projetos. TROCAR pelo link
   // real do Drive antes de publicar — a página /projetos usa este valor.
   projetosPacoteLink: "https://drive.google.com/COLOQUE-O-LINK-REAL-AQUI",
