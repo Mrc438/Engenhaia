@@ -97,18 +97,24 @@ const PROMPT_CATEGORY_COUNT = 10;
 const BONUS_ITEMS = [
   {
     icon: "gavel",
+    image: "/bonus-licitacoes.png",
     title: "Skill Mestre de Licitações",
     description:
       "Cole o edital e a skill mapeia exigências, prazos, documentação e monta a base da sua proposta. Pega obra pública sem se afogar em PDF de 80 páginas.",
   },
   {
     icon: "bot",
+    // PLACEHOLDER: essa capa tem o logo da OpenAI estampado (marca registrada) —
+    // TROCAR por uma versão sem o logo antes de publicar.
+    image: "/bonus-agentes-chatgpt.png",
     title: "Agentes no ChatGPT",
     description:
       "Os mesmos agentes prontos, adaptados pra rodar no ChatGPT — um fluxo extra pra quem também usa esse ecossistema além do assistente principal.",
   },
   {
     icon: "hard-hat",
+    // capa provisória — placeholder, ok pra usar como está
+    image: "/bonus-consultor-master.png",
     title: "Prompt Engenheiro Civil Consultor Master",
     description:
       "Engenheiro civil sênior multidisciplinar que atua como consultor de bancada: faz as perguntas certas antes de responder, cita normas, assume premissas marcadas e estrutura a resposta de forma auditável.",
@@ -537,9 +543,14 @@ export function LandingPage() {
                   Bônus {i + 1}
                 </div>
                 <div className="flex flex-1 flex-col gap-4 p-6">
-                  <div className="lp-bonus-box mx-auto h-32 w-32">
-                    <div className="lp-bonus-box-face icon-chip-solid flex h-full w-full items-center justify-center rounded-2xl">
-                      <Icon name={item.icon} className="h-12 w-12" />
+                  <div className="lp-bonus-box mx-auto h-40 w-32">
+                    <div className="lp-bonus-box-face h-full w-full overflow-hidden rounded-2xl">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="h-full w-full object-cover object-top"
+                      />
                     </div>
                   </div>
                   <div>
