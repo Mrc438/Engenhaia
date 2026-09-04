@@ -92,6 +92,12 @@ const PROMPT_EXAMPLES = [
 ] as const;
 
 const TOTAL_PROMPTS = 1312;
+
+// Calculado a partir do site-config — nunca hardcoded, pra não ficar
+// dessincronizado se o preço (ou o "de") mudar.
+const DISCOUNT_PERCENT = Math.round(
+  (1 - Number(siteConfig.price.replace(/\D/g, "")) / Number(siteConfig.originalPrice.replace(/\D/g, ""))) * 100,
+);
 const PROMPT_CATEGORY_COUNT = 10;
 
 const BONUS_ITEMS = [
@@ -593,14 +599,26 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       <section className="section-light-alt">
         <div className="mx-auto w-full max-w-3xl px-5 py-20 sm:px-8">
-          <div className="card-surface-static flex flex-col items-center gap-4 rounded-2xl p-6 text-center sm:p-8">
-            <span className="icon-chip flex h-11 w-11 rounded-xl">
-              <Icon name="users" className="h-5 w-5" />
+          <div className="text-center">
+            <span className="badge-accent inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+              <Icon name="users" className="h-3.5 w-3.5" />
+              Incluso no pacote
             </span>
-            <h3 className="text-xl font-bold">Comunidade de engenheiros</h3>
-            <p className="max-w-md text-sm text-muted">
-              Travou numa NBR, num BDI, num laudo pra ontem? Joga no feed fechado e troca ideia com quem também
-              usa IA no operacional — sem custo extra, incluso no pacote.
+            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Comunidade VIP — engenheiro trocando ideia com engenheiro
+            </h2>
+          </div>
+          <div className="card-surface-static mt-10 rounded-2xl p-6 sm:p-8">
+            <p className="text-base text-muted">
+              Travou numa NBR, num BDI, num laudo &ldquo;pra ontem&rdquo;? Joga na comunidade fechada (só de
+              engenheiros usando IA no operacional) e recebe ideia de quem já passou por isso.
+            </p>
+            <p className="mt-4 text-base text-muted">
+              Troca de prompts, casos reais, atualizações em primeira mão e rede que vale.
+            </p>
+            <p className="mt-6 flex items-center gap-2 text-sm font-bold text-success">
+              <Icon name="check" className="h-4 w-4" />
+              Incluso no pacote, sem custo extra.
             </p>
           </div>
         </div>
@@ -631,10 +649,28 @@ export function LandingPage() {
             </span>
             <h3 className="mt-4 text-2xl font-bold">{siteConfig.brandTagline}</h3>
             <p className="mt-1 text-sm text-muted">
-              {siteConfig.productClaim}
+              {TOTAL_SKILLS_BASICO} skills + {TOTAL_PROMPTS} prompts + guia de instalação
             </p>
 
-            <div className="mt-6 flex items-baseline gap-2">
+            {/* Mockup ilustrativo — mesma arte usada no hero. PLACEHOLDER: ainda
+                tem o logo da Claude, trocar pela versão com a marca EngenhaIA
+                antes de publicar (ver aviso no topo do hero). */}
+            <div className="relative mx-auto mt-6 w-full max-w-xs">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/mockup-produto-placeholder.png"
+                alt="Mockup do produto EngenhaIA — skills, planilhas e prompts prontos"
+                className="w-full"
+              />
+            </div>
+
+            <div className="mt-6 flex items-center gap-2">
+              <span className="text-sm text-muted line-through">{siteConfig.originalPrice}</span>
+              <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs font-bold text-success">
+                -{DISCOUNT_PERCENT}%
+              </span>
+            </div>
+            <div className="mt-1 flex items-baseline gap-2">
               <span className="text-lg font-semibold text-muted">R$</span>
               <span className="text-5xl font-extrabold text-accent-2">
                 {siteConfig.price.replace("R$", "").trim()}
@@ -648,8 +684,8 @@ export function LandingPage() {
                 `Biblioteca com ${TOTAL_PROMPTS} prompts avançados`,
                 "Guia de instalação passo a passo",
                 "Aulas: como usar a plataforma na prática",
-                "Comunidade de engenheiros usando IA no operacional",
-                "6 bônus inclusos (planilhas, checklist, modelos e mais)",
+                "Comunidade VIP — engenheiro trocando ideia com engenheiro",
+                ...BONUS_ITEMS.map((item, i) => `Bônus ${i + 1}: ${item.title}`),
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3">
                   <CheckIcon />

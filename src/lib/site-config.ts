@@ -9,6 +9,10 @@ export const siteConfig = {
   productClaim:
     "Skills e prompts prontos para acelerar cálculo, documentação, gestão de obra e comercial — com IA.",
   price: "R$ 47",
+  // preço "de" pra mostrar riscado ao lado do desconto — TEM que ser um preço
+  // que realmente já foi cobrado por esse produto em algum momento (senão é
+  // propaganda enganosa pelo CDC). Confirma esse valor antes de publicar.
+  originalPrice: "R$ 197",
   supportEmail: "suporte@engenhaia.com.br",
   // Link de checkout (Payt) da oferta principal. TROCAR pelo link real antes
   // de publicar a landing page — todos os botões "Quero..." apontam pra cá.
