@@ -1,4 +1,3 @@
-import Link from "next/link";
 import "@fontsource/space-grotesk/latin.css";
 import "@fontsource/inter/latin.css";
 import { siteConfig } from "@/lib/site-config";
@@ -240,12 +239,6 @@ export function LandingPage() {
             </strong>{" "}
             pra engenharia civil — é só copiar e usar.
           </p>
-          <Link
-            href="/auth"
-            className="ml-2 shrink-0 text-muted underline-offset-2 transition-colors hover:text-foreground hover:underline"
-          >
-            Já sou aluno
-          </Link>
         </div>
       </header>
 
