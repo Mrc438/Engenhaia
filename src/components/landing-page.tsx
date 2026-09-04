@@ -236,8 +236,8 @@ export function LandingPage() {
           <p className="min-w-0">
             <strong className="font-bold text-accent-2">
               +5.000 engenheiros já usam Claude para a Engenharia
-            </strong>{" "}
-            na {siteConfig.brandName}. Você ainda não ?
+            </strong>
+            . Você ainda não?
           </p>
         </div>
       </header>
