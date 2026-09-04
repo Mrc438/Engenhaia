@@ -96,36 +96,22 @@ const PROMPT_CATEGORY_COUNT = 10;
 
 const BONUS_ITEMS = [
   {
-    icon: "table",
-    title: "Kit de Planilhas de Obra",
+    icon: "gavel",
+    title: "Skill Mestre de Licitações",
     description:
-      "Orçamento simples por etapa, controle de RDO semanal e cronograma físico-financeiro básico — é só duplicar e adaptar.",
+      "Cole o edital e a skill mapeia exigências, prazos, documentação e monta a base da sua proposta. Pega obra pública sem se afogar em PDF de 80 páginas.",
   },
   {
-    icon: "clipboard-check",
-    title: "Checklist de Entrega de Obra",
+    icon: "bot",
+    title: "Agentes no ChatGPT",
     description:
-      "Os pontos mais esquecidos na vistoria final, organizados por ambiente, pra você não deixar nada passar.",
+      "Os mesmos agentes prontos, adaptados pra rodar no ChatGPT — um fluxo extra pra quem também usa esse ecossistema além do assistente principal.",
   },
   {
-    icon: "file-text",
-    title: "Banco de Modelos de Memorial e ART",
-    description: "Modelos já estruturados pra você adaptar aos dados do seu projeto sem começar do zero.",
-  },
-  {
-    icon: "book-open",
-    title: "Glossário de Normas Técnicas Essenciais",
-    description: "Consulta rápida dos termos e siglas de NBR mais usados no dia a dia de projeto e obra.",
-  },
-  {
-    icon: "refresh-cw",
-    title: "Trilha de Atualização de Normas",
-    description: "Leituras curtas sobre mudanças recentes em normas relevantes pra quem está na ponta.",
-  },
-  {
-    icon: "users",
-    title: "Comunidade de engenheiros",
-    description: "Feed fechado pra trocar prompt, caso real e dúvida com quem também usa IA no operacional.",
+    icon: "hard-hat",
+    title: "Prompt Engenheiro Civil Consultor Master",
+    description:
+      "Engenheiro civil sênior multidisciplinar que atua como consultor de bancada: faz as perguntas certas antes de responder, cita normas, assume premissas marcadas e estrutura a resposta de forma auditável.",
   },
 ] as const;
 
@@ -536,32 +522,33 @@ export function LandingPage() {
               Incluso no pacote
             </span>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              + 6 bônus, sem custo extra.
+              + {BONUS_ITEMS.length} Bônus <span className="text-gradient-accent">inclusos</span>
             </h2>
             <p className="mt-3 text-sm text-muted sm:text-base">
-              Junto com as skills e os prompts, você leva também esses materiais e a comunidade — tudo dentro do
-              mesmo acesso.
+              Junto com as {TOTAL_SKILLS_BASICO} skills, você leva ainda esses {BONUS_ITEMS.length} itens, sem
+              custo extra.
             </p>
           </div>
-          <div className="mx-auto mt-10 flex w-full max-w-3xl flex-col gap-5">
+          <div className="mx-auto mt-10 grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-3">
             {BONUS_ITEMS.map((item, i) => (
-              <div key={item.title} className="card-surface overflow-hidden rounded-2xl">
-                <div className="lp-bonus-bar px-5 py-2.5 text-xs font-bold uppercase tracking-wide sm:px-6">
+              <div key={item.title} className="card-surface flex flex-col overflow-hidden rounded-2xl">
+                <div className="lp-bonus-bar flex items-center gap-1.5 px-5 py-2.5 text-xs font-bold uppercase tracking-wide">
+                  <Icon name="gift" className="h-3.5 w-3.5" />
                   Bônus {i + 1}
                 </div>
-                <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:p-8">
-                  <div className="lp-bonus-box h-16 w-16 shrink-0 sm:h-[4.5rem] sm:w-[4.5rem]">
+                <div className="flex flex-1 flex-col gap-4 p-6">
+                  <div className="lp-bonus-box mx-auto h-32 w-32">
                     <div className="lp-bonus-box-face icon-chip-solid flex h-full w-full items-center justify-center rounded-2xl">
-                      <Icon name={item.icon} className="h-7 w-7" />
+                      <Icon name={item.icon} className="h-12 w-12" />
                     </div>
                   </div>
                   <div>
                     <h3 className="text-lg font-bold">{item.title}</h3>
                     <p className="mt-1.5 text-sm text-muted">{item.description}</p>
-                    <p className="mt-2.5 text-sm">
-                      <span className="text-muted line-through">Valor R$97</span>{" "}
-                      <span className="font-bold text-success">GRÁTIS</span>
-                    </p>
+                  </div>
+                  <div className="mt-auto border-t border-border pt-3 text-sm">
+                    <span className="text-muted line-through">Valor R$97</span>{" "}
+                    <span className="font-bold text-success">GRÁTIS</span>
                   </div>
                 </div>
               </div>
