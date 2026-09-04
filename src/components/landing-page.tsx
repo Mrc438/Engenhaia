@@ -260,8 +260,9 @@ export function LandingPage() {
         <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center gap-12 px-5 py-20 sm:px-8">
           <div className="w-full max-w-3xl text-center">
             <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-[60px] lg:leading-[63px]">
-              O assistente de IA que você já usa
-              <span className="text-gradient-accent block">vira seu engenheiro civil sênior.</span>
+              <span className="block">O assistente de IA que você já usa</span>
+              <span className="text-gradient-accent block">vira seu engenheiro civil</span>
+              <span className="text-gradient-accent block">sênior.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base text-muted sm:text-lg">
               {TOTAL_SKILLS_BASICO} skills prontas de{" "}
