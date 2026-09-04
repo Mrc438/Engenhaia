@@ -4,7 +4,7 @@
 // ============================================================================
 
 export const siteConfig = {
-  brandName: "[SEU NOME AQUI]",
+  brandName: "EngenhaIA",
   brandTagline: "Copiloto de IA do Engenheiro Civil",
   productClaim:
     "Skills e prompts prontos para acelerar cálculo, documentação, gestão de obra e comercial — com IA.",

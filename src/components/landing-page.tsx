@@ -235,9 +235,9 @@ export function LandingPage() {
           <Icon name="users" className="h-3.5 w-3.5 shrink-0 text-accent-2" />
           <p className="min-w-0">
             <strong className="font-bold text-accent-2">
-              {TOTAL_SKILLS_BASICO} skills e {TOTAL_PROMPTS} prompts prontos
+              +5.000 engenheiros já usam Claude para a Engenharia
             </strong>{" "}
-            pra engenharia civil — é só copiar e usar.
+            na {siteConfig.brandName}. Você ainda não ?
           </p>
         </div>
       </header>
@@ -405,7 +405,7 @@ export function LandingPage() {
             </span>
             <p className="mt-4 text-sm text-muted sm:text-base">
               É um conjunto de <strong className="font-semibold text-foreground">skills e prompts já configurados
-              pra engenharia civil</strong>. Cada um vem com o contexto técnico, o método e a estrutura de resposta
+                pra engenharia civil</strong>. Cada um vem com o contexto técnico, o método e a estrutura de resposta
               certa embutidos — você não escreve prompt nenhum. Copia, manda a tarefa do dia real, e a resposta já
               sai no formato que você já usaria.
             </p>
