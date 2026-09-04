@@ -543,15 +543,13 @@ export function LandingPage() {
                   Bônus {i + 1}
                 </div>
                 <div className="flex flex-1 flex-col gap-4 p-6">
-                  <div className="lp-bonus-box mx-auto h-40 w-32">
-                    <div className="lp-bonus-box-face h-full w-full overflow-hidden rounded-2xl">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="h-full w-full object-cover object-top"
-                      />
-                    </div>
+                  <div className="mx-auto h-40 w-32 overflow-hidden rounded-2xl shadow-lg">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="h-full w-full object-cover object-top"
+                    />
                   </div>
                   <div>
                     <h3 className="text-lg font-bold">{item.title}</h3>
