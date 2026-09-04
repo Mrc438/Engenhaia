@@ -293,40 +293,21 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* Mockup ilustrativo — composição própria, não é screenshot de nenhum produto */}
+          {/* Mockup do produto — PLACEHOLDER: o arquivo atual (mockup-produto-placeholder.png)
+              ainda tem o logo/nome "Claude" gerado na peça original. TROCAR pela versão com
+              a marca EngenhaIA antes de publicar — não subir essa arte pro ar como está. */}
           <div className="relative flex w-full justify-center">
-            <div className="relative w-full max-w-lg">
+            <div className="relative w-full max-w-3xl">
               <div
                 className="absolute -inset-6 -z-10 rounded-[2rem] opacity-40 blur-3xl"
                 style={{ backgroundImage: "linear-gradient(135deg, var(--accent-2), var(--accent))" }}
               />
-              <div className="card-glow overflow-hidden rounded-2xl">
-                <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
-                  <span className="h-2.5 w-2.5 rounded-full bg-danger/70" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#f2b02e]/70" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-success/70" />
-                  <span className="ml-2 text-xs font-medium text-muted">Skill: Memorial Descritivo</span>
-                </div>
-                <div className="space-y-3 p-4 sm:p-5">
-                  <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-surface-2 px-4 py-2.5 text-sm">
-                    Cola aí o memorial da reforma do apartamento 302: 68m², alvenaria + reforço em concreto,
-                    troca de instalação elétrica e hidráulica.
-                  </div>
-                  <div className="mr-auto max-w-[90%] rounded-2xl rounded-tl-sm border border-border bg-surface px-4 py-3 text-sm">
-                    <p className="font-semibold text-accent-2">Memorial Descritivo — Reforma Ap. 302</p>
-                    <p className="mt-2 text-muted">1. Identificação da obra e responsável técnico (ART)</p>
-                    <p className="text-muted">2. Descrição dos serviços — demolição, alvenaria, reforço</p>
-                    <p className="text-muted">3. Instalações elétricas e hidrossanitárias (NBR 5410 / 5626)</p>
-                    <p className="mt-2 text-xs italic text-muted">
-                      Revise os dados de projeto antes de assinar — texto gerado com o que você informou.
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2 rounded-full border border-dashed border-border px-3 py-2 text-xs text-muted">
-                    <Icon name="clock" className="h-3.5 w-3.5" />
-                    Rascunho pronto em segundos — a revisão técnica continua sendo sua.
-                  </div>
-                </div>
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/mockup-produto-placeholder.png"
+                alt="Mockup do produto EngenhaIA — skills, planilhas e prompts prontos"
+                className="w-full"
+              />
             </div>
           </div>
         </div>
