@@ -8,7 +8,7 @@ export const siteConfig = {
   brandTagline: "Copiloto de IA do Engenheiro Civil",
   productClaim:
     "Skills e prompts prontos para acelerar cálculo, documentação, gestão de obra e comercial — com IA.",
-  price: "R$ 47,00",
+  price: "R$ 47",
   supportEmail: "suporte@engenhaia.com.br",
   // Link de checkout (Payt) da oferta principal. TROCAR pelo link real antes
   // de publicar a landing page — todos os botões "Quero..." apontam pra cá.

@@ -231,16 +231,22 @@ export function LandingPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Header                                                            */}
       {/* ---------------------------------------------------------------- */}
-      <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
-        <div className="flex items-center gap-2.5">
-          <span className="icon-chip flex h-9 w-9 rounded-lg">
-            <Icon name="hard-hat" className="h-4.5 w-4.5" />
-          </span>
-          <span className="font-semibold tracking-tight">{siteConfig.brandTagline}</span>
+      <header className="w-full border-b border-border/60 bg-black/40 px-5 py-2.5 sm:px-8">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-center gap-2 text-center text-xs font-medium sm:text-sm">
+          <Icon name="users" className="h-3.5 w-3.5 shrink-0 text-accent-2" />
+          <p className="min-w-0">
+            <strong className="font-bold text-accent-2">
+              {TOTAL_SKILLS_BASICO} skills e {TOTAL_PROMPTS} prompts prontos
+            </strong>{" "}
+            pra engenharia civil — é só copiar e usar.
+          </p>
+          <Link
+            href="/auth"
+            className="ml-2 shrink-0 text-muted underline-offset-2 transition-colors hover:text-foreground hover:underline"
+          >
+            Já sou aluno
+          </Link>
         </div>
-        <Link href="/auth" className="text-sm font-medium text-muted transition-colors hover:text-foreground">
-          Já sou aluno
-        </Link>
       </header>
 
       {/* ---------------------------------------------------------------- */}
