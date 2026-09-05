@@ -6,10 +6,20 @@ import { Icon } from "@/components/icon";
 import { modulosSeed } from "@/data/aulas/modulos";
 
 // Carrossel de aulas pra landing page — estrutura pedida pelo usuário com
-// print de referência: cards de imagem lado a lado (2 por vez), legenda
-// (título + descrição) dentro do próprio card, abaixo da imagem, botão de
-// play que só aparece no hover, setas flutuando sobre as bordas, e sem
-// bolinhas de contagem.
+// print de referência: cards de imagem lado a lado, legenda (título +
+// descrição) dentro do próprio card, abaixo da imagem, botão de play que só
+// aparece no hover, setas flutuando sobre as bordas, e sem bolinhas de
+// contagem.
+//
+// Responsivo em 3 níveis (a pedido: "mostra 3 cards, se der mais zoom
+// mostra dois, mantem o autoscroll, mantem o autoscroll para mobile"):
+// < sm = 1 card, sm–lg = 2 cards, >= lg = 3 cards (os 3 que existem, todos
+// visíveis de uma vez). O zoom do navegador reduz o viewport efetivo em CSS
+// px, então dar zoom in numa tela grande cai pro nível de 2 cards igual uma
+// tela menor cairia. O autoscroll (useVisibleCount + o useEffect do
+// intervalo) só pausa quando os 3 cards JÁ estão todos visíveis ao mesmo
+// tempo (nível >= lg, nada escondido pra rotacionar) — em mobile e no nível
+// de 2 cards ele continua rodando normalmente.
 //
 // Só 3 cards no carrossel (a pedido: "são só 3 cards") — as 3 artes reais
 // que o usuário forneceu (public/aulas/*.webp, vindas de
@@ -55,6 +65,32 @@ const ITEMS: CarouselItem[] = [
 const AUTO_ADVANCE_MS = 3000;
 const DRAG_THRESHOLD_PX = 40;
 
+// Espelha os breakpoints do grid abaixo (sm:grid-cols-2, lg:grid-cols-3) só
+// pra saber, em JS, quantos cards já estão visíveis ao mesmo tempo — usado
+// pra pausar o autoscroll quando não sobra nenhum card escondido.
+function useVisibleCount(total: number) {
+  const [visibleCount, setVisibleCount] = useState(1);
+
+  useEffect(() => {
+    const smQuery = window.matchMedia("(min-width: 640px)");
+    const lgQuery = window.matchMedia("(min-width: 1024px)");
+    function update() {
+      if (lgQuery.matches) setVisibleCount(Math.min(3, total));
+      else if (smQuery.matches) setVisibleCount(Math.min(2, total));
+      else setVisibleCount(1);
+    }
+    update();
+    smQuery.addEventListener("change", update);
+    lgQuery.addEventListener("change", update);
+    return () => {
+      smQuery.removeEventListener("change", update);
+      lgQuery.removeEventListener("change", update);
+    };
+  }, [total]);
+
+  return visibleCount;
+}
+
 function LessonCard({ item, className = "", featured = false }: { item: CarouselItem; className?: string; featured?: boolean }) {
   return (
     <div
@@ -90,6 +126,8 @@ export function AulasCarousel() {
   const total = ITEMS.length;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const visibleCount = useVisibleCount(total);
+  const allVisible = visibleCount >= total;
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const dragStartX = useRef<number | null>(null);
   const dragging = useRef(false);
@@ -99,14 +137,18 @@ export function AulasCarousel() {
   }
 
   useEffect(() => {
-    if (paused) return;
+    // Nada pra rotacionar quando os 3 cards já estão todos visíveis (tela
+    // >= lg sem zoom) — em qualquer outro nível (mobile, 2 cards, ou tela
+    // grande com zoom do navegador reduzindo o viewport efetivo) o
+    // autoscroll continua rodando normalmente.
+    if (paused || allVisible) return;
     timerRef.current = setInterval(() => {
       setIndex((current) => (current + 1) % total);
     }, AUTO_ADVANCE_MS);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [paused, total]);
+  }, [paused, total, allVisible]);
 
   function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
     dragStartX.current = e.clientX;
@@ -140,10 +182,11 @@ export function AulasCarousel() {
 
   const first = ITEMS[index];
   const second = ITEMS[(index + 1) % total];
+  const third = ITEMS[(index + 2) % total];
 
   return (
     <div
-      className="relative mx-auto mt-10 w-full max-w-2xl"
+      className="relative mx-auto mt-10 w-full max-w-2xl lg:max-w-6xl"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={handlePointerLeave}
     >
@@ -151,7 +194,7 @@ export function AulasCarousel() {
         type="button"
         onClick={() => goTo(index - 1)}
         aria-label="Aula anterior"
-        className="absolute left-0 top-[38%] z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-background text-foreground shadow-md transition-transform hover:scale-105"
+        className="absolute left-0 top-[38%] z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-background text-foreground shadow-md transition-transform hover:scale-105 lg:hidden"
       >
         <Icon name="chevron-left" className="h-4 w-4" />
       </button>
@@ -159,21 +202,22 @@ export function AulasCarousel() {
         type="button"
         onClick={() => goTo(index + 1)}
         aria-label="Próxima aula"
-        className="absolute right-0 top-[38%] z-10 flex h-10 w-10 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-background text-foreground shadow-md transition-transform hover:scale-105"
+        className="absolute right-0 top-[38%] z-10 flex h-10 w-10 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-background text-foreground shadow-md transition-transform hover:scale-105 lg:hidden"
       >
         <Icon name="chevron-right" className="h-4 w-4" />
       </button>
 
       <div
-        className="grid cursor-grab touch-pan-y grid-cols-1 select-none gap-4 active:cursor-grabbing sm:grid-cols-2 sm:gap-6"
+        className="grid cursor-grab touch-pan-y grid-cols-1 select-none gap-4 active:cursor-grabbing sm:grid-cols-2 sm:gap-6 lg:cursor-default lg:grid-cols-3"
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
       >
-        <LessonCard key={first.title} item={first} featured />
+        <LessonCard key={first.title} item={first} featured={!allVisible} />
         <LessonCard key={second.title} item={second} className="hidden sm:block" />
+        <LessonCard key={third.title} item={third} className="hidden lg:block" />
       </div>
 
-      <p className="mt-3 text-center text-xs text-muted">Arraste para o lado para ver mais</p>
+      <p className="mt-3 text-center text-xs text-muted lg:hidden">Arraste para o lado para ver mais</p>
     </div>
   );
 }
