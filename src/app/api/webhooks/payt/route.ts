@@ -69,16 +69,19 @@ import { users } from "@/db/schema";
 
 const DEFAULT_PASSWORD = "123456";
 
-// TROCAR pelos códigos/SKUs reais de cada produto no painel da Payt
-// (Produtos → abrir o produto → Código/SKU). Vale tanto pro produto
-// principal quanto pra qualquer order bump que deva liberar algo.
+// Códigos reais dos produtos cadastrados na Payt (Ofertas & Produtos → abrir o
+// produto → campo "Código"). "Claude na Engenharia Civil" é o produto
+// principal de toda compra; os outros três só aparecem quando comprados como
+// order bump junto dele — a rota já soma produto principal + bumps do mesmo
+// postback (ver collectProductCodes/mergeEntitlements abaixo).
 const PRODUCT_ENTITLEMENTS: Record<
   string,
   { plan?: "basico" | "especialista"; hasProjetosPacote?: boolean }
 > = {
-  TROCAR_PELO_CODIGO_DO_BASICO: { plan: "basico" },
-  TROCAR_PELO_CODIGO_DO_ESPECIALISTA: { plan: "especialista" },
-  TROCAR_PELO_CODIGO_DO_PACOTE_DE_PROJETOS: { hasProjetosPacote: true },
+  "12d82407c92508": { plan: "basico" }, // Claude na Engenharia Civil (produto principal)
+  "e8b23bdf3fd": { plan: "basico" }, // Acesso Vitalício Claude Engenheiros Civis (mesmo acesso normal)
+  "6274691532d55": { plan: "especialista" }, // Claude Engenharia Pack Especialista
+  "ca987b415debd8": { hasProjetosPacote: true }, // 250 Mil Projetos Editáveis no Autocad
 };
 
 type JsonRecord = Record<string, unknown>;
