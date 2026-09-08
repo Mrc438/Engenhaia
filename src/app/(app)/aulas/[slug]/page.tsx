@@ -29,7 +29,9 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
         <span>{lesson.module.title}</span>
       </div>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
+      <div
+        className={`grid grid-cols-1 gap-8 ${siblings.length > 1 ? "lg:grid-cols-[1fr_320px]" : ""}`}
+      >
         <div>
           <div className="flex aspect-video items-center justify-center rounded-xl border border-dashed border-border bg-surface shadow-[var(--shadow-sm)] text-center">
             {lesson.videoUrl ? (
@@ -42,7 +44,6 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
                   allowFullScreen
                 />
               ) : (
-                 
                 <video controls className="h-full w-full rounded-xl" src={lesson.videoUrl} />
               )
             ) : (
@@ -50,7 +51,7 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
                 <span className="icon-chip mx-auto mb-2 h-12 w-12 rounded-full">
                   <Icon name="video" className="h-5 w-5" />
                 </span>
-                Vídeo ainda não gravado — siga o roteiro abaixo enquanto isso.
+                Vídeo ainda não gravado.
               </div>
             )}
           </div>
@@ -71,39 +72,49 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
           />
         </div>
 
-        <aside className="card-surface-static rounded-xl p-5 lg:sticky lg:top-6 lg:self-start">
-          <h2 className="mb-1 text-sm font-semibold">Conteúdo do módulo</h2>
-          <p className="mb-3 text-xs text-muted">
-            {doneInModule}/{siblings.length}
-          </p>
-          <div className="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-surface-2">
-            <div
-              className="h-full bg-accent"
-              style={{ width: `${(doneInModule / siblings.length) * 100}%` }}
-            />
-          </div>
-          <ul className="space-y-1">
-            {siblings.map((l, i) => (
-              <li key={l.slug}>
-                <Link
-                  href={`/aulas/${l.slug}`}
-                  className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors ${
-                    l.id === lesson.id ? "badge-accent font-medium" : "hover:bg-surface-2"
-                  }`}
-                >
-                  <span
-                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${
-                      completedIds.has(l.id) ? "bg-success/20 text-success" : "bg-surface-2 text-muted"
+        {siblings.length > 1 && (
+          <aside className="card-surface-static rounded-xl p-5 lg:sticky lg:top-6 lg:self-start">
+            <h2 className="mb-1 text-sm font-semibold">Conteúdo do módulo</h2>
+            <p className="mb-3 text-xs text-muted">
+              {doneInModule}/{siblings.length}
+            </p>
+            <div className="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-surface-2">
+              <div
+                className="h-full bg-accent"
+                style={{ width: `${(doneInModule / siblings.length) * 100}%` }}
+              />
+            </div>
+            <ul className="space-y-1">
+              {siblings.map((l, i) => (
+                <li key={l.slug}>
+                  <Link
+                    href={`/aulas/${l.slug}`}
+                    className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors ${
+                      l.id === lesson.id
+                        ? "badge-accent font-medium"
+                        : "hover:bg-surface-2"
                     }`}
                   >
-                    {completedIds.has(l.id) ? <Icon name="check" className="h-3 w-3" /> : i + 1}
-                  </span>
-                  <span className="flex-1 truncate">{l.title}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </aside>
+                    <span
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${
+                        completedIds.has(l.id)
+                          ? "bg-success/20 text-success"
+                          : "bg-surface-2 text-muted"
+                      }`}
+                    >
+                      {completedIds.has(l.id) ? (
+                        <Icon name="check" className="h-3 w-3" />
+                      ) : (
+                        i + 1
+                      )}
+                    </span>
+                    <span className="flex-1 truncate">{l.title}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )}
       </div>
     </div>
   );
