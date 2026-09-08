@@ -5,6 +5,7 @@
 
 import "dotenv/config";
 import bcrypt from "bcryptjs";
+import { eq, notInArray, and } from "drizzle-orm";
 import { db } from "./index";
 import {
   users,
@@ -14,6 +15,7 @@ import {
   prompts,
   modules,
   lessons,
+  lessonProgress,
   bonusItems,
   communityPosts,
   communityComments,
@@ -218,6 +220,23 @@ async function main() {
           },
         });
       totalLessons++;
+    }
+
+    // Aula removida do módulo (ex.: consolidação de 3 aulas em 1) não
+    // desaparece sozinha — precisa ser apagada explicitamente do banco,
+    // senão fica "fantasma" (mesmo padrão usado pra bônus). Apaga primeiro o
+    // progresso registrado nela, senão a FK barra o delete.
+    const currentSlugs = mod.lessons.map((l) => l.slug);
+    const orphanLessons =
+      currentSlugs.length > 0
+        ? await db
+            .select()
+            .from(lessons)
+            .where(and(eq(lessons.moduleId, modRow.id), notInArray(lessons.slug, currentSlugs)))
+        : await db.select().from(lessons).where(eq(lessons.moduleId, modRow.id));
+    for (const orphan of orphanLessons) {
+      await db.delete(lessonProgress).where(eq(lessonProgress.lessonId, orphan.id));
+      await db.delete(lessons).where(eq(lessons.id, orphan.id));
     }
   }
 

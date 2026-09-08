@@ -140,18 +140,20 @@ Deixar a pessoa capaz de decidir entre usar uma Skill fixa ou um prompt avulso, 
     title: "Usando como um profissional",
     summary: "Boas práticas, prompt universal e erros comuns ao usar IA no dia a dia da engenharia.",
     order: 2,
+    // Um único vídeo cobre os três temas do módulo (boas práticas, prompt
+    // universal e erros comuns) — por isso uma aula só, não três.
     lessons: [
       {
-        slug: "boas-praticas-ao-conversar-com-a-ia",
-        title: "Boas práticas ao conversar com a IA",
-        description: "Como dar contexto, revisar premissas marcadas e pedir ajustes.",
+        slug: "use-o-claude-como-um-profissional",
+        title: "Use o Claude como um Profissional",
+        description: "Boas práticas ao conversar com a IA, prompt universal para qualquer pergunta técnica e erros comuns a evitar.",
         script: `## Objetivo da aula
-Deixar a pessoa capaz de conduzir uma conversa com a IA fornecendo contexto suficiente e revisando corretamente as premissas assumidas antes de usar qualquer resposta.
+Deixar a pessoa capaz de conduzir uma conversa com a IA fornecendo contexto suficiente, usar um prompt universal em perguntas soltas, e evitar os erros mais comuns ao usar IA no trabalho técnico de engenharia.
 
 ## Duração estimada
-4-5 min
+10-12 min
 
-## Roteiro passo a passo
+## Parte 1 — Boas práticas ao conversar com a IA
 
 1. FALA: "A qualidade da resposta que você recebe da IA depende diretamente da qualidade do contexto que você dá pra ela. Nessa aula eu vou te mostrar como fazer isso direito."
    TELA: tela de uma conversa aberta no assistente de IA, em branco.
@@ -177,21 +179,7 @@ Deixar a pessoa capaz de conduzir uma conversa com a IA fornecendo contexto sufi
 8. FALA: "Resumindo: dado da obra, norma aplicável, revisão de toda marcação [PREMISSA] e [A CONFIRMAR], e pedido de ajuste pontual quando precisar. Esse é o combo de uma conversa profissional com a IA."
    TELA: tela final da conversa, com a resposta corrigida e completa visível.
 
-## Frase de encerramento sugerida
-"Na próxima aula eu mostro um prompt universal que você pode usar antes de qualquer pergunta solta, pra manter esse padrão de qualidade sempre. Vamos nessa."`,
-        order: 1,
-      },
-      {
-        slug: "prompt-universal-para-qualquer-pergunta-tecnica",
-        title: "Prompt universal pra usar em qualquer pergunta técnica",
-        description: "Um prompt-guarda-chuva pra manter o padrão de qualidade em perguntas soltas.",
-        script: `## Objetivo da aula
-Deixar a pessoa capaz de usar um prompt universal antes de perguntas técnicas soltas, garantindo que a IA sempre responda seguindo o mesmo padrão de rigor e transparência.
-
-## Duração estimada
-3-4 min
-
-## Roteiro passo a passo
+## Parte 2 — Prompt universal pra usar em qualquer pergunta técnica
 
 1. FALA: "Às vezes você tem uma pergunta técnica rápida, fora de qualquer Skill específica, e quer garantir que a IA vai responder com o mesmo cuidado que ela responde dentro de uma Skill configurada. Pra isso existe o prompt universal."
    TELA: abrir a aba "Prompts" no app e navegar até a categoria de prompts gerais/universais.
@@ -217,21 +205,7 @@ Deixar a pessoa capaz de usar um prompt universal antes de perguntas técnicas s
 8. FALA: "Dica: se você usa muito esse prompt, vale considerar deixá-lo fixo como instrução do projeto, do jeito que aprendemos lá na aula de instalação de Skill. Aí você nem precisa colar de novo toda vez."
    TELA: voltar rapidamente pra aba de configurações do projeto no assistente de IA, mostrando onde isso ficaria.
 
-## Frase de encerramento sugerida
-"Com esse prompt universal na manga, sua régua de qualidade fica sempre alta, mesmo fora das Skills fixas. Na próxima aula eu vou mostrar os erros mais comuns que engenheiros cometem usando IA — e como evitar cada um."`,
-        order: 2,
-      },
-      {
-        slug: "erros-comuns-e-como-evitar",
-        title: "Erros comuns e como evitar",
-        description: "Confiar cegamente em número da IA, falta de contexto e esquecer da revisão técnica.",
-        script: `## Objetivo da aula
-Deixar a pessoa capaz de reconhecer e evitar os três erros mais comuns ao usar IA no trabalho técnico de engenharia.
-
-## Duração estimada
-4-5 min
-
-## Roteiro passo a passo
+## Parte 3 — Erros comuns e como evitar
 
 1. FALA: "Pra fechar esse módulo, eu quero te mostrar os três erros mais comuns que vejo engenheiros cometendo quando começam a usar IA no dia a dia — e como evitar cada um deles."
    TELA: tela de abertura simples, com o título "Erros comuns" ou similar, se o app tiver esse recurso; senão, tela inicial do app.
@@ -245,7 +219,7 @@ Deixar a pessoa capaz de reconhecer e evitar os três erros mais comuns ao usar 
 4. FALA: "Erro número dois: não dar contexto suficiente. Perguntas genéricas geram respostas genéricas. Se você pergunta 'qual a espessura ideal de uma laje' sem dizer o vão, o uso, a norma, a IA vai responder de forma vaga ou vai assumir premissas que podem não bater com a sua realidade."
    TELA: digitar um exemplo de pergunta vaga na conversa e mostrar uma resposta genérica.
 
-5. FALA: "Como evitar: sempre volte pra aula de boas práticas — dados da obra, norma aplicável, e revisão das marcações de premissa antes de aceitar a resposta."
+5. FALA: "Como evitar: sempre volte pra parte de boas práticas — dados da obra, norma aplicável, e revisão das marcações de premissa antes de aceitar a resposta."
    TELA: reformular a mesma pergunta agora com contexto completo e mostrar a resposta mais precisa e específica.
 
 6. FALA: "Erro número três, e talvez o mais importante: esquecer de revisar e assinar como responsável técnico. A IA não tem CREA, não assume responsabilidade técnica — quem assina o projeto, o laudo ou o memorial é você."
@@ -259,7 +233,10 @@ Deixar a pessoa capaz de reconhecer e evitar os três erros mais comuns ao usar 
 
 ## Frase de encerramento sugerida
 "Com isso a gente fecha o módulo de uso profissional. No próximo módulo eu vou te mostrar como aproveitar a Comunidade do app e pra onde ir depois dessas aulas. Nos vemos lá."`,
-        order: 3,
+        order: 1,
+        // Vídeo real gravado pelo usuário, cobrindo os três temas do módulo
+        // numa única gravação (2026-09-08).
+        videoUrl: "https://youtu.be/pdjdMhBUd8w",
       },
     ],
   },
