@@ -6,18 +6,20 @@ export const modulosSeed: ModuleSeed[] = [
     title: "Primeiros passos",
     summary: "Visão geral do app e primeiros usos práticos das Skills e Prompts.",
     order: 1,
+    // Um único vídeo cobre a visão geral do app, a instalação da primeira
+    // Skill e o uso da Biblioteca de Prompts — por isso uma aula só.
     lessons: [
       {
-        slug: "como-funciona-o-app",
-        title: "Como funciona o app",
-        description: "Visão geral rápida do painel e de onde fica cada coisa.",
+        slug: "como-instalar-sua-primeira-skill",
+        title: "Como instalar sua primeira Skill",
+        description: "Visão geral do app, como copiar e configurar sua primeira Skill, e quando usar um prompt avulso da biblioteca.",
         script: `## Objetivo da aula
-Deixar a pessoa capaz de abrir o app e se localizar sozinha entre as seções Skills, Prompts, Aulas, Bônus e Comunidade.
+Deixar a pessoa capaz de se localizar no app, pegar o texto de uma Skill e configurá-la como instrução persistente no assistente de IA, e saber quando usar um prompt avulso da biblioteca em vez disso.
 
 ## Duração estimada
-3-4 min
+10-12 min
 
-## Roteiro passo a passo
+## Parte 1 — Como funciona o app
 
 1. FALA: "Bem-vindo! Nos próximos minutos eu vou te mostrar rapidinho como esse app é organizado, pra você não perder tempo procurando onde as coisas ficam."
    TELA: tela inicial do app já logada, com o menu principal visível.
@@ -40,26 +42,9 @@ Deixar a pessoa capaz de abrir o app e se localizar sozinha entre as seções Sk
 7. FALA: "E na Comunidade você troca experiência com outros engenheiros que também usam o app: posta um caso, vê o que os outros estão perguntando, e isso também conta pro seu ranking dentro da plataforma."
    TELA: clicar em "Comunidade", mostrar o feed de posts e, se existir, o ranking lateral.
 
-8. FALA: "Resumindo: Skills pra automatizar sua rotina, Prompts pra resolver uma dúvida pontual, Aulas pra aprender a usar tudo isso, Bônus pra ganhar tempo, e Comunidade pra trocar ideia. Simples assim."
-   TELA: voltar pra tela inicial com o menu completo visível.
+## Parte 2 — Como instalar sua primeira Skill
 
-## Frase de encerramento sugerida
-"Agora que você já sabe onde fica cada coisa, na próxima aula eu vou te mostrar como instalar sua primeira Skill na prática. Vamos lá?"`,
-        order: 1,
-      },
-      {
-        slug: "como-instalar-sua-primeira-skill",
-        title: "Como instalar sua primeira Skill",
-        description: "Passo a passo pra copiar uma Skill e configurar no seu assistente de IA.",
-        script: `## Objetivo da aula
-Deixar a pessoa capaz de pegar o texto de uma Skill do app e configurá-la como instrução persistente no assistente de IA que ela usa (Claude, ChatGPT ou outro).
-
-## Duração estimada
-4-5 min
-
-## Roteiro passo a passo
-
-1. FALA: "Nessa aula eu vou te mostrar como pegar uma Skill daqui do app e deixar ela configurada no seu assistente de IA, pra ele já responder do jeito certo toda vez que você abrir uma conversa nova."
+1. FALA: "Nessa parte eu vou te mostrar como pegar uma Skill daqui do app e deixar ela configurada no seu assistente de IA, pra ele já responder do jeito certo toda vez que você abrir uma conversa nova."
    TELA: tela inicial do app, menu visível.
 
 2. FALA: "Primeiro, vamos entrar na aba Skills e escolher uma pra testar. Vou usar essa aqui como exemplo."
@@ -83,55 +68,26 @@ Deixar a pessoa capaz de pegar o texto de uma Skill do app e configurá-la como 
 8. FALA: "Pronto. A partir de agora, toda vez que você abrir uma conversa nova dentro desse projeto, a IA já vai seguir esse padrão automaticamente — sem você precisar reexplicar o contexto toda hora."
    TELA: abrir uma conversa nova dentro do projeto configurado e digitar uma pergunta simples de teste, mostrando que a resposta já sai no formato esperado pela skill.
 
-9. FALA: "Dica: se depois de um tempo você quiser trocar de Skill, é só voltar aqui, copiar a próxima e substituir o texto das instruções do projeto."
-   TELA: voltar pro app, mostrar novamente a lista de Skills.
+## Parte 3 — Como usar a Biblioteca de Prompts no dia a dia
+
+1. FALA: "Uma dúvida comum é: 'eu uso uma Skill ou pego um prompt da biblioteca?'. Regra simples: se é algo que você vai fazer toda semana, vale configurar como Skill fixa. Se é uma dúvida pontual daquele dia, faz mais sentido pegar um prompt pronto da biblioteca."
+   TELA: abrir a aba "Prompts" e mostrar a tela inicial da biblioteca.
+
+2. FALA: "Aqui em cima tem a busca. Vamos supor que eu preciso de um prompt sobre orçamento de obra. Eu digito a palavra-chave..."
+   TELA: clicar na barra de busca e digitar um termo de exemplo (ex.: "orçamento").
+
+3. FALA: "...e o app já filtra os prompts que têm relação com esse termo, seja no título ou nas tags. Se preferir, dá pra navegar por categoria em vez de buscar."
+   TELA: mostrar a lista de resultados filtrados e depois uma categoria na lateral.
+
+4. FALA: "Ao abrir um prompt, você vê as tags dele, o texto completo, e o botão de copiar — igual fizemos com a Skill. Só que aqui você não precisa configurar como instrução fixa: é só colar direto na conversa com a IA e já usar."
+   TELA: clicar em um prompt específico, mostrar o corpo do texto e o botão "Copiar".
 
 ## Frase de encerramento sugerida
-"Com a sua primeira Skill instalada, na próxima aula eu mostro quando faz mais sentido usar essa instrução fixa ou puxar um prompt avulso da biblioteca. Até lá."`,
-        order: 2,
+"Com sua primeira Skill instalada e sabendo quando puxar um prompt avulso, no próximo módulo eu mostro como conversar com a IA como um profissional de verdade. Te espero lá."`,
+        order: 1,
         // Vídeo real gravado pelo usuário — título no YouTube confirma:
         // "EngenhaIA - Aula 01 - Instalando Skills" (2026-09-08).
         videoUrl: "https://youtu.be/LFq6lOhNx_s",
-      },
-      {
-        slug: "como-usar-a-biblioteca-de-prompts",
-        title: "Como usar a Biblioteca de Prompts no dia a dia",
-        description: "Quando usar uma Skill fixa e quando usar um prompt avulso, e como buscar por categoria.",
-        script: `## Objetivo da aula
-Deixar a pessoa capaz de decidir entre usar uma Skill fixa ou um prompt avulso, e de encontrar rapidamente o prompt certo usando busca e filtro por categoria.
-
-## Duração estimada
-3-4 min
-
-## Roteiro passo a passo
-
-1. FALA: "Uma dúvida comum é: 'eu uso uma Skill ou pego um prompt da biblioteca?'. Nessa aula eu explico a diferença na prática e te mostro como navegar na Biblioteca de Prompts."
-   TELA: tela inicial do app.
-
-2. FALA: "Regra simples: se é algo que você vai fazer toda semana — tipo gerar memorial de cálculo, revisar um laudo, montar uma proposta comercial — vale configurar como Skill fixa, porque aí a IA já responde sempre naquele padrão."
-   TELA: abrir a aba "Skills" e mostrar rapidamente 2 ou 3 exemplos de skills de uso recorrente.
-
-3. FALA: "Já quando é uma dúvida pontual, específica daquele dia — uma pergunta técnica avulsa, um texto que você só precisa uma vez — aí faz mais sentido pegar um prompt pronto da biblioteca e usar direto, sem precisar configurar nada."
-   TELA: clicar na aba "Prompts", mostrar a tela inicial da biblioteca.
-
-4. FALA: "Aqui em cima tem a busca. Vamos supor que eu preciso de um prompt sobre orçamento de obra. Eu digito a palavra-chave..."
-   TELA: clicar na barra de busca e digitar um termo de exemplo (ex.: "orçamento").
-
-5. FALA: "...e o app já filtra os prompts que têm relação com esse termo, seja no título ou nas tags."
-   TELA: mostrar a lista de resultados filtrados aparecendo.
-
-6. FALA: "Se você preferir navegar por categoria em vez de buscar, é só usar esse menu lateral (ou os filtros no topo) e escolher a categoria que faz sentido pro que você precisa agora."
-   TELA: limpar a busca e clicar em uma categoria na lateral, mostrando os prompts daquela categoria.
-
-7. FALA: "Ao abrir um prompt, você vê as tags dele, o texto completo, e o botão de copiar — igual fizemos com a Skill. Só que aqui você não precisa configurar como instrução fixa: é só colar direto na conversa com a IA e already usar."
-   TELA: clicar em um prompt específico, mostrar o corpo do texto e o botão "Copiar".
-
-8. FALA: "Dica prática: comece toda semana revisando se surgiu alguma tarefa nova que você repete direto — se sim, vale a pena promover ela de 'prompt avulso' pra 'Skill fixa' no seu assistente de IA."
-   TELA: voltar pra tela com as duas abas, Skills e Prompts, lado a lado no menu.
-
-## Frase de encerramento sugerida
-"Agora você já sabe quando usar cada um. No próximo módulo eu vou te mostrar como conversar com a IA como um profissional de verdade, revisando premissas e evitando erros bobos. Te espero lá."`,
-        order: 3,
       },
     ],
   },
