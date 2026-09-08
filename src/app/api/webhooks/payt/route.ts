@@ -151,16 +151,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "invalid json" }, { status: 400 });
   }
 
-  // DEBUG TEMPORARIO (remover depois de achar o bug do 500) - captura o erro
-  // real em vez de deixar o Next.js devolver um 500 generico sem corpo.
+  // Qualquer erro inesperado aqui pra dentro é logado no servidor (Vercel)
+  // mas nunca devolvido em detalhe pra quem chamou a rota — evita vazar
+  // stack trace/detalhe interno pra fora numa rota pública.
   try {
     return await handlePaidWebhook(body);
   } catch (err) {
     console.error("[webhook/payt] erro nao tratado:", err);
-    return NextResponse.json(
-      { error: "internal", message: String(err), stack: (err as Error)?.stack },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "internal" }, { status: 500 });
   }
 }
 
