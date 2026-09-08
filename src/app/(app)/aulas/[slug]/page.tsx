@@ -69,15 +69,6 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
             completed={completedIds.has(lesson.id)}
             nextSlug={next?.slug ?? null}
           />
-
-          <div className="card-surface-static mt-8 rounded-xl p-5">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">
-              Roteiro da aula
-            </h2>
-            <div className="prose-body whitespace-pre-wrap text-sm leading-relaxed">
-              {lesson.script}
-            </div>
-          </div>
         </div>
 
         <aside className="card-surface-static rounded-xl p-5 lg:sticky lg:top-6 lg:self-start">
