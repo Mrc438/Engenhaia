@@ -55,10 +55,12 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
             )}
           </div>
 
-          <span className="badge-accent mt-6 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium">
-            Aula {index + 1} de {siblings.length}
-          </span>
-          <h1 className="mt-2 text-2xl font-bold">{lesson.title}</h1>
+          {siblings.length > 1 && (
+            <span className="badge-accent mt-6 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium">
+              Aula {index + 1} de {siblings.length}
+            </span>
+          )}
+          <h1 className="mt-2 text-2xl font-bold first:mt-0">{lesson.title}</h1>
           <p className="mt-1 text-sm text-muted">{lesson.description}</p>
 
           <LessonActions
