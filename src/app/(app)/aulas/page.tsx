@@ -80,48 +80,48 @@ export default async function AulasPage() {
       {/* Largura de cada card fixa (não esticar pra preencher a linha) — só o
           espaço necessário pros pôsteres, com o resto do espaço livre. */}
       <div className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(220px,260px))] gap-5">
-        {modules.map((m, idx) => {
-          const doneInModule = m.lessons.filter((l) => completedIds.has(l.id)).length;
-          const nextLesson = m.lessons.find((l) => !completedIds.has(l.id)) ?? m.lessons[0];
-          const cover = MODULE_COVERS[m.slug];
-          return (
-            <Link
-              key={m.slug}
-              href={nextLesson ? `/aulas/${nextLesson.slug}` : "/aulas"}
-              className="card-surface group block overflow-hidden rounded-2xl"
-            >
-              <div className="relative aspect-[3/4] overflow-hidden">
-                {cover ? (
-                  <Image
-                    src={cover}
-                    alt={m.title}
-                    fill
-                    sizes="260px"
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(160deg,var(--accent-2),var(--accent))]">
-                    <Icon name={MODULE_ICONS[m.slug] ?? "clapperboard"} className="h-12 w-12 text-accent-foreground" />
-                  </div>
-                )}
-                <span className="absolute left-3 top-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-sm">
-                  Módulo {String(idx + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <div className="p-4">
-                <h3 className="text-sm font-semibold leading-snug">{m.title}</h3>
-                <p className="mt-1 text-xs text-muted">
-                  {doneInModule}/{m.lessons.length} aulas
-                </p>
-                {/* Botão só aparece no hover — sem deslocar o layout no estado normal */}
-                <span className="mt-3 inline-flex -translate-y-1 items-center gap-1.5 rounded-lg bg-foreground px-3 py-1.5 text-xs font-semibold text-background opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-                  <Icon name="play" className="h-3 w-3" />
-                  Assistir
-                </span>
-              </div>
-            </Link>
-          );
-        })}
+        {/* Só os módulos com arte própria aparecem aqui por enquanto — ver
+            MODULE_COVERS acima. O módulo 3 ainda não tem capa dedicada. */}
+        {modules
+          .filter((m) => MODULE_COVERS[m.slug])
+          .map((m, idx) => {
+            const nextLesson = m.lessons.find((l) => !completedIds.has(l.id)) ?? m.lessons[0];
+            const cover = MODULE_COVERS[m.slug];
+            return (
+              <Link
+                key={m.slug}
+                href={nextLesson ? `/aulas/${nextLesson.slug}` : "/aulas"}
+                className="card-surface group block overflow-hidden rounded-2xl"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden">
+                  {cover ? (
+                    <Image
+                      src={cover}
+                      alt={m.title}
+                      fill
+                      sizes="260px"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(160deg,var(--accent-2),var(--accent))]">
+                      <Icon name={MODULE_ICONS[m.slug] ?? "clapperboard"} className="h-12 w-12 text-accent-foreground" />
+                    </div>
+                  )}
+                  <span className="absolute left-3 top-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-sm">
+                    Módulo {String(idx + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div className="p-4">
+                  <h3 className="text-sm font-semibold leading-snug">{m.title}</h3>
+                  {/* Botão só aparece no hover — sem deslocar o layout no estado normal */}
+                  <span className="mt-3 inline-flex -translate-y-1 items-center gap-1.5 rounded-lg bg-foreground px-3 py-1.5 text-xs font-semibold text-background opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+                    <Icon name="play" className="h-3 w-3" />
+                    Assistir
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
       </div>
     </div>
   );
