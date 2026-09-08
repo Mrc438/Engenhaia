@@ -209,8 +209,13 @@ async function main() {
   }
 
   // --- bônus ---
+  // Ao contrário das outras seções (aditivas, onConflictDoNothing), o bônus é
+  // uma lista curta e totalmente controlada pelo arquivo de seed — substitui
+  // por completo a cada rodada, senão um bônus removido/trocado (como
+  // aconteceu ao migrar pros 10 GPTs) ficaria "fantasma" no banco pra sempre.
+  await db.delete(bonusItems);
   for (const b of bonusItemsSeed) {
-    await db.insert(bonusItems).values(b).onConflictDoNothing({ target: bonusItems.slug });
+    await db.insert(bonusItems).values(b);
   }
 
   // --- comunidade ---

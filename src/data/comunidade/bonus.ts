@@ -1,79 +1,131 @@
-// Seed de itens de Bônus da Comunidade — conteúdo 100% original.
+// Seed de itens de Bônus — 10 skills do pacote adaptadas pra rodar como GPT
+// dentro do ChatGPT (bônus cross-plataforma: quem só usa ChatGPT no dia a
+// dia também aproveita). Conteúdo (nome/descrição) reaproveita as mesmas 60
+// skills originais do produto — ver src/data/skills/. Os actionUrl são
+// placeholder: trocar por cada GPT publicado antes de divulgar (mesma
+// convenção de site-config.ts pros outros links reais pendentes).
 
 import { BonusItemSeed } from "../types";
 
 export const bonusItemsSeed: BonusItemSeed[] = [
   {
-    slug: "kit-planilhas-de-obra",
-    title: "Kit de Planilhas de Obra",
+    slug: "gpt-estrutural",
+    title: "Skill Estrutural",
     description:
-      "Três planilhas prontas pra usar no dia a dia: orçamento simples por etapa, controle de RDO semanal e cronograma físico-financeiro básico. É só duplicar e adaptar pra sua obra.",
-    icon: "table",
-    actionLabel: "Baixar kit",
-    actionUrl: undefined,
+      "Pré-dimensionamento e memória de cálculo de lajes, vigas, pilares e fundações rasas, com verificações e checklist técnico.",
+    icon: "layers",
+    actionLabel: "Abrir no ChatGPT",
+    actionUrl: "https://chatgpt.com/g/COLOQUE-O-LINK-DO-GPT-ESTRUTURAL-AQUI",
     locked: false,
     lockNote: undefined,
     order: 1,
   },
   {
-    slug: "checklist-de-entrega-de-obra",
-    title: "Checklist de Entrega de Obra",
+    slug: "gpt-laudos-e-pericias",
+    title: "Skill de Laudos & Perícias",
     description:
-      "Guia em PDF com os pontos mais esquecidos na vistoria final — instalações, acabamentos, documentação e pendências — organizado por ambiente pra você não deixar nada passar.",
-    icon: "clipboard-check",
-    actionLabel: "Ver checklist",
-    actionUrl: undefined,
+      "Estrutura laudos técnicos e periciais, organiza vistorias e formula respostas a quesitos em linguagem pericial adequada.",
+    icon: "scale",
+    actionLabel: "Abrir no ChatGPT",
+    actionUrl: "https://chatgpt.com/g/COLOQUE-O-LINK-DO-GPT-LAUDOS-E-PERICIAS-AQUI",
     locked: false,
     lockNote: undefined,
     order: 2,
   },
   {
-    slug: "banco-de-modelos-memorial-art",
-    title: "Banco de Modelos de Memorial e ART",
+    slug: "gpt-planejamento-de-obras",
+    title: "Skill de Planejamento de Obras",
     description:
-      "Modelos de memorial descritivo e de preenchimento de ART/RRT já estruturados, prontos pra você adaptar aos dados do seu projeto sem começar do zero a cada obra.",
-    icon: "file-text",
-    actionLabel: "Ver modelos",
-    actionUrl: undefined,
+      "Monta EAP, cronograma físico-financeiro e curva S a partir do escopo da obra, apontando o caminho crítico e os riscos de prazo.",
+    icon: "calendar-clock",
+    actionLabel: "Abrir no ChatGPT",
+    actionUrl: "https://chatgpt.com/g/COLOQUE-O-LINK-DO-GPT-PLANEJAMENTO-DE-OBRAS-AQUI",
     locked: false,
     lockNote: undefined,
     order: 3,
   },
   {
-    slug: "glossario-de-normas-tecnicas",
-    title: "Glossário de Normas Técnicas Essenciais",
+    slug: "gpt-orcamento",
+    title: "Skill de Orçamento",
     description:
-      "Consulta rápida com os principais termos e siglas de NBRs usadas no dia a dia de projeto e obra, explicados em linguagem direta pra você não perder tempo procurando em texto de norma.",
-    icon: "book-open",
-    actionLabel: "Abrir glossário",
-    actionUrl: undefined,
+      "Estrutura composições de custo unitário, calcula BDI e monta planilha orçamentária com referência a bases oficiais como SINAPI/SICRO.",
+    icon: "coins",
+    actionLabel: "Abrir no ChatGPT",
+    actionUrl: "https://chatgpt.com/g/COLOQUE-O-LINK-DO-GPT-ORCAMENTO-AQUI",
     locked: false,
     lockNote: undefined,
     order: 4,
   },
   {
-    slug: "banco-de-composicoes-de-orcamento",
-    title: "Banco de Composições de Orçamento",
+    slug: "gpt-memoriais",
+    title: "Skill de Memoriais",
     description:
-      "Composições de custo unitário organizadas por tipo de serviço, prontas pra servir de referência na hora de montar seu próprio orçamento com mais agilidade.",
-    icon: "calculator",
-    actionLabel: "Solicitar acesso",
-    actionUrl: undefined,
-    locked: true,
-    lockNote:
-      "Liberado só pra quem já comprou o Módulo Extra de Orçamento Avançado. Se você já é aluno desse módulo, entra em contato pelo suporte pra desbloquear.",
+      "Organiza memorial descritivo de projeto e caderno de especificações técnicas por disciplina, a partir dos dados que você já tem.",
+    icon: "file-text",
+    actionLabel: "Abrir no ChatGPT",
+    actionUrl: "https://chatgpt.com/g/COLOQUE-O-LINK-DO-GPT-MEMORIAIS-AQUI",
+    locked: false,
+    lockNote: undefined,
     order: 5,
   },
   {
-    slug: "trilha-de-atualizacao-de-normas",
-    title: "Trilha de Atualização de Normas",
+    slug: "gpt-normas-nbr",
+    title: "Skill de Normas (NBR)",
     description:
-      "Uma sequência curta de leituras e resumos sobre mudanças recentes em normas técnicas relevantes pra quem atua com projeto e obra, atualizada periodicamente.",
-    icon: "refresh-cw",
-    actionLabel: "Acompanhar trilha",
-    actionUrl: undefined,
+      "Identifica a NBR aplicável ao caso descrito e devolve um checklist de conformidade, sem nunca reproduzir texto literal da norma.",
+    icon: "book-open",
+    actionLabel: "Abrir no ChatGPT",
+    actionUrl: "https://chatgpt.com/g/COLOQUE-O-LINK-DO-GPT-NORMAS-NBR-AQUI",
     locked: false,
     lockNote: undefined,
     order: 6,
+  },
+  {
+    slug: "gpt-art-e-rrt",
+    title: "Skill ART e RRT",
+    description:
+      "Orienta a emissão correta de ART/RRT, o preenchimento de cada campo e a organização de defesa técnica em caso de questionamento.",
+    icon: "stamp",
+    actionLabel: "Abrir no ChatGPT",
+    actionUrl: "https://chatgpt.com/g/COLOQUE-O-LINK-DO-GPT-ART-E-RRT-AQUI",
+    locked: false,
+    lockNote: undefined,
+    order: 7,
+  },
+  {
+    slug: "gpt-diario-de-obra",
+    title: "Skill de Diário de Obra",
+    description:
+      "Transforma anotações soltas de campo em Relatório Diário de Obra padronizado, com os campos fixos e controle de produtividade.",
+    icon: "clipboard-list",
+    actionLabel: "Abrir no ChatGPT",
+    actionUrl: "https://chatgpt.com/g/COLOQUE-O-LINK-DO-GPT-DIARIO-DE-OBRA-AQUI",
+    locked: false,
+    lockNote: undefined,
+    order: 8,
+  },
+  {
+    slug: "gpt-patologias",
+    title: "Skill de Patologias",
+    description:
+      "Diagnóstico de manifestações patológicas em edificações e plano de recuperação, com metodologia estruturada tipo anamnese.",
+    icon: "stethoscope",
+    actionLabel: "Abrir no ChatGPT",
+    actionUrl: "https://chatgpt.com/g/COLOQUE-O-LINK-DO-GPT-PATOLOGIAS-AQUI",
+    locked: false,
+    lockNote: undefined,
+    order: 9,
+  },
+  {
+    slug: "gpt-comercial",
+    title: "Skill Comercial",
+    description:
+      "Redige propostas técnico-comerciais, relatórios executivos e e-mails de fechamento a partir dos dados que você já definiu.",
+    icon: "file-signature",
+    actionLabel: "Abrir no ChatGPT",
+    actionUrl: "https://chatgpt.com/g/COLOQUE-O-LINK-DO-GPT-COMERCIAL-AQUI",
+    locked: false,
+    lockNote: undefined,
+    order: 10,
   },
 ];
