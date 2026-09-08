@@ -44,7 +44,7 @@ function CategoryTag({ name, index }: { name: string; index: number }) {
   );
 }
 
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 18;
 
 export function PromptsExplorer({
   categories,
