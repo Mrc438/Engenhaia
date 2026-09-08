@@ -151,6 +151,20 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "invalid json" }, { status: 400 });
   }
 
+  // DEBUG TEMPORARIO (remover depois de achar o bug do 500) - captura o erro
+  // real em vez de deixar o Next.js devolver um 500 generico sem corpo.
+  try {
+    return await handlePaidWebhook(body);
+  } catch (err) {
+    console.error("[webhook/payt] erro nao tratado:", err);
+    return NextResponse.json(
+      { error: "internal", message: String(err), stack: (err as Error)?.stack },
+      { status: 500 }
+    );
+  }
+}
+
+async function handlePaidWebhook(body: unknown) {
   const expectedKey = process.env.PAYT_INTEGRATION_KEY;
   const receivedKey = pick(body, [["integration_key"]]);
   if (!expectedKey || !receivedKey || !safeEqual(receivedKey, expectedKey)) {
