@@ -65,7 +65,7 @@ export default async function AulasPage() {
             {firstLesson && (
               <Link
                 href={`/aulas/${firstLesson.slug}`}
-                className="btn-primary inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold"
+                className="inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-90"
               >
                 <Icon name="play" className="h-4 w-4" />
                 Assistir
@@ -73,7 +73,7 @@ export default async function AulasPage() {
             )}
             <a
               href="#modulos"
-              className="btn-secondary inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold"
+              className="inline-flex items-center gap-2 rounded-lg border border-foreground/70 px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-foreground/10"
             >
               Ver módulos
             </a>
