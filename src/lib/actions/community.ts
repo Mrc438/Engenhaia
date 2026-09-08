@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { requireUser } from "@/lib/auth-helpers";
 import { db } from "@/db";
-import { communityPosts, communityLikes } from "@/db/schema";
+import { communityPosts, communityLikes, communityComments } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
 
 export async function createPostAction(formData: FormData) {
@@ -19,6 +19,15 @@ export async function createPostAction(formData: FormData) {
     .slice(0, 5);
 
   await db.insert(communityPosts).values({ body, tags, authorId: user.id });
+  revalidatePath("/comunidade");
+}
+
+export async function createCommentAction(postId: string, formData: FormData) {
+  const user = await requireUser();
+  const body = String(formData.get("body") ?? "").trim();
+  if (!body) return;
+
+  await db.insert(communityComments).values({ body, postId, authorId: user.id });
   revalidatePath("/comunidade");
 }
 

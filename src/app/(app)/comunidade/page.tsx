@@ -5,6 +5,7 @@ import { communityLikes } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { createPostAction } from "@/lib/actions/community";
 import { LikeButton } from "@/components/like-button";
+import { CommentSection } from "@/components/comment-section";
 import { Icon } from "@/components/icon";
 
 const RULES = [
@@ -166,22 +167,15 @@ export default async function ComunidadePage() {
                     initialLiked={likedSet.has(post.id)}
                     initialCount={post.likeCount}
                   />
-                  <span className="inline-flex items-center gap-1.5 text-sm text-muted">
-                    <Icon name="message-circle" className="h-4 w-4" />
-                    {post.comments.length}
-                  </span>
                 </div>
 
-                {post.comments.length > 0 && (
-                  <div className="mt-3 space-y-2 border-t border-border pt-3">
-                    {post.comments.map((c) => (
-                      <p key={c.id} className="text-sm">
-                        <span className="font-semibold">{c.author.name}:</span>{" "}
-                        <span className="text-muted">{c.body}</span>
-                      </p>
-                    ))}
-                  </div>
-                )}
+                <div className="mt-2">
+                  <CommentSection
+                    postId={post.id}
+                    initialComments={post.comments}
+                    currentUserName={user.name ?? "Você"}
+                  />
+                </div>
               </div>
             ))}
           </div>
