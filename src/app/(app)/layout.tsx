@@ -1,6 +1,7 @@
 import { requireUser } from "@/lib/auth-helpers";
 import { Sidebar } from "@/components/sidebar";
 import { TopBanner } from "@/components/top-banner";
+import { PageHeader } from "@/components/page-header";
 import { MobileNav } from "@/components/mobile-nav";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
@@ -12,6 +13,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         user={{ name: user.name ?? "Você", email: user.email ?? "", hasProjetosPacote: user.hasProjetosPacote }}
       />
       <div className="flex min-w-0 flex-1 flex-col">
+        <PageHeader />
         <TopBanner />
         <MobileNav hasProjetosPacote={user.hasProjetosPacote} />
         <main className="flex-1 overflow-y-auto">{children}</main>

@@ -18,6 +18,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className="h-full antialiased">
+      <head>
+        {/* Aplica o tema salvo (localStorage) ANTES da hidratação — sem isso
+            a página nasceria sempre escura e "piscaria" pro claro depois,
+            no primeiro render do ThemeToggle. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem("theme")==="light"){document.documentElement.setAttribute("data-theme","light")}}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {/* Meta Pixel — dispara PageView automático em toda página. Os
             botões de compra (landing-page.tsx) disparam InitiateCheckout
