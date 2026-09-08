@@ -32,11 +32,7 @@ export default async function AulasPage() {
     .where(eq(lessonProgress.userId, user.id));
   const completedIds = new Set(progressRows.map((p) => p.lessonId));
 
-  const totalLessons = modules.reduce((acc, m) => acc + m.lessons.length, 0);
-  const totalDone = modules.reduce(
-    (acc, m) => acc + m.lessons.filter((l) => completedIds.has(l.id)).length,
-    0
-  );
+  const firstLesson = modules[0]?.lessons[0];
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
@@ -62,19 +58,30 @@ export default async function AulasPage() {
           </h1>
           <p className="mt-3 max-w-2xl text-sm text-muted">
             Passo a passo em vídeo pra instalar, configurar e usar as Skills e Prompts no dia a
-            dia. {totalDone}/{totalLessons} aulas concluídas.
+            dia.
           </p>
 
-          <div className="mt-4 h-2 w-full max-w-sm overflow-hidden rounded-full bg-surface-2">
-            <div
-              className="h-full bg-accent transition-all"
-              style={{ width: `${totalLessons ? (totalDone / totalLessons) * 100 : 0}%` }}
-            />
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            {firstLesson && (
+              <Link
+                href={`/aulas/${firstLesson.slug}`}
+                className="btn-primary inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold"
+              >
+                <Icon name="play" className="h-4 w-4" />
+                Assistir
+              </Link>
+            )}
+            <a
+              href="#modulos"
+              className="btn-secondary inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold"
+            >
+              Ver módulos
+            </a>
           </div>
         </div>
       </div>
 
-      <h2 className="mt-10 text-sm font-semibold uppercase tracking-wide text-muted">
+      <h2 id="modulos" className="mt-10 scroll-mt-6 text-sm font-semibold uppercase tracking-wide text-muted">
         Módulos do curso
       </h2>
       {/* Largura de cada card fixa (não esticar pra preencher a linha) — só o
