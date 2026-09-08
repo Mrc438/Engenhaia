@@ -21,9 +21,10 @@ export const siteConfig = {
   // automático em toda página) e no clique dos botões de compra
   // (InitiateCheckout, ver landing-page.tsx).
   metaPixelId: "1960478244625063",
-  // Link da pasta/arquivo com o pacote de 250 mil projetos. TROCAR pelo link
-  // real do Drive antes de publicar — a página /projetos usa este valor.
-  projetosPacoteLink: "https://drive.google.com/COLOQUE-O-LINK-REAL-AQUI",
+  // Link da pasta do Drive com o pacote de 250 mil projetos (definido pelo
+  // usuário, 2026-09-08). Compartilhamento precisa estar como "qualquer
+  // pessoa com o link pode ver" — a página /projetos usa este valor direto.
+  projetosPacoteLink: "https://drive.google.com/drive/folders/1ZWxq6Ot4DS1JAF2lqVJ8E-gTWkUIyaK_?usp=sharing",
   navItems: [
     { href: "/inicio", label: "Início", icon: "home" },
     { href: "/skills", label: "Skills", icon: "sparkles" },
