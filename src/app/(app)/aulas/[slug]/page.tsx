@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getYoutubeEmbedUrl } from "@/lib/video-url";
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth-helpers";
 import { getLessonBySlug } from "@/lib/queries";
@@ -32,8 +33,18 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
         <div>
           <div className="flex aspect-video items-center justify-center rounded-xl border border-dashed border-border bg-surface shadow-[var(--shadow-sm)] text-center">
             {lesson.videoUrl ? (
-              // eslint-disable-next-line jsx-a11y/media-has-caption
-              <video controls className="h-full w-full rounded-xl" src={lesson.videoUrl} />
+              getYoutubeEmbedUrl(lesson.videoUrl) ? (
+                <iframe
+                  src={getYoutubeEmbedUrl(lesson.videoUrl)!}
+                  title={lesson.title}
+                  className="h-full w-full rounded-xl"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                 
+                <video controls className="h-full w-full rounded-xl" src={lesson.videoUrl} />
+              )
             ) : (
               <div className="px-6 text-sm text-muted">
                 <span className="icon-chip mx-auto mb-2 h-12 w-12 rounded-full">

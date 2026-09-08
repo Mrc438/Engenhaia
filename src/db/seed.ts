@@ -203,7 +203,20 @@ async function main() {
       await db
         .insert(lessons)
         .values({ ...l, moduleId: modRow.id })
-        .onConflictDoNothing({ target: lessons.slug });
+        // onConflictDoUpdate (não DoNothing): a aula já pode existir no banco
+        // de uma seed anterior, e o seed é a fonte da verdade pro conteúdo —
+        // sem isso, editar o roteiro ou plugar um videoUrl novo aqui nunca
+        // chegaria em produção depois do primeiro seed.
+        .onConflictDoUpdate({
+          target: lessons.slug,
+          set: {
+            title: l.title,
+            description: l.description,
+            script: l.script,
+            order: l.order,
+            videoUrl: l.videoUrl,
+          },
+        });
       totalLessons++;
     }
   }

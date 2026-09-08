@@ -89,6 +89,9 @@ Deixar a pessoa capaz de pegar o texto de uma Skill do app e configurá-la como 
 ## Frase de encerramento sugerida
 "Com a sua primeira Skill instalada, na próxima aula eu mostro quando faz mais sentido usar essa instrução fixa ou puxar um prompt avulso da biblioteca. Até lá."`,
         order: 2,
+        // Vídeo real gravado pelo usuário — título no YouTube confirma:
+        // "EngenhaIA - Aula 01 - Instalando Skills" (2026-09-08).
+        videoUrl: "https://youtu.be/LFq6lOhNx_s",
       },
       {
         slug: "como-usar-a-biblioteca-de-prompts",

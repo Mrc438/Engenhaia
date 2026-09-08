@@ -57,6 +57,9 @@ export interface LessonSeed {
   description: string;
   script: string;
   order: number;
+  // URL do vídeo da aula (YouTube ou arquivo direto). Opcional — aulas ainda
+  // não gravadas ficam sem isso e caem no fallback "vídeo ainda não gravado".
+  videoUrl?: string;
 }
 
 export interface ModuleSeed {
