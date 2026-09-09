@@ -20,7 +20,7 @@ export const siteConfig = {
   // ID do Pixel da Meta (Events Manager) — usado no layout raiz (PageView
   // automático em toda página) e no clique dos botões de compra
   // (InitiateCheckout, ver landing-page.tsx).
-  metaPixelId: "1960478244625063",
+  metaPixelId: "1720647372320147",
   // Link da pasta do Drive com o pacote de 250 mil projetos (definido pelo
   // usuário, 2026-09-08). Compartilhamento precisa estar como "qualquer
   // pessoa com o link pode ver" — a página /projetos usa este valor direto.
