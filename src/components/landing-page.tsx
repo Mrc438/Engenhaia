@@ -291,13 +291,13 @@ export function LandingPage() {
               manda a tarefa do dia real e recebe um rascunho técnico pra revisar, ajustar e assinar.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4">
-              <a
-                href="#oferta"
+              <CheckoutLink
+                href={siteConfig.checkoutUrl}
                 className="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-8 py-3.5 text-sm font-bold uppercase tracking-wide sm:text-base"
               >
                 Ver a oferta
                 <Icon name="arrow-right" className="h-4 w-4" />
-              </a>
+              </CheckoutLink>
               <p className="text-xs text-muted">
                 Acesso imediato · Copia e cola · Funciona com o assistente de IA que você já usa
               </p>
