@@ -16,7 +16,7 @@ export const siteConfig = {
   supportEmail: "suporte@engenhaia.com.br",
   // Link de checkout (Payt) da oferta principal. TROCAR pelo link real antes
   // de publicar a landing page — todos os botões "Quero..." apontam pra cá.
-  checkoutUrl: "https://pay.payt.com.br/COLOQUE-O-LINK-REAL-AQUI",
+  checkoutUrl: "https://checkout.payt.com.br/8d834ed39998ee29b7ea1efe417c89c3",
   // ID do Pixel da Meta (Events Manager) — usado no layout raiz (PageView
   // automático em toda página) e no clique dos botões de compra
   // (InitiateCheckout, ver landing-page.tsx).
