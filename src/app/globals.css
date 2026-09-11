@@ -481,9 +481,9 @@ button:hover .icon-chip {
    estrelas em cima do azul fica com bom contraste e ainda amarra com o
    resto do site. */
 .marquee-viewport.section-dark {
-  background: radial-gradient(1200px 600px at 20% 0%, rgba(37, 99, 235, 0.45), transparent 60%),
-    radial-gradient(900px 500px at 90% 20%, rgba(56, 132, 255, 0.28), transparent 60%),
-    linear-gradient(180deg, #0b2140 0%, #071426 100%);
+  background: radial-gradient(1200px 600px at 20% 0%, rgba(64, 90, 128, 0.4), transparent 60%),
+    radial-gradient(900px 500px at 90% 20%, rgba(96, 124, 163, 0.22), transparent 60%),
+    linear-gradient(180deg, #142238 0%, #0c1524 100%);
 }
 
 /* tipografia da landing — Space Grotesk nos títulos e Inter no corpo do
