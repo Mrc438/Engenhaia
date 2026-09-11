@@ -91,7 +91,7 @@ const PROMPT_EXAMPLES = [
   },
 ] as const;
 
-const TOTAL_PROMPTS = 1312;
+const TOTAL_PROMPTS = 1300;
 
 // Calculado a partir do site-config — nunca hardcoded, pra não ficar
 // dessincronizado se o preço (ou o "de") mudar.
