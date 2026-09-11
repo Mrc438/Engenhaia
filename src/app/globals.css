@@ -474,6 +474,18 @@ button:hover .icon-chip {
     linear-gradient(180deg, #180804 0%, #0c0402 100%);
 }
 
+/* faixa de termos (marquee) — mesmo bloco .section-dark, mas só aqui trocamos
+   o degradê laranja por um azul (remete a planta/projeto de engenharia),
+   sem mexer no hero/oferta/CTA final que continuam no laranja original.
+   Texto e estrelas (--foreground / --accent-2) não mudam — o laranja das
+   estrelas em cima do azul fica com bom contraste e ainda amarra com o
+   resto do site. */
+.marquee-viewport.section-dark {
+  background: radial-gradient(1200px 600px at 20% 0%, rgba(37, 99, 235, 0.45), transparent 60%),
+    radial-gradient(900px 500px at 90% 20%, rgba(56, 132, 255, 0.28), transparent 60%),
+    linear-gradient(180deg, #0b2140 0%, #071426 100%);
+}
+
 /* tipografia da landing — Space Grotesk nos títulos e Inter no corpo do
    texto, igual à referência (o resto do app segue no --font-sans padrão,
    isso aqui só vale dentro do wrapper .font-lp-body da própria landing). */
