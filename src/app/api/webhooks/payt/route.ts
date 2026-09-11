@@ -78,10 +78,13 @@ const PRODUCT_ENTITLEMENTS: Record<
   string,
   { plan?: "basico" | "especialista"; hasProjetosPacote?: boolean }
 > = {
-  "12d82407c92508": { plan: "basico" }, // Claude na Engenharia Civil (produto principal)
-  "e8b23bdf3fd": { plan: "basico" }, // Acesso Vitalício Claude Engenheiros Civis (mesmo acesso normal)
-  "6274691532d55": { plan: "especialista" }, // Claude Engenharia Pack Especialista
-  "ca987b415debd8": { hasProjetosPacote: true }, // 250 Mil Projetos Editáveis no Autocad
+  // Códigos reais confirmados em 11/09/2026 direto no "Relatório de produtos" da Payt
+  // (os códigos antigos usados até então — 12d82407c92508, e8b23bdf3fd, 6274691532d55,
+  // ca987b415debd8 — estavam todos errados; causou 422 numa venda real do produto principal).
+  "RDOKZ8": { plan: "basico" }, // Claude na Engenharia Civil (produto principal)
+  "47Z9WG": { plan: "basico" }, // Acesso Vitalício Claude Engenheiros Civis (mesmo acesso normal)
+  "LJAJD2": { plan: "especialista" }, // Claude Engenharia Pack Especialista
+  "R29AP3": { hasProjetosPacote: true }, // 250 Mil Projetos Editáveis no Autocad
 };
 
 type JsonRecord = Record<string, unknown>;
