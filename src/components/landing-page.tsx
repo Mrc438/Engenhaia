@@ -375,7 +375,7 @@ export function LandingPage() {
       <section className="section-light-alt">
         <div className="mx-auto w-full max-w-3xl px-5 py-20 sm:px-8">
           <h2 className="text-center text-4xl font-semibold tracking-tight sm:text-5xl">
-            Você não virou engenheiro pra passar a noite mexendo em planilha.
+            Você não estudou 5 anos pra passar a noite mexendo em planilha.
           </h2>
           <div className="mt-8 space-y-4 text-base text-muted">
             <p>
