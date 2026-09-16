@@ -279,32 +279,33 @@ export function LandingPage() {
         <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center gap-12 px-5 py-20 sm:px-8">
           <div className="w-full max-w-3xl text-center">
             <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-[60px] lg:leading-[63px]">
-              <span className="block">O assistente de IA que você já usa</span>
-              <span className="text-gradient-accent block">vira seu engenheiro civil</span>
-              <span className="text-gradient-accent block">sênior.</span>
+              <span className="block">Enquanto você monta orçamento na mão,</span>
+              <span className="text-gradient-accent block">outro engenheiro já entregou</span>
+              <span className="text-gradient-accent block">e fechou o contrato.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base text-muted sm:text-lg">
               {TOTAL_SKILLS_BASICO} skills prontas de{" "}
               <strong className="font-semibold text-foreground">cálculo, documentação, gestão de obra e comercial</strong>,
-              mais uma biblioteca com {TOTAL_PROMPTS} prompts avançados. Tudo por{" "}
+              mais uma biblioteca com {TOTAL_PROMPTS} prompts avançados — pra parar de perder proposta, prazo e noite de
+              sono com tarefa repetitiva. Tudo por{" "}
               <strong className="font-semibold text-accent-2">{siteConfig.price}</strong>, pagamento único. Você cola,
-              manda a tarefa do dia real e recebe um rascunho técnico pra revisar, ajustar e assinar.
+              manda a tarefa do dia real e sai com um rascunho técnico pronto pra revisar, ajustar e assinar.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4">
               <CheckoutLink
                 href={siteConfig.checkoutUrl}
                 className="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-8 py-3.5 text-sm font-bold uppercase tracking-wide sm:text-base"
               >
-                Ver a oferta
+                Garantir acesso agora
                 <Icon name="arrow-right" className="h-4 w-4" />
               </CheckoutLink>
               <p className="text-xs text-muted">
-                Acesso imediato · Copia e cola · Funciona com o assistente de IA que você já usa
+                Acesso imediato · Sem mensalidade · Funciona com a IA que você já usa e já paga
               </p>
             </div>
             <div className="mt-12 grid grid-cols-1 gap-2.5 text-sm sm:grid-cols-3">
               {[
-                { icon: "shield-check", label: "Garantia de 7 dias" },
+                { icon: "shield-check", label: "Risco zero — garantia de 7 dias" },
                 { icon: "zap", label: "Acesso imediato" },
                 { icon: "library", label: `${TOTAL_PROMPTS} prompts avançados` },
               ].map((item) => (
